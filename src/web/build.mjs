@@ -1,3 +1,4 @@
+import { createHash } from 'node:crypto';
 import { copyFileSync, mkdirSync, readdirSync, readFileSync, unlinkSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -77,7 +78,12 @@ for (const path of [
   copyFileSync(new URL(path, import.meta.url), join(output, path));
 }
 
-const index = readFileSync(new URL('./index.html', import.meta.url), 'utf8');
+let index = readFileSync(new URL('./index.html', import.meta.url), 'utf8');
+for (const asset of ['site.css', 'site.js']) {
+  const contents = readFileSync(join(output, asset));
+  const version = createHash('sha256').update(contents).digest('hex').slice(0, 12);
+  index = index.replace(`"./${asset}"`, `"./${asset}?v=${version}"`);
+}
 writeFileSync(join(output, 'index.html'), index.replace('<!-- structure-browser -->', renderStructure));
 
 writeFileSync(join(readerOutput, 'navigation.html'), renderTree(orderedTree(library.tree, home), noteUrl));
