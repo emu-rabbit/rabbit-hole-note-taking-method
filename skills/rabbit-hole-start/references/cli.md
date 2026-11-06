@@ -1,8 +1,36 @@
 # Local helper commands
 
-Supports **macOS and Linux**, with Python **3.10 or newer** and no packages to install. Windows is not yet supported. Use the Python interpreter actually meeting that version (some Macs ship an older `python3`). Resolve `scripts/rabbit_hole.py` from the loaded **rabbit-hole-start** directory. All paths in examples are arguments you choose, not assumed locations.
+Use the installed Python interpreter that meets the [platform scope](#platform-scope). No third-party Python packages are needed. Resolve `scripts/rabbit_hole.py` from the loaded **rabbit-hole-start** directory. All paths in examples are arguments you choose, not assumed locations.
 
 The helpers operate on selected local files without network access. Preview reads the specified input and leaves files unchanged. Use `--apply` for the named local mutation when the owner has authorized it. Account access, Git operations, scheduling, and publication belong to separate workflows.
+
+## Platform scope
+
+- **macOS and Linux:** Python **3.10 or newer**, using the existing directory-descriptor safeguards. Check `python3 --version`; use an already-installed newer interpreter if needed.
+- **Native Windows: in development, not yet validated on Windows.** The initial target is **Windows 11 on native x64 hardware, 64-bit CPython 3.13 or 3.14, on a local fixed NTFS volume**. Start with fictional material until native installation, import, integrity and race tests have passed. ARM64 emulation and broader Windows-version or client compatibility are outside this target.
+
+For Windows, use ordinary drive-letter paths with case-insensitive directories. This applies to the checkout, installed skills, input files and vault. The native I/O path is designed to hold directory handles and reject junctions and other reparse points, UNC/network drives, SUBST drives, device namespaces, non-NTFS volumes and case-sensitive directories. Existing ACLs stay unchanged. The Windows design gives new private vault data and temporary files restricted permissions at creation; installed public skills inherit the destination's permissions. No administrator session or PowerShell ExecutionPolicy change is needed. Preview stays read-only, existing targets stay protected from overwrite, and imported source bytes are preserved unchanged.
+
+## Windows PowerShell
+
+Check the interpreter before running the examples. If it is installed as `py -3.13`, verify `py -3.13 --version` and use `py -3.13` in place of `python` throughout. Select the installed 3.14 interpreter the same way when applicable.
+
+```powershell
+python -c "import platform, struct; print(platform.python_implementation(), platform.python_version(), platform.machine(), 8 * struct.calcsize('P'))"
+[Console]::OutputEncoding = [System.Text.UTF8Encoding]::new($false)
+$CodexRoot = if ($env:CODEX_HOME) { $env:CODEX_HOME } else { Join-Path $env:USERPROFILE '.codex' }
+$Tool = Join-Path $CodexRoot 'skills\rabbit-hole-start\scripts\rabbit_hole.py'
+python -X utf8 "$Tool" --help
+```
+
+Expect CPython, a version in the target range, AMD64/x64 and 64 bits; this display is an initial check, not proof of native hardware. Use the actual loaded skill's path if installed elsewhere. In the commands below, replace `python3 /absolute/skills/rabbit-hole-start/scripts/rabbit_hole.py` with `python -X utf8 "$Tool"`, use your Windows paths, and keep each command on one line instead of using shell `\` continuations. For example:
+
+```powershell
+python -X utf8 "$Tool" init --vault "$env:USERPROFILE\RabbitHole" --name 'Your chosen name' --lang en
+python -X utf8 "$Tool" check --vault "$env:USERPROFILE\RabbitHole"
+```
+
+`-X utf8` sets Python's text I/O to UTF-8; the console setting above lets PowerShell decode it consistently. To save a report across PowerShell versions, pipe it to `Set-Content -LiteralPath .\check-report.json -Encoding utf8` after choosing a new report path outside the vault. Windows PowerShell 5.1 writes a UTF-8 BOM with this command; its plain `>` redirect instead defaults to UTF-16. PowerShell 7.4+ preserves native output bytes with `>`. Pass source files directly with `--input` so their original bytes are retained.
 
 ## Initialize
 
@@ -56,6 +84,10 @@ Exit codes: `0` successful command/preview or clean check; `1` structural findin
 
 ## Interrupted operations and macOS paths
 
-Handled write failures roll back only newly created, unchanged files; concurrent edits are left alone. Abrupt process termination or power loss is not guaranteed crash recovery. Inspect remaining lock/temp/orphan artifacts and compare the ledger to establish what completed before deciding on repair. Preserve active locks and concurrent work.
+The import lock coordinates this tool's imports; pause other programs that edit sources or the ledger during import, since it does not provide a vault-wide transaction or an atomic compare-and-swap against other writers using the same account. On handled write failures, cleanup attempts to roll back newly created files and preserves changes it observes.
+
+On Windows, pinned directory handles block rename; parent attributes are also checked before and after relative opens, because an in-place reparse conversion can keep the same file ID. These checks do not establish immunity to arbitrary concurrent reparse changes by another process using your account. Keep the checkout, installation and vault free of concurrent filesystem mutation during each operation. Native FSCTL race tests remain a release requirement.
+
+Abrupt process termination or power loss is not guaranteed crash recovery. Inspect remaining lock/temp/orphan artifacts and compare the ledger to establish what completed before deciding on repair. Preserve active locks and concurrent work.
 
 macOS commonly aliases `/tmp` to `/private/tmp`. Symlink-path refusal is intentional. For a temporary test choose the verified canonical directory (for example `cd /tmp && pwd -P` shows it). Keep the guard enabled, and establish authorization for the resolved destination when a link is unexpected.

@@ -27,11 +27,11 @@ class PublishedEvaluationTests(unittest.TestCase):
 
     def test_source_words_authorship_and_raw_input_hashes_match_supplied_records(self):
         inputs = sorted((FIXTURE / 'inputs').glob('*.json'))
-        expected = {r['id']: r for p in inputs for r in json.loads(p.read_text())}
+        expected = {r['id']: r for p in inputs for r in json.loads(p.read_text(encoding='utf-8'))}
         original_hashes = {hashlib.sha256(p.read_bytes()).hexdigest() for p in inputs}
         seen = set()
         for path in (VAULT / '80_來源/imports').glob('*.md'):
-            text = path.read_text()
+            text = path.read_text(encoding='utf-8')
             quote = re.search(r'^(`{3,})text\n(.*?)\n\1\s*$', text, re.M | re.S)
             metadata = re.search(r'^(`{3,})json\n(.*?)\n\1\s*$', text, re.M | re.S)
             self.assertIsNotNone(quote, path)
@@ -55,7 +55,7 @@ class PublishedEvaluationTests(unittest.TestCase):
             if name in visited:
                 continue
             visited.add(name)
-            for match in re.finditer(r'\[\[([^\]\n]+)\]\]', core.visible_markdown(notes[name].read_text())):
+            for match in re.finditer(r'\[\[([^\]\n]+)\]\]', core.visible_markdown(notes[name].read_text(encoding='utf-8'))):
                 target = match[1].split('|')[0].split('#')[0]
                 if not target:
                     continue
@@ -67,12 +67,12 @@ class PublishedEvaluationTests(unittest.TestCase):
         self.assertTrue(reader_pages.issubset(visited), sorted(reader_pages - visited))
 
     def test_fixture_has_only_the_intended_allowed_sources(self):
-        ids = [r['id'] for p in (FIXTURE / 'inputs').glob('*.json') for r in json.loads(p.read_text())]
+        ids = [r['id'] for p in (FIXTURE / 'inputs').glob('*.json') for r in json.loads(p.read_text(encoding='utf-8'))]
         self.assertEqual(set(ids), {f'S{i:02}' for i in range(1, 17)} | {'I01', 'I02', 'I03', 'U01', 'U02'})
         self.assertEqual(len(ids), len(set(ids)))
         for path in VAULT.rglob('*.md'):
-            self.assertNotIn('/private/tmp/', path.read_text())
-            self.assertNotIn('/Users/', path.read_text())
+            self.assertNotIn('/private/tmp/', path.read_text(encoding='utf-8'))
+            self.assertNotIn('/Users/', path.read_text(encoding='utf-8'))
 
 if __name__ == '__main__':
     unittest.main()

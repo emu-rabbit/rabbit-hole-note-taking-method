@@ -22,13 +22,13 @@ class ToolkitTests(unittest.TestCase):
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory(prefix='rabbit-hole-test-')
         self.root = Path(self.temp.name).resolve()
-        self.vault = self.root / '私人的兔子洞'
+        self.vault = self.root / '私人的 兔子洞'
 
     def tearDown(self):
         self.temp.cleanup()
 
     def run_cli(self, *args, code=0):
-        proc = subprocess.run([sys.executable, str(SCRIPT), *map(str, args)], capture_output=True, text=True)
+        proc = subprocess.run([sys.executable, str(SCRIPT), *map(str, args)], capture_output=True, text=True, encoding='utf-8')
         self.assertEqual(proc.returncode, code, proc.stderr + proc.stdout)
         return json.loads(proc.stdout if proc.stdout else proc.stderr)
 
@@ -37,14 +37,14 @@ class ToolkitTests(unittest.TestCase):
 
     def source(self, value, filename='input.json'):
         p = self.root / filename
-        p.write_text(json.dumps(value, ensure_ascii=False) if filename.endswith('.json') else value, encoding='utf-8')
+        p.write_text(json.dumps(value, ensure_ascii=False) if filename.endswith('.json') else value, encoding='utf-8', newline='\n')
         return p
 
     def imp(self, p, *extra, code=0):
         return self.run_cli('import', '--vault', self.vault, '--input', p, '--namespace', 'synthetic:test', '--owner', 'Owner', '--author', 'Default speaker', *extra, code=code)
 
     def ledger(self):
-        return json.loads(next(self.vault.glob('90_*/import-ledger.json')).read_text())['records']
+        return json.loads(next(self.vault.glob('90_*/import-ledger.json')).read_text(encoding='utf-8'))['records']
 
     def test_both_languages_minimal_routes_and_check(self):
         for lang in ('en', 'zh-TW'):
@@ -57,18 +57,26 @@ class ToolkitTests(unittest.TestCase):
                 self.assertEqual(self.ledger(), [])
                 self.run_cli('init', '--vault', self.vault, '--name', 'Other', '--lang', lang, '--apply', code=2)
 
-    def test_init_preview_and_private_modes(self):
+    def test_init_preview_creates_nothing(self):
         self.run_cli('init', '--vault', self.vault, '--name', 'Test', '--lang', 'en')
         self.assertFalse(self.vault.exists())
+
+    @unittest.skipIf(os.name == 'nt', 'POSIX mode bits; Windows DACL coverage is native-only')
+    def test_init_private_posix_modes(self):
         self.init()
         self.assertEqual((self.vault.stat().st_mode & 0o777), 0o700)
         self.assertEqual(((self.vault / 'README.md').stat().st_mode & 0o777), 0o600)
 
-    def test_git_and_symlink_rejected(self):
+    def test_git_vault_rejected(self):
         git = self.root / 'repo'
         git.mkdir()
-        (git / '.git').write_text('gitdir: elsewhere')
+        (git / '.git').write_text('gitdir: elsewhere', encoding='utf-8', newline='\n')
         self.run_cli('init', '--vault', git / 'vault', '--name', 'Test', '--lang', 'en', '--apply', code=2)
+
+    @unittest.skipIf(os.name == 'nt', 'POSIX symlink setup; Windows tests use unprivileged junctions')
+    def test_symlink_paths_and_contents_rejected(self):
+        git = self.root / 'repo'
+        git.mkdir()
         linked = self.root / 'linked'
         linked.symlink_to(git, target_is_directory=True)
         self.run_cli('init', '--vault', linked / 'vault', '--name', 'Test', '--lang', 'en', code=2)
@@ -102,7 +110,7 @@ class ToolkitTests(unittest.TestCase):
         self.init()
         p = self.source('First', 'source.txt')
         self.imp(p, '--apply')
-        p.write_text('Second')
+        p.write_text('Second', encoding='utf-8', newline='\n')
         self.imp(p, '--apply')
         self.assertNotEqual(self.ledger()[0]['key'], self.ledger()[1]['key'])
         self.assertEqual([r['revision'] for r in self.ledger()], [1, 1])
@@ -111,7 +119,7 @@ class ToolkitTests(unittest.TestCase):
         self.init()
         p = self.source('first', 'source.md')
         self.imp(p, '--source-id', 'diary-1', '--apply')
-        p.write_text('second')
+        p.write_text('second', encoding='utf-8', newline='\n')
         self.imp(p, '--source-id', 'diary-1', '--apply')
         self.assertEqual(self.ledger()[-1]['revision'], 2)
         p = self.source('{"id":"a","text":"A"}\n\n{"id":"b","text":"B"}\n', 'items.jsonl')
@@ -123,7 +131,7 @@ class ToolkitTests(unittest.TestCase):
         p = self.source([{'id': '../../escape', 'text': payload, 'title': '``` data', 'author': '``` speaker'}])
         self.imp(p, '--apply')
         row = self.ledger()[0]
-        self.assertIn(payload, (self.vault / row['note']).read_text())
+        self.assertIn(payload, (self.vault / row['note']).read_text(encoding='utf-8'))
         self.assertTrue(self.run_cli('check', '--vault', self.vault)['ok'])
         self.assertFalse((self.root / 'escape').exists())
 
@@ -135,6 +143,11 @@ class ToolkitTests(unittest.TestCase):
             self.assertEqual(self.ledger(), [])
         p = self.source('archive', 'data.zip')
         self.imp(p, '--apply', code=2)
+
+    @unittest.skipIf(os.name == 'nt', 'POSIX symlink setup; Windows tests cover reparse ancestors')
+    def test_symlink_source_rejected(self):
+        self.init()
+        p = self.source('text', 'source.txt')
         linked = self.root / 'linked.txt'
         linked.symlink_to(p)
         self.imp(linked, '--apply', code=2)
@@ -145,18 +158,18 @@ class ToolkitTests(unittest.TestCase):
         self.imp(p, '--apply')
         row = self.ledger()[0]
         note = self.vault / row['note']
-        note.write_text(note.read_text() + 'changed')
+        note.write_text(note.read_text(encoding='utf-8') + 'changed', encoding='utf-8', newline='\n')
         report = self.run_cli('check', '--vault', self.vault, code=1)
         self.assertIn('source-note-hash-mismatch', [i['code'] for i in report['issues']])
         self.imp(p, '--apply', code=2)
         lp = next(self.vault.glob('90_*/import-ledger.json'))
-        lp.write_text('{broken')
+        lp.write_text('{broken', encoding='utf-8', newline='\n')
         self.assertIn('malformed-ledger', [i['code'] for i in self.run_cli('check', '--vault', self.vault, code=1)['issues']])
 
     def test_missing_links_anchors_duplicates_and_traversal(self):
         self.init()
-        (self.vault / 'a.md').write_text('---\nid: duplicate\n---\n# Heading 中文\n\ntext ^block-one\n\n[[b#Good]]\n[[a#^block-one]]\n[a](a.md#heading-中文)\n')
-        (self.vault / 'b.md').write_text('---\nid: duplicate\n---\n# Good\n[[missing]]\n[[a#Bad]]\n[escape](../outside.md)\n')
+        (self.vault / 'a.md').write_text('---\nid: duplicate\n---\n# Heading 中文\n\ntext ^block-one\n\n[[b#Good]]\n[[a#^block-one]]\n[a](a.md#heading-中文)\n', encoding='utf-8', newline='\n')
+        (self.vault / 'b.md').write_text('---\nid: duplicate\n---\n# Good\n[[missing]]\n[[a#Bad]]\n[escape](../outside.md)\n', encoding='utf-8', newline='\n')
         report = self.run_cli('check', '--vault', self.vault, code=1)
         codes = [i['code'] for i in report['issues']]
         for code in ('duplicate-note-id', 'missing-link', 'missing-anchor', 'unsafe-link'):
@@ -164,9 +177,46 @@ class ToolkitTests(unittest.TestCase):
         self.assertEqual(codes.count('missing-anchor'), 1)
         self.assertNotIn('outside.md', json.dumps(report))
 
+    def test_bom_crlf_reading_notes_resolve_headings_without_rewriting(self):
+        self.init()
+        target = self.vault / 'target.md'
+        target.write_bytes(b'\xef\xbb\xbf' + '# Heading 中文\r\n\r\n虛構內容\r\n'.encode('utf-8'))
+        (self.vault / 'links.md').write_text('[[target#Heading 中文]]\n', encoding='utf-8', newline='\n')
+        before = {p.relative_to(self.vault): p.read_bytes() for p in self.vault.rglob('*') if p.is_file()}
+        self.assertTrue(self.run_cli('check', '--vault', self.vault)['ok'])
+        self.assertEqual({p.relative_to(self.vault): p.read_bytes() for p in self.vault.rglob('*') if p.is_file()}, before)
+
+    def test_sibling_markdown_targets_stay_inside_vault(self):
+        self.init()
+        chapter = self.vault / 'Chapters'
+        chapter.mkdir()
+        sources = self.vault / 'Sources'
+        sources.mkdir()
+        (sources / 'source.md').write_text('# Heading 中文\n', encoding='utf-8', newline='\n')
+        page = chapter / 'story.md'
+        page.write_text('[Home](../README.md)\n[Source](../Sources/source.md#heading-中文)\n',
+                        encoding='utf-8', newline='\n')
+        self.assertTrue(self.run_cli('check', '--vault', self.vault)['ok'])
+        page.write_text('[Escape](../../outside.md)\n', encoding='utf-8', newline='\n')
+        self.assertEqual(self.run_cli('check', '--vault', self.vault, code=1)['issues'],
+                         [{'code': 'unsafe-link', 'path': 'Chapters/story.md'}])
+
+    def test_windows_drive_unc_and_ads_links_are_not_treated_as_web_urls(self):
+        self.init()
+        links = self.vault / 'links.md'
+        for target in ('C:/private/secret.md', 'C:secret.md', '//server/share/secret.md',
+                       r'\\server\share\secret.md', 'README.md:private', 'README:private',
+                       'README.md%3Aprivate', 'file:///C:/private/secret.md'):
+            for wiki in (False, True):
+                with self.subTest(target=target, wiki=wiki):
+                    links.write_text('[[' + target + ']]\n' if wiki else '[unsafe](' + target + ')\n',
+                                     encoding='utf-8', newline='\n')
+                    report = self.run_cli('check', '--vault', self.vault, code=1)
+                    self.assertEqual(report['issues'], [{'code': 'unsafe-link', 'path': 'links.md'}])
+
     def test_internal_relative_link_allowed(self):
         self.init()
-        (self.vault / '00_Entry' / 'extra.md').write_text('[home](../README.md)\n')
+        (self.vault / '00_Entry' / 'extra.md').write_text('[home](../README.md)\n', encoding='utf-8', newline='\n')
         self.assertTrue(self.run_cli('check', '--vault', self.vault)['ok'])
 
     def test_heading_and_block_targets_resolve_in_both_link_forms(self):
@@ -174,14 +224,14 @@ class ToolkitTests(unittest.TestCase):
         (self.vault / 'target.md').write_text(
             '# Heading 中文\n\nParagraph. ^paragraph-one\n\n'
             '^standalone-one\n\n[[#Heading 中文]]\n[local](#heading-中文)\n'
-            '[[#^paragraph-one]]\n[local block](#^standalone-one)\n')
+            '[[#^paragraph-one]]\n[local block](#^standalone-one)\n', encoding='utf-8', newline='\n')
         (self.vault / '00_Entry' / 'links.md').write_text(
             '[[target#Heading 中文|wiki heading]]\n'
             '[heading](../target.md#heading-中文)\n'
             '[[target#^paragraph-one|wiki block]]\n'
             '[block](../target.md#^paragraph-one)\n'
             '[[target#^standalone-one]]\n'
-            '[encoded block](../target.md#%5Estandalone-one)\n')
+            '[encoded block](../target.md#%5Estandalone-one)\n', encoding='utf-8', newline='\n')
         self.assertTrue(self.run_cli('check', '--vault', self.vault)['ok'])
 
     def test_imported_block_targets_require_exact_caret_without_mutation(self):
@@ -196,7 +246,7 @@ class ToolkitTests(unittest.TestCase):
                 with self.subTest(fragment=fragment, wiki=wiki):
                     target = row['note'] + '#' + fragment
                     links.write_text('[[' + target + '|source]]\n' if wiki
-                                     else '[source](' + target + ')\n')
+                                     else '[source](' + target + ')\n', encoding='utf-8', newline='\n')
                     before = {p.relative_to(self.vault): p.read_bytes()
                               for p in self.vault.rglob('*') if p.is_file()}
                     report = self.run_cli('check', '--vault', self.vault, code=0 if valid else 1)
@@ -208,17 +258,17 @@ class ToolkitTests(unittest.TestCase):
 
     def test_caret_heading_is_not_a_block_definition(self):
         self.init()
-        (self.vault / 'target.md').write_text('# ^only-heading\n\n# Ordinary heading\n')
+        (self.vault / 'target.md').write_text('# ^only-heading\n\n# Ordinary heading\n', encoding='utf-8', newline='\n')
         links = self.vault / 'links.md'
         links.write_text('[heading](target.md#only-heading)\n'
-                         '[[target#Ordinary heading]]\n')
+                         '[[target#Ordinary heading]]\n', encoding='utf-8', newline='\n')
         self.assertTrue(self.run_cli('check', '--vault', self.vault)['ok'])
         for fragment in ('^only-heading', '^ordinary-heading'):
             for wiki in (True, False):
                 with self.subTest(fragment=fragment, wiki=wiki):
                     target = 'target.md#' + fragment
                     links.write_text('[[' + target + ']]\n' if wiki
-                                     else '[block](' + target + ')\n')
+                                     else '[block](' + target + ')\n', encoding='utf-8', newline='\n')
                     report = self.run_cli('check', '--vault', self.vault, code=1)
                     self.assertEqual(report['issues'],
                                      [{'code': 'missing-anchor', 'path': 'links.md'}])
@@ -228,9 +278,9 @@ class ToolkitTests(unittest.TestCase):
         p = self.source([{'id': 'one', 'text': 'first'}])
         self.imp(p, '--apply')
         lp = next(self.vault.glob('90_*/import-ledger.json'))
-        ledger = json.loads(lp.read_text())
+        ledger = json.loads(lp.read_text(encoding='utf-8'))
         ledger['records'][0]['original'] = '../../external.txt'
-        lp.write_text(json.dumps(ledger))
+        lp.write_text(json.dumps(ledger), encoding='utf-8', newline='\n')
         self.imp(p, '--apply', code=2)
         self.assertEqual(self.run_cli('check', '--vault', self.vault, code=1)['issues'][0]['code'], 'malformed-ledger')
 
@@ -262,7 +312,7 @@ class ToolkitTests(unittest.TestCase):
         self.imp(p, '--apply')
         row = self.ledger()[0]
         self.assertEqual((self.vault / row['original']).read_bytes(), p.read_bytes())
-        note = (self.vault / row['note']).read_text()
+        note = (self.vault / row['note']).read_text(encoding='utf-8')
         self.assertIn('"event_at": null', note)
         self.assertIn('"recorded_at": null', note)
         self.assertIn('"published_at": null', note)
@@ -273,15 +323,15 @@ class ToolkitTests(unittest.TestCase):
         p = self.source('TOP_SECRET malformed JSON', 'bad.json')
         result = self.imp(p, code=2)
         self.assertNotIn('TOP_SECRET', json.dumps(result))
-        (self.vault / '.rabbit-hole.json').write_text('[]')
+        (self.vault / '.rabbit-hole.json').write_text('[]', encoding='utf-8', newline='\n')
         self.run_cli('check', '--vault', self.vault, code=2)
 
     def test_ambiguous_link_and_unsafe_uri(self):
         self.init()
         for dirname in ('one', 'two'):
             (self.vault / dirname).mkdir()
-            (self.vault / dirname / 'same.md').write_text('# Same')
-        (self.vault / 'links.md').write_text('[[same]]\n[file](file:///private/file)\n')
+            (self.vault / dirname / 'same.md').write_text('# Same', encoding='utf-8', newline='\n')
+        (self.vault / 'links.md').write_text('[[same]]\n[file](file:///private/file)\n', encoding='utf-8', newline='\n')
         report = self.run_cli('check', '--vault', self.vault, code=1)
         codes = [i['code'] for i in report['issues']]
         self.assertIn('ambiguous-link', codes)
@@ -294,8 +344,8 @@ class ToolkitTests(unittest.TestCase):
     def test_unmanaged_reading_copy_and_git_check(self):
         self.vault.mkdir()
         (self.vault / '.git').mkdir()
-        (self.vault / 'README.md').write_text('# Reading copy\n[[story]]')
-        (self.vault / 'story.md').write_text('# Story')
+        (self.vault / 'README.md').write_text('# Reading copy\n[[story]]', encoding='utf-8', newline='\n')
+        (self.vault / 'story.md').write_text('# Story', encoding='utf-8', newline='\n')
         before = sorted(p.relative_to(self.vault).as_posix() for p in self.vault.rglob('*'))
         report = self.run_cli('check', '--vault', self.vault)
         self.assertEqual(report['vault_kind'], 'unmanaged')
@@ -330,7 +380,7 @@ class ToolkitTests(unittest.TestCase):
         self.init()
         before = {p.relative_to(self.vault).as_posix(): p.read_bytes() for p in self.vault.rglob('*') if p.is_file()}
         p = self.source([{'id': 'one', 'text': 'source'}])
-        with mock.patch.object(RUNTIME.os, 'replace', side_effect=OSError('injected failure')):
+        with mock.patch.object(RUNTIME.secure_io.Session, 'replace', side_effect=OSError('injected failure')):
             self.assertEqual(self.direct_import(p), 2)
         after = {p.relative_to(self.vault).as_posix(): p.read_bytes() for p in self.vault.rglob('*') if p.is_file()}
         self.assertEqual(before, after)
@@ -340,17 +390,68 @@ class ToolkitTests(unittest.TestCase):
     def test_rollback_preserves_concurrent_changes(self):
         self.init()
         p = self.source([{'id': 'one', 'text': 'source'}])
+        changed = []
         def change_then_fail(*args, **kwargs):
             note = next(self.vault.glob('80_*/imports/*.md'))
-            note.write_text('concurrent change')
-            (note.parent / 'concurrent.md').write_text('concurrent new file')
+            try:
+                note.write_text('concurrent change', encoding='utf-8', newline='\n')
+            except PermissionError as error:
+                self.assertEqual(os.name, 'nt')
+                self.assertIn(error.winerror, (32, 33))
+                changed.append(False)
+            else:
+                changed.append(True)
+            (note.parent / 'concurrent.md').write_text('concurrent new file', encoding='utf-8', newline='\n')
             raise OSError('injected failure')
-        with mock.patch.object(RUNTIME.os, 'replace', side_effect=change_then_fail):
+        with mock.patch.object(RUNTIME.secure_io.Session, 'replace', side_effect=change_then_fail):
             self.assertEqual(self.direct_import(p), 2)
         self.assertEqual(self.ledger(), [])
-        values = [q.read_text() for q in self.vault.glob('80_*/imports/*.md')]
-        self.assertIn('concurrent change', values)
+        values = [q.read_text(encoding='utf-8') for q in self.vault.glob('80_*/imports/*.md')]
+        self.assertEqual(len(changed), 1)
+        if changed[0]:
+            self.assertIn('concurrent change', values)
+        else:
+            self.assertEqual(values, ['concurrent new file'])
         self.assertIn('concurrent new file', values)
+
+    @unittest.skipIf(os.name == 'nt', 'Windows native tests assert held parents cannot be renamed')
+    def test_cached_source_parents_replaced_before_commit_refuse_and_preserve_foreign_content(self):
+        for kind in ('imports', 'raw'):
+            for reparse in (False, True):
+                with self.subTest(kind=kind, reparse=reparse):
+                    self.vault = self.root / f'vault-{kind}-{reparse}'
+                    self.init()
+                    source = self.source([{'id': 'one', 'text': 'existing source'}])
+                    self.imp(source, '--apply')
+                    ledger = next(self.vault.glob('90_*/import-ledger.json'))
+                    baseline = ledger.read_bytes()
+                    parent = next(self.vault.glob('80_*/imports' if kind == 'imports' else '90_*/raw'))
+                    existing = {p.name: p.read_bytes() for p in parent.iterdir()}
+                    moved = self.root / f'moved-{kind}-{reparse}'
+                    foreign = self.root / f'foreign-{kind}-{reparse}' if reparse else parent
+                    source = self.source([{'id': 'two', 'text': 'new source'}])
+                    original = RUNTIME.write_new
+                    swapped = []
+                    def replace_parent(path, data):
+                        result = original(path, data)
+                        if path.suffix == '.new':
+                            parent.rename(moved)
+                            foreign.mkdir()
+                            (foreign / 'keep.txt').write_bytes(b'foreign content')
+                            if reparse:
+                                parent.symlink_to(foreign, target_is_directory=True)
+                            swapped.append(True)
+                        return result
+                    with mock.patch.object(RUNTIME, 'write_new', side_effect=replace_parent):
+                        self.assertEqual(self.direct_import(source), 2)
+                    self.assertEqual(swapped, [True])
+                    self.assertEqual(ledger.read_bytes(), baseline)
+                    self.assertEqual((foreign / 'keep.txt').read_bytes(), b'foreign content')
+                    self.assertEqual({p.name: p.read_bytes() for p in foreign.iterdir()},
+                                     {'keep.txt': b'foreign content'})
+                    self.assertEqual({p.name: p.read_bytes() for p in moved.iterdir()}, existing)
+                    self.assertFalse(list(self.vault.rglob('*.lock')))
+                    self.assertFalse(list(self.vault.rglob('*.new')))
 
     def test_ledger_same_length_change_detected(self):
         self.init()
@@ -381,6 +482,7 @@ class ToolkitTests(unittest.TestCase):
         self.assertEqual(report['new_sources'], 0)
         self.assertEqual(report['source_paths'][0]['change'], 'revision')
 
+    @unittest.skipIf(os.name == 'nt', 'POSIX symlink setup; Windows tests cover late junction substitution')
     def test_late_parent_symlink_swap_cannot_write_outside(self):
         self.init()
         p = self.source([{'id': 'one', 'text': 'private source'}])
@@ -400,6 +502,7 @@ class ToolkitTests(unittest.TestCase):
         self.assertEqual(list(outside.iterdir()), [])
         self.assertEqual(self.ledger(), [])
 
+    @unittest.skipIf(os.name == 'nt', 'POSIX symlink setup; Windows tests cover late junction substitution')
     def test_write_new_and_read_bytes_refuse_symlink_ancestors(self):
         outside = self.root / 'outside'
         outside.mkdir()
@@ -407,14 +510,14 @@ class ToolkitTests(unittest.TestCase):
         link.symlink_to(outside, target_is_directory=True)
         with self.assertRaises(OSError):
             RUNTIME.write_new(link / 'private.md', b'private')
-        (outside / 'file.txt').write_text('outside')
+        (outside / 'file.txt').write_text('outside', encoding='utf-8', newline='\n')
         with self.assertRaises(OSError):
             RUNTIME.read_bytes(link / 'file.txt')
         self.assertFalse((outside / 'private.md').exists())
 
     def test_single_quoted_titles_and_duplicate_heading_slugs(self):
         self.init()
-        (self.vault / 'links.md').write_text("# Same\n# Same\n[second](#same-1)\n[missing](missing.md 'title')\n")
+        (self.vault / 'links.md').write_text("# Same\n# Same\n[second](#same-1)\n[missing](missing.md 'title')\n", encoding='utf-8', newline='\n')
         report = self.run_cli('check', '--vault', self.vault, code=1)
         self.assertEqual([i['code'] for i in report['issues']], ['missing-link'])
 
@@ -426,20 +529,20 @@ class ToolkitTests(unittest.TestCase):
         p = self.source([{'id': 'one', 'title': '我的場景', 'text': '原話', 'author': '敘述者'}])
         self.imp(p, '--apply')
         row = self.ledger()[0]
-        note = (self.vault / row['note']).read_text()
+        note = (self.vault / row['note']).read_text(encoding='utf-8')
         self.assertIn('# 我的場景', note)
         self.assertIn('- 作者: 敘述者', note)
         self.assertIn('- 事件時間: 未知', note)
         self.assertIn('[[80_來源/README|回到來源索引]]', note)
-        self.assertIn('整理界線', (self.vault / 'AGENTS.md').read_text())
+        self.assertIn('整理界線', (self.vault / 'AGENTS.md').read_text(encoding='utf-8'))
         self.assertTrue(self.run_cli('check', '--vault', self.vault)['ok'])
 
     def test_unsupported_platform_clean_refusal(self):
-        with mock.patch.object(RUNTIME.sys, 'platform', 'win32'):
+        with mock.patch.object(RUNTIME.sys, 'platform', 'unsupported-test-os'):
             with contextlib.redirect_stderr(io.StringIO()) as error:
                 code = RUNTIME.main(['init', '--vault', str(self.vault), '--name', 'Test', '--lang', 'en'])
         self.assertEqual(code, 2)
-        self.assertIn('macOS/Linux', json.loads(error.getvalue())['error'])
+        self.assertIn('platform', json.loads(error.getvalue())['error'].lower())
         self.assertFalse(self.vault.exists())
 
     def test_new_source_reading_order_and_readable_locator(self):
