@@ -1,5 +1,5 @@
 import { readFileSync } from 'node:fs';
-import MarkdownIt from './vendor/markdown-it.cjs';
+import MarkdownIt from './vendor/markdown-it.js';
 
 const markdown = new MarkdownIt({ html: false });
 const escape = markdown.utils.escapeHtml;

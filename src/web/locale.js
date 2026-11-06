@@ -18,19 +18,6 @@ export function initializeLocale(english) {
   }
   document.documentElement.lang = locale;
 
-  if (locale === 'en') {
-    for (const attribute of ['', 'aria-label', 'title', 'placeholder', 'content', 'alt']) {
-      const marker = attribute ? `data-i18n-${attribute}` : 'data-i18n';
-      for (const element of document.querySelectorAll(`[${marker}]`)) {
-        const message = english[element.getAttribute(marker)];
-        if (message === undefined) continue;
-        const text = message.replace('{number}', element.dataset.i18nNumber ?? '');
-        if (attribute) element.setAttribute(attribute, text);
-        else element.textContent = text;
-      }
-    }
-  }
-
   for (const button of document.querySelectorAll('.language-switcher [data-locale]')) {
     button.setAttribute('aria-pressed', String(button.dataset.locale === locale));
     button.addEventListener('click', () => {
@@ -41,7 +28,19 @@ export function initializeLocale(english) {
     });
   }
 
-  function localizeLinks(root) {
+  function localize(root) {
+    if (locale === 'en') {
+      for (const attribute of ['', 'aria-label', 'title', 'placeholder', 'content', 'alt']) {
+        const marker = attribute ? `data-i18n-${attribute}` : 'data-i18n';
+        for (const element of root.querySelectorAll(`[${marker}]`)) {
+          const message = english[element.getAttribute(marker)];
+          if (message === undefined) continue;
+          const text = message.replace('{number}', element.dataset.i18nNumber ?? '');
+          if (attribute) element.setAttribute(attribute, text);
+          else element.textContent = text;
+        }
+      }
+    }
     for (const link of root.querySelectorAll('a[href^="./"], a[href^="../"]')) {
       const destination = new URL(link.href);
       destination.searchParams.set('lang', locale);
@@ -49,6 +48,6 @@ export function initializeLocale(english) {
     }
   }
 
-  localizeLinks(document);
-  return localizeLinks;
+  localize(document);
+  return localize;
 }

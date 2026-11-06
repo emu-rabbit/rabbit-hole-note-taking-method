@@ -73,7 +73,7 @@ a { color: var(--accent); text-underline-offset: .2em; }
 }
 
 #note-count, .backlink-count { font-variant-numeric: tabular-nums; letter-spacing: normal; }
-.tree { overflow: auto; padding: 0 9px 14px; scrollbar-width: thin; }
+.tree { flex: 1; min-height: 0; overflow: auto; padding: 0 9px 14px; scrollbar-width: thin; }
 .tree-list, .note-context ul { list-style: none; margin: 0; padding: 0; }
 .tree-list .tree-list { margin: 2px 0 3px 14px; padding-inline-start: 6px; border-inline-start: 1px solid var(--line); }
 .tree-list li { margin: 2px 0; }
@@ -104,6 +104,13 @@ summary { list-style: none; }
 summary::-webkit-details-marker { display: none; }
 details[open] > summary .icon-chevron { transform: rotate(90deg); }
 .tree-message { margin: 10px 9px; font-size: 13px; color: var(--muted); }
+
+.zip-controls { flex: none; padding: 9px 13px 13px; border-top: 1px solid var(--line); }
+.zip-status { margin: 0 0 7px; color: var(--muted); font-size: 12px; line-height: 1.45; }
+.zip-open { width: 100%; min-height: 42px; padding: 8px; border: 0; border-radius: 6px; background: var(--accent-hover); color: var(--paper); font-size: 14px; font-weight: 700; cursor: pointer; }
+.zip-open:hover { background: var(--ink); }
+.zip-open:disabled { opacity: .65; cursor: default; }
+.zip-close { margin: 0 0 7px; padding: 0; border: 0; background: transparent; color: var(--accent); font-size: 12px; text-decoration: underline; cursor: pointer; }
 
 .topbar {
   position: sticky;
@@ -155,6 +162,7 @@ details[open] > summary .icon-chevron { transform: rotate(90deg); }
 .note li > ul, .note li > ol { margin-block: 5px; }
 .note a { text-decoration-color: var(--line-strong); }
 .note a:hover { text-decoration-color: currentColor; }
+.note img { max-width: 100%; height: auto; }
 .missing-link { color: var(--muted); text-decoration: underline dotted; text-underline-offset: .2em; }
 
 .note blockquote {
