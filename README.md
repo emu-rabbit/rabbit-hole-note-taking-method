@@ -1,6 +1,6 @@
 # 兔子洞筆記法 · Rabbit Hole Notes
 
-[English](README.en.md) · [介紹網站](https://emu-rabbit.github.io/rabbit-hole-note-taking-method/?lang=zh-TW) · [走進公開範例](https://emu-rabbit.github.io/rabbit-hole-note-taking-method/reader/index.html?lang=zh-TW)
+[English](README.en.md) · [介紹網站](https://emu-rabbit.github.io/rabbit-hole-notes/?lang=zh-TW) · [走進公開範例](https://emu-rabbit.github.io/rabbit-hole-notes/reader/index.html?lang=zh-TW)
 
 兔子洞是一種用來記錄一個「人」的筆記法。把人生經歷、重要的人、相處、故事與創作放在一起，讓後來走進來的人或 agent 能沿著時間和連結，慢慢認識你。
 
@@ -8,12 +8,12 @@
 
 ## 從哪裡開始
 
-- **想先感受兔子洞怎麼讀**：打開[中文範例](https://emu-rabbit.github.io/rabbit-hole-note-taking-method/reader/index.html?lang=zh-TW)。入口提供三條短路線，從一盒馬卡龍、一件工具，或她身邊的兩個人開始。範例裡的閱讀地圖再帶你走深。
-- **想了解方法**：先看[網站介紹](https://emu-rabbit.github.io/rabbit-hole-note-taking-method/?lang=zh-TW)，再讀完整的[兔子洞筆記法](examples/emu-rabbit-tw/00_入口/兔子洞筆記法.md)。方法保留作者原文。
+- **想先感受兔子洞怎麼讀**：打開[中文範例](https://emu-rabbit.github.io/rabbit-hole-notes/reader/index.html?lang=zh-TW)。入口提供三條短路線，從一盒馬卡龍、一件工具，或她身邊的兩個人開始。範例裡的閱讀地圖再帶你走深。
+- **想了解方法**：先看[網站介紹](https://emu-rabbit.github.io/rabbit-hole-notes/?lang=zh-TW)，再讀完整的[兔子洞筆記法](examples/emu-rabbit-tw/00_入口/兔子洞筆記法.md)。方法保留作者原文。
 - **想在 Obsidian 裡體驗**：在範例閱讀器按「下載範例」，解壓後將含 README.md 的資料夾開成儲存庫。從 README 開始，不需要社群外掛。
-- **想用英文閱讀**：從 [English website](https://emu-rabbit.github.io/rabbit-hole-note-taking-method/?lang=en) 進入 [English example](https://emu-rabbit.github.io/rabbit-hole-note-taking-method/reader-en/index.html?lang=en)。文章、來源譯文、資料夾與重要檔名都使用英文；閱讀器切換語言會前往同一篇的另一語言版本。
+- **想用英文閱讀**：從 [English website](https://emu-rabbit.github.io/rabbit-hole-notes/?lang=en) 進入 [English example](https://emu-rabbit.github.io/rabbit-hole-notes/reader-en/index.html?lang=en)。文章、來源譯文、資料夾與重要檔名都使用英文；閱讀器切換語言會前往同一篇的另一語言版本。
 
-也可以直接下載[中文範例 ZIP](https://emu-rabbit.github.io/rabbit-hole-note-taking-method/downloads/emu-rabbit-tw.zip) 或 [English example ZIP](https://emu-rabbit.github.io/rabbit-hole-note-taking-method/downloads/emu-rabbit-en.zip)。每份只包含該語言的 Markdown 筆記，不必下載整個程式專案。
+也可以直接下載[中文範例 ZIP](https://emu-rabbit.github.io/rabbit-hole-notes/downloads/emu-rabbit-tw.zip) 或 [English example ZIP](https://emu-rabbit.github.io/rabbit-hole-notes/downloads/emu-rabbit-en.zip)。每份只包含該語言的 Markdown 筆記，不必下載整個程式專案。
 
 ## 你會在範例裡讀到什麼
 

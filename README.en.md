@@ -1,6 +1,6 @@
 # Rabbit Hole Notes
 
-[繁體中文](README.md) · [Website](https://emu-rabbit.github.io/rabbit-hole-note-taking-method/?lang=en) · [Explore the example](https://emu-rabbit.github.io/rabbit-hole-note-taking-method/reader-en/index.html?lang=en)
+[繁體中文](README.md) · [Website](https://emu-rabbit.github.io/rabbit-hole-notes/?lang=en) · [Explore the example](https://emu-rabbit.github.io/rabbit-hole-notes/reader-en/index.html?lang=en)
 
 A note-taking method for documenting a life. A rabbit hole brings together experiences, important people, relationships, stories, and creative work, so someone arriving later, whether a person or an agent, can get to know you through time and connections.
 
@@ -8,12 +8,12 @@ This repository holds the method website, a public example you can read in a bro
 
 ## Where to start
 
-- **Experience a rabbit hole**: Open the [English example](https://emu-rabbit.github.io/rabbit-hole-note-taking-method/reader-en/index.html?lang=en). Its entrance offers three short routes, beginning with a box of macarons, a useful tool, or two people in her life. The reading map offers more ways to continue.
-- **Learn the method**: Visit the [introduction](https://emu-rabbit.github.io/rabbit-hole-note-taking-method/?lang=en), then read the full [Rabbit Hole Method](<examples/emu-rabbit-en/00_Entry/Rabbit Hole Method.md>). The translation includes English folder names and key filenames you can follow.
+- **Experience a rabbit hole**: Open the [English example](https://emu-rabbit.github.io/rabbit-hole-notes/reader-en/index.html?lang=en). Its entrance offers three short routes, beginning with a box of macarons, a useful tool, or two people in her life. The reading map offers more ways to continue.
+- **Learn the method**: Visit the [introduction](https://emu-rabbit.github.io/rabbit-hole-notes/?lang=en), then read the full [Rabbit Hole Method](<examples/emu-rabbit-en/00_Entry/Rabbit Hole Method.md>). The translation includes English folder names and key filenames you can follow.
 - **Try it in Obsidian**: Choose “Download example” in the reader. Extract the ZIP and open the folder containing README.md as a vault. Start with that README; no community plugins are needed.
-- **Read the original Chinese**: Visit the [Chinese website](https://emu-rabbit.github.io/rabbit-hole-note-taking-method/?lang=zh-TW) or [Chinese example](https://emu-rabbit.github.io/rabbit-hole-note-taking-method/reader/index.html?lang=zh-TW). Switching languages in the reader takes you to the corresponding note.
+- **Read the original Chinese**: Visit the [Chinese website](https://emu-rabbit.github.io/rabbit-hole-notes/?lang=zh-TW) or [Chinese example](https://emu-rabbit.github.io/rabbit-hole-notes/reader/index.html?lang=zh-TW). Switching languages in the reader takes you to the corresponding note.
 
-You can also download the [English example ZIP](https://emu-rabbit.github.io/rabbit-hole-note-taking-method/downloads/emu-rabbit-en.zip) or [Chinese example ZIP](https://emu-rabbit.github.io/rabbit-hole-note-taking-method/downloads/emu-rabbit-tw.zip) directly. Each contains only that language's Markdown notes, so you do not need the whole code repository.
+You can also download the [English example ZIP](https://emu-rabbit.github.io/rabbit-hole-notes/downloads/emu-rabbit-en.zip) or [Chinese example ZIP](https://emu-rabbit.github.io/rabbit-hole-notes/downloads/emu-rabbit-tw.zip) directly. Each contains only that language's Markdown notes, so you do not need the whole code repository.
 
 ## What you will find
 
