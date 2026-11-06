@@ -177,7 +177,7 @@ test('all English homepage panels, example link, reader pages, labels and paths 
 });
 
 import { existsSync } from 'node:fs';
-import { siteBase, homePaths, siteUrl, homeDescriptions } from '../src/web/seo.mjs';
+import { siteBase, homePaths, siteUrl, homeDescriptions, socialImage } from '../src/web/seo.mjs';
 import { htmlIds } from '../src/web/validate.mjs';
 
 const attributes = tag => Object.fromEntries([...tag.matchAll(/([\w:-]+)="([^"]*)"/g)].map(([, key, value]) => [key, decodeEntities(value)]));
@@ -218,7 +218,10 @@ test('generated public pages have canonical, reciprocal language, robots and soc
     assert.equal(value('twitter:description'), value('description'));
     assert.equal(value('og:locale'), locale === 'en' ? 'en_US' : 'zh_TW');
     assert.equal(value('twitter:card'), 'summary_large_image');
-    assert.equal(value('og:image'), siteUrl('rabbit-hole.jpg'));
+    assert.equal(value('og:image'), siteUrl(socialImage.path));
+    assert.equal(value('og:image:width'), String(socialImage.width));
+    assert.equal(value('og:image:height'), String(socialImage.height));
+    assert.equal(value('og:image:type'), socialImage.type);
     assert.equal(value('twitter:image'), value('og:image'));
     assert.ok(value('og:image:alt'));
     assert.ok(/<h1\b/.test(html), path + ' must contain static content');
@@ -226,6 +229,12 @@ test('generated public pages have canonical, reciprocal language, robots and soc
       assert.ok(/<article[^>]*>[\s\S]*?<p>/.test(html), path);
     } else {
       assert.equal(value('description'), homeDescriptions[locale]);
+      const exampleNote = locale === 'en'
+        ? 'This is a highly condensed version of the author’s rabbit hole (less than about one eighth of its full size). You can make yours as deep and expansive as you like.'
+        : '這個是作者兔子洞的極精簡版本（約八分之一不到的大小）。只要你想要，你可以讓你的兔子洞長得更深更大。';
+      assert.ok(html.includes(exampleNote), 'localized example scale statement');
+      assert.ok(!tags(html, 'a').some(link => /sitemap\.xml/.test(link.href ?? '')), 'no visible sitemap link');
+      assert.ok(tags(html, 'img').some(image => image.src.endsWith('/rabbit-hole.jpg')), 'keep original hero');
       assert.equal((html.match(/class="structure-browser"/g) ?? []).length, 1);
       assert.equal((html.match(new RegExp(`id="structure-${locale}-\\d+-panel"`, 'g')) ?? []).length, 9);
     }
@@ -234,6 +243,7 @@ test('generated public pages have canonical, reciprocal language, robots and soc
     for (const link of switchLinks) assert.equal(new URL(link.href, siteUrl(path)).href, siteUrl(pair[link['data-locale']]));
   }
   assert.equal(canonicals.size, 114);
+  assert.deepEqual(readFileSync(new URL(`../dist/${socialImage.path}`, import.meta.url)), readFileSync(new URL(`../src/web/${socialImage.path}`, import.meta.url)), 'build copies the social asset byte-for-byte');
 
   const sitemap = readFileSync(new URL('../dist/sitemap.xml', import.meta.url), 'utf8');
   const entries = [...sitemap.matchAll(/<url>([\s\S]*?)<\/url>/g)].map(match => match[1]);
@@ -283,4 +293,48 @@ test('static homepage URLs keep their language and legacy query links redirect w
   const english = {contentLocale: 'en', counterpart: '../', fragments: '{"method":"method"}'};
   assert.equal(localeHarness('https://example.test/repo/en/', english).lang, 'en');
   assert.equal(localeHarness('https://example.test/repo/en/?lang=zh-TW#method', english).calls.replace, 'https://example.test/repo/?lang=zh-TW#method');
+});
+
+
+import { createHash } from 'node:crypto';
+import { renamedPublicNotes, legacyHeadingIds } from '../src/web/public-url-compat.mjs';
+
+test('renamed public people retain published URLs, heading fragments and language destinations', () => {
+  const mappings = JSON.parse(readFileSync(new URL('../src/web/example-paths.json', import.meta.url)));
+  for (const rename of renamedPublicNotes) {
+    const originalFile = `note-${createHash('sha256').update(rename.from).digest('hex')}.html`;
+    assert.equal(noteFile(rename.to), originalFile);
+    assert.equal(noteFile(rename.from), originalFile, 'legacy note query resolves to the same published page');
+    const route = rename.locale === 'en' ? 'reader-en' : 'reader';
+    const html = readFileSync(buildFile(`${route}/${originalFile}`), 'utf8');
+    assert.ok(html.includes(`<h1 id="${rename.heading}">`));
+    assert.ok(htmlIds(html).has(rename.oldHeading));
+    assert.doesNotMatch(html.replace(/<[^>]*>/g, ''), /前主人[甲乙丙]|Former master [ABC]/);
+    const folder = rename.locale === 'en' ? 'emu-rabbit-en' : 'emu-rabbit-tw';
+    const archive = readFileSync(new URL(`../dist/downloads/${folder}.zip`, import.meta.url));
+    assert.ok(archive.includes(Buffer.from(rename.to)), 'download contains the renamed Markdown file');
+    assert.ok(!archive.includes(Buffer.from(rename.from)), 'download omits the obsolete Markdown filename');
+  }
+  for (const [path, aliases] of Object.entries(legacyHeadingIds)) {
+    const pair = mappings.find(pair => Object.values(pair).includes(path));
+    assert.ok(pair, path);
+    const locale = pair.en === path ? 'en' : 'zh-TW';
+    const route = locale === 'en' ? 'reader-en' : 'reader';
+    const otherRoute = locale === 'en' ? 'reader' : 'reader-en';
+    const otherPath = pair[locale === 'en' ? 'zh-TW' : 'en'];
+    const html = readFileSync(buildFile(`${route}/${noteFile(path)}`), 'utf8');
+    const body = tags(html, 'body')[0];
+    const fragments = JSON.parse(body['data-fragments']);
+    const otherHtml = readFileSync(buildFile(`${otherRoute}/${noteFile(otherPath)}`), 'utf8');
+    const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map(match => match[1]);
+    assert.equal(new Set(ids).size, ids.length, 'compatibility anchors stay unique');
+    for (const [oldId, currentId] of Object.entries(aliases)) {
+      assert.ok(htmlIds(html).has(oldId), path + ' old fragment');
+      assert.ok(htmlIds(html).has(currentId), path + ' current fragment');
+      assert.equal(fragments[oldId], fragments[currentId]);
+      assert.ok(htmlIds(otherHtml).has(fragments[oldId]), 'old fragment switches to a real translated heading');
+      const destination = equivalentUrl(`${siteUrl(`${route}/${noteFile(path)}`)}#${encodeURIComponent(oldId)}`, body['data-counterpart'], fragments);
+      assert.equal(decodeURIComponent(destination.hash.slice(1)), fragments[currentId]);
+    }
+  }
 });

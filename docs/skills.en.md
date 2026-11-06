@@ -53,7 +53,11 @@ The agent creates a small private structure and asks the first question without 
 
 ### rabbit-hole-import: Organize selected posts
 
-> Bring these three posts I selected about moving home into my rabbit hole, so that part of my life is fuller.
+You can use a social platform’s “download/export your data” feature to obtain **an export of your social media posts**, then select the files, date range or posts you want the agent to read and preserve. These can become import material. You can also start with selected social media posts you already have; a full account export is not required.
+
+> I downloaded an export from a social platform. Bring the three social media posts I selected about moving home into my rabbit hole, so that part of my life is fuller.
+
+The agent checks the export format and permitted scope, then uses the available tools to prepare importable files. Native platform ZIP/JSON exports may need conversion; see [Runnable local helpers](#runnable-local-helpers) below for supported formats and limits.
 
 The agent preserves permitted originals, authors, dates, source IDs and the ledger. It then integrates the material actually read into relevant stories, people or life notes, updates navigation, indexes and reading progress, and reads through the result. Large collections are read in batches; imported does not mean understood. Ask for “archive only” to preserve sources without narrative edits. Reimporting identical material does not create duplicate sources.
 

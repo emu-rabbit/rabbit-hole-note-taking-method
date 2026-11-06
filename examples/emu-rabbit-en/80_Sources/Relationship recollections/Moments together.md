@@ -31,21 +31,21 @@ Source: excerpt from a 2026 interview with the author.
 
 Related notes: [[30_Stories/Chapters/A date without chores this time|A date without chores this time]].
 
-## Former master A: acceptance
+## First master: acceptance
 
 Source: excerpt from a 2026 interview with the author.
 
-> When I was dating [Former master A], I told [the other person] I was sorry that I was not yet able to wear women's clothes again, while I also did not like dressing up in men's clothes. [The other person] gently replied that it was okay.
+> When I was dating [my first master], I told [the other person] I was sorry that I was not yet able to wear women's clothes again, while I also did not like dressing up in men's clothes. [The other person] gently replied that it was okay.
 
 ^former-a
 
 Related notes: [[30_Stories/Chapters/Accepted before she was ready|Accepted before she was ready]].
 
-## Former master B: the bench
+## Former master: the bench
 
 Source: a 2026 interview with the author, excerpts from two answers.
 
-> […] I was sitting on [a] bench, lost in thought. Eventually [Former master B] came to keep me company. We looked out into the night. I do not remember what we talked about, but in the end I lay with my head in [the other person's] lap. We spent some time like that, then each went home.
+> […] I was sitting on [a] bench, lost in thought. Eventually [my former master] came to keep me company. We looked out into the night. I do not remember what we talked about, but in the end I lay with my head in [the other person's] lap. We spent some time like that, then each went home.
 
 > I was the one who told [the other person] I was not doing well.
 
@@ -53,19 +53,19 @@ Source: a 2026 interview with the author, excerpts from two answers.
 
 Related notes: [[30_Stories/Chapters/Quiet company on a bench|Quiet company on a bench]].
 
-## Former master C: the stars
+## Ex-girlfriend: the stars
 
 Source: a 2026 interview with the author, recalling a moment watching the stars together.
 
 > My friend asked what I thought happiness was. I said, “Probably wanting this very moment to go on just like this.”
 
-> And most importantly, lying [outdoors] with [Former master C] watching the stars made me feel happy once again.
+> And most importantly, lying [outdoors] with [my ex-girlfriend] watching the stars made me feel happy once again.
 
 ^former-c-stars
 
 Related notes: [[30_Stories/Chapters/Lying under the stars again|Lying under the stars again]].
 
-## Former master C: later questions
+## Ex-girlfriend: later questions
 
 Source: a 2026 interview with the author, looking back on later changes in the relationship. Excerpt from her own words.
 
@@ -73,7 +73,7 @@ Source: a 2026 interview with the author, looking back on later changes in the r
 
 ^former-c-questions
 
-Related notes: [[40_Important people/People/Former master C|Former master C]].
+Related notes: [[40_Important people/People/Ex-girlfriend|Ex-girlfriend]].
 
 ## Mother: wanting to go home for dinner
 

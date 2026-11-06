@@ -40,7 +40,7 @@ updated: "2026-11-06"
 ## 40 Important people
 [[40_Important people/Relationship map|Relationship map]]
 - [[40_Important people/People/Doggo|Doggo]] · [[40_Important people/People/Kitty|Kitty]]
-- [[40_Important people/People/Former master A|Former master A]] · [[40_Important people/People/Former master B|Former master B]] · [[40_Important people/People/Former master C|Former master C]]
+- [[40_Important people/People/First master|First master]] · [[40_Important people/People/Former master|Former master]] · [[40_Important people/People/Ex-girlfriend|Ex-girlfriend]]
 - [[40_Important people/People/Mother|Mother]] · [[40_Important people/People/Mengmeng|Mengmeng]]
 
 ## 50 Creative work

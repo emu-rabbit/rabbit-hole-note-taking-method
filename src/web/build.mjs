@@ -11,7 +11,8 @@ import { localizeHtml } from './localize-html.mjs';
 import { readerEnglish } from './reader/messages.js';
 import { renderStructure } from './structure.mjs';
 import { siteEnglish } from './site-messages.js';
-import { homeDescriptions, homePaths, noteDescription, renderMetadata, renderSitemap } from './seo.mjs';
+import { legacyHeadingIds } from './public-url-compat.mjs';
+import { homeDescriptions, homePaths, noteDescription, renderMetadata, renderSitemap, socialImage } from './seo.mjs';
 
 const mappings = JSON.parse(readFileSync(new URL('./example-paths.json', import.meta.url)));
 const locales = [
@@ -39,6 +40,9 @@ function renderPage(note, config) {
   const headings = htmlHeadingIds(note.html);
   const translatedHeadings = htmlHeadingIds(translated.html);
   if (headings.length === translatedHeadings.length) headings.forEach((id, index) => { fragments[id] = translatedHeadings[index]; });
+  for (const [oldId, currentId] of Object.entries(legacyHeadingIds[note.path] ?? {})) {
+    if (fragments[currentId]) fragments[oldId] = fragments[currentId];
+  }
   const readingMap = mappings.find(pair => pair.en === '00_Entry/Reading map.md')[locale];
   const shortcuts = `<nav class="reader-shortcuts" aria-label="${locale === 'en' ? 'Start reading' : '開始閱讀'}"><a href="./index.html">README</a><a href="${noteUrl(readingMap)}" data-i18n="readingMap">閱讀地圖</a></nav>`;
 
@@ -95,7 +99,7 @@ mkdirSync(join(output, 'reader-en'), { recursive: true });
 mkdirSync(join(output, 'downloads'), { recursive: true });
 mkdirSync(join(output, 'vendor'), { recursive: true });
 for (const path of [
-  'theme.css', 'site.css', 'site.js', 'site-messages.js', 'locale.css', 'locale.js', 'logo.svg', 'rabbit-hole.jpg', 'notes.js',
+  'theme.css', 'site.css', 'site.js', 'site-messages.js', 'locale.css', 'locale.js', 'logo.svg', 'rabbit-hole.jpg', socialImage.path, 'notes.js',
   'reader/reader.css', 'reader/reader.js', 'reader/view.js', 'reader/messages.js',
   'vendor/markdown-it.js', 'vendor/markdown-it.LICENSE',
 ]) {

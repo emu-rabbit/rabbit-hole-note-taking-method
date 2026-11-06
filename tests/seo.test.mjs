@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { noteDescription, renderMetadata, homePaths } from '../src/web/seo.mjs';
+import { noteDescription, renderMetadata, homePaths, socialImage } from '../src/web/seo.mjs';
 import { localizeHtml } from '../src/web/localize-html.mjs';
 
 test('public note descriptions strip markup and footnotes, escape entities once, and truncate Unicode safely', () => {
@@ -20,4 +20,32 @@ test('static homepage localization includes nested text, descriptions and image 
     body: 'English body.', example: 'Example', image: 'Rabbit & flowers', description: 'A life in notes.',
   });
   assert.equal(html, '<p data-i18n="body">English body.</p><a data-i18n="example">Example</a><img alt="Rabbit &amp; flowers" data-i18n-alt="image"><meta content="A life in notes." data-i18n-content="description">');
+});
+
+
+import { readFileSync } from 'node:fs';
+
+function jpegDimensions(bytes) {
+  assert.equal(bytes.readUInt16BE(0), 0xffd8, 'JPEG SOI');
+  for (let offset = 2; offset + 9 < bytes.length;) {
+    assert.equal(bytes[offset], 0xff, 'JPEG marker');
+    const marker = bytes[offset + 1];
+    const length = bytes.readUInt16BE(offset + 2);
+    if ([0xc0, 0xc1, 0xc2].includes(marker)) return {height: bytes.readUInt16BE(offset + 5), width: bytes.readUInt16BE(offset + 7)};
+    assert.ok(length >= 2);
+    offset += length + 2;
+  }
+  assert.fail('Missing JPEG frame dimensions');
+}
+
+test('social preview is a compact real 1200 × 630 JPEG and the hero keeps its original dimensions', () => {
+  const preview = readFileSync(new URL(`../src/web/${socialImage.path}`, import.meta.url));
+  assert.deepEqual(jpegDimensions(preview), {width: 1200, height: 630});
+  assert.equal(socialImage.width, 1200);
+  assert.equal(socialImage.height, 630);
+  assert.equal(socialImage.type, 'image/jpeg');
+  assert.ok(preview.length < 512 * 1024, 'keep the social image below 512 KiB');
+  const hero = readFileSync(new URL('../src/web/rabbit-hole.jpg', import.meta.url));
+  assert.deepEqual(jpegDimensions(hero), {width: 1374, height: 1145});
+  assert.notDeepEqual(preview, hero);
 });
