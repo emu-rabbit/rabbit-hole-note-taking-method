@@ -229,6 +229,10 @@ test('generated public pages have canonical, reciprocal language, robots and soc
       assert.ok(/<article[^>]*>[\s\S]*?<p>/.test(html), path);
     } else {
       assert.equal(value('description'), homeDescriptions[locale]);
+      const exampleNote = locale === 'en'
+        ? 'This is a highly condensed version of the author’s rabbit hole (less than about one eighth of its full size). You can make yours as deep and expansive as you like.'
+        : '這個是作者兔子洞的極精簡版本（約八分之一不到的大小）。只要你想要，你可以讓你的兔子洞長得更深更大。';
+      assert.ok(html.includes(exampleNote), 'localized example scale statement');
       assert.ok(!tags(html, 'a').some(link => /sitemap\.xml/.test(link.href ?? '')), 'no visible sitemap link');
       assert.ok(tags(html, 'img').some(image => image.src.endsWith('/rabbit-hole.jpg')), 'keep original hero');
       assert.equal((html.match(/class="structure-browser"/g) ?? []).length, 1);
