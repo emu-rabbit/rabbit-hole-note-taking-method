@@ -29,7 +29,18 @@ The suite uses disposable temporary directories. Record the OS build, interprete
 
 Native cases cover junction ancestors and late substitution, pinned old/new directories, real `FSCTL_SET_REPARSE_POINT` conversion without changing directory identity, rename publication and ledger replacement, protected private DACLs, sharing failures, foreign-file preservation, rollback, case collisions and Windows path refusals. Portable cases add UTF-8/BOM/CRLF preservation, invalid UTF-8 refusal, parallel import retries and real `core.autocrlf=true` checkout behavior.
 
-The proposed [Local skills workflow](skills-ci.example.yml) requests real Windows Server 2025 x64 runners with both interpreter versions, plus macOS and Linux checks. It is an inactive example: publishing it under `.github/workflows/skills.yml` was rejected by GitHub because the dedicated fmu credential lacks `workflow` scope. No credential permissions were changed and no native run was started. A repository maintainer can review and install it at that path. A configured workflow or queued run is not passing evidence. Server-runner results must be labeled as Server results; they do not establish Windows 11 desktop/client compatibility.
+The prepared [Native Windows skills workflow](skills-ci.example.yml) requests just two real Windows Server 2025 x64 jobs, one per interpreter version. It is an inactive example: publishing it under `.github/workflows/skills.yml` was previously rejected by GitHub because the dedicated fmu credential lacks `workflow` scope. No credential permissions were changed and no native run was started. A configured workflow or queued run is not passing evidence. Server-runner results must be labeled as Server results; they do not establish Windows 11 desktop/client compatibility.
+
+## Actions preparation — 2026-11-06
+
+- PR #7 remains a draft; its existing head had no CI checks. The only installed workflow was the main-branch Pages deployment, which this preparation does not change.
+- The dedicated account is `fmu2526`; its reported OAuth scopes remain `gist, read:org, repo`, without `workflow`. Adding that scope requires the owner's explicit confirmation for this operation. It permits adding/updating workflow files and is not repository-scoped: it applies across repositories already accessible to that credential until removed/revoked. Intended use here is limited to this repository's skills test workflow.
+- The proposed workflow triggers on relevant pull requests to `main`, grants its job token only `contents: read`, disables persisted checkout credentials, uses no secrets, pins official checkout/setup-python actions by commit, and limits each job to 15 minutes. It neither publishes nor deploys anything. Future matching PRs would use the same test workflow if it is merged later.
+- It runs the complete fictional suite and fails if no native Windows security cases are discovered or any are skipped. The native tests check the actual OS, architecture, filesystem, DACL and reparse APIs. Intentional POSIX-only skips on Windows remain allowed.
+- `test_installed_skill_workflow.py` now automates the separate installed-helper smoke procedure: actual five-skill installation into a disposable Unicode/space-containing path, both-language init preview/apply, import/reimport, integrity maintenance, source byte/hash preservation and refusal to overwrite an installation.
+- Latest local macOS/CPython 3.13.18 run: **112 tests, 90 passed, 22 native Windows tests skipped**; five-skill validation and workflow YAML parsing passed. This does not add native Windows evidence.
+
+Pending approval: add `workflow` scope to the dedicated fmu credential, publish the prepared file at `.github/workflows/skills.yml` on the PR branch, then inspect both real runner results and fix failures before reporting support. Do not merge PR #7 as part of this work.
 
 ## Security boundary
 

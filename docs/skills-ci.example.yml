@@ -1,45 +1,65 @@
-name: Local skills
+# Prepared for .github/workflows/skills.yml; inactive until explicitly authorized.
+name: Native Windows skills
 
 on:
   pull_request:
+    branches: [main]
     paths:
       - 'skills/**'
       - 'scripts/**'
       - 'tests/**'
       - '.gitattributes'
       - '.github/workflows/skills.yml'
-  workflow_dispatch:
 
 permissions:
   contents: read
 
 jobs:
-  helpers:
+  windows:
+    name: Windows Server 2025 x64 / Python ${{ matrix.python }}
+    runs-on: windows-2025
+    timeout-minutes: 15
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - os: ubuntu-latest
-            python: '3.10'
-          - os: macos-15
-            python: '3.13'
-          - os: windows-2025
-            python: '3.13'
-          - os: windows-2025
-            python: '3.14'
-    runs-on: ${{ matrix.os }}
-    timeout-minutes: 15
+        python: ['3.13', '3.14']
+    env:
+      PYTHONUTF8: '1'
+      PYTHONDONTWRITEBYTECODE: '1'
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
           persist-credentials: false
-      - uses: actions/setup-python@v6
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
         with:
           python-version: ${{ matrix.python }}
           architecture: x64
-      - name: Record real platform
-        run: python -c "import platform, sys; print(platform.platform()); print(sys.version)"
       - name: Validate bundle
         run: python -B scripts/validate-skills.py
-      - name: Exercise fictional workflows and native filesystem boundaries
-        run: python -B -m unittest discover -s tests -p "test_*.py" -v
+      - name: Test installed workflows and require native security cases
+        shell: python
+        run: |
+          import os
+          import platform
+          import sys
+          import unittest
+          print(platform.platform(), flush=True)
+          print(sys.version, flush=True)
+          if sys.platform != 'win32' or os.name != 'nt':
+              raise SystemExit('A real native Windows runner is required')
+          suite = unittest.defaultTestLoader.discover('tests', pattern='test_*.py')
+          def cases(suite):
+              for item in suite:
+                  if isinstance(item, unittest.TestSuite):
+                      yield from cases(item)
+                  else:
+                      yield item
+          native_ids = {case.id() for case in cases(suite)
+                        if case.id().startswith('test_windows_native_io.')}
+          if not native_ids:
+              raise SystemExit('Native Windows security cases were not discovered')
+          result = unittest.TextTestRunner(verbosity=2).run(suite)
+          skipped_native = [case.id() for case, reason in result.skipped
+                            if case.id() in native_ids]
+          print(f'Native security cases: {len(native_ids)}; skipped: {skipped_native}', flush=True)
+          raise SystemExit(0 if result.wasSuccessful() and not skipped_native else 1)
