@@ -5,6 +5,7 @@ import importlib.util
 import io
 from unittest import mock
 import json
+import errno
 import os
 from pathlib import Path
 import subprocess
@@ -17,6 +18,27 @@ SCRIPT = Path(__file__).resolve().parents[1] / 'skills/rabbit-hole-start/scripts
 spec = importlib.util.spec_from_file_location('rabbit_hole_runtime', SCRIPT)
 RUNTIME = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(RUNTIME)
+
+
+def windows_write_open_error(path):
+    """Probe a foreign write with Win32, retaining its actual sharing error.
+
+    CPython's CRT-backed open may expose EACCES without a winerror value.
+    Do not infer sharing denial from that generic exception alone.
+    """
+    import ctypes as C
+    kernel = C.WinDLL('kernel32.dll', use_last_error=True, winmode=0x800)
+    kernel.CreateFileW.argtypes = [C.c_wchar_p, C.c_uint32, C.c_uint32, C.c_void_p,
+                                  C.c_uint32, C.c_uint32, C.c_void_p]
+    kernel.CreateFileW.restype = C.c_void_p
+    kernel.CloseHandle.argtypes, kernel.CloseHandle.restype = [C.c_void_p], C.c_int
+    handle = kernel.CreateFileW(str(path), 0x40000000, 7, None, 3, 0x80, None)
+    if handle == C.c_void_p(-1).value:
+        return C.get_last_error()
+    if not kernel.CloseHandle(handle):
+        raise C.WinError(C.get_last_error())
+    return 0
+
 
 class ToolkitTests(unittest.TestCase):
     def setUp(self):
@@ -397,7 +419,8 @@ class ToolkitTests(unittest.TestCase):
                 note.write_text('concurrent change', encoding='utf-8', newline='\n')
             except PermissionError as error:
                 self.assertEqual(os.name, 'nt')
-                self.assertIn(error.winerror, (32, 33))
+                self.assertEqual(error.errno, errno.EACCES)
+                self.assertIn(windows_write_open_error(note), (32, 33))
                 changed.append(False)
             else:
                 changed.append(True)

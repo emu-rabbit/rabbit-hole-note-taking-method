@@ -10,6 +10,7 @@ import contextlib
 import ctypes
 from ctypes import wintypes
 import io
+import errno
 import json
 import os
 from pathlib import Path
@@ -22,7 +23,7 @@ import tempfile
 import unittest
 from unittest import mock
 
-from test_rabbit_hole_toolkit import RUNTIME, SCRIPT
+from test_rabbit_hole_toolkit import RUNTIME, SCRIPT, windows_write_open_error
 from test_skill_packaging import installer
 
 NATIVE_WINDOWS = sys.platform == 'win32' and os.name == 'nt'
@@ -83,16 +84,11 @@ class WindowsNativeIOTests(unittest.TestCase):
             return RUNTIME.main(self.import_args(source))
 
     def junction(self, link, target):
-        # /J does not require Developer Mode or SeCreateSymbolicLinkPrivilege.
-        # Only controlled temporary paths are interpolated, never source content.
-        self.assertNotIn('"', str(link))
-        self.assertNotIn('"', str(target))
-        result = subprocess.run(['cmd.exe', '/d', '/c', f'mklink /J "{link}" "{target}"'],
-                                capture_output=True, encoding='utf-8', errors='replace', timeout=30)
-        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
-        self.assertTrue(link.is_junction(), f'Expected a real NTFS junction at {link}')
+        # Create the same real NTFS mount-point tag without cmd.exe quoting or
+        # code-page conversion of Unicode/space-containing fixture paths.
+        link.mkdir()
+        self.reparse_in_place(link, target)
         self.assertTrue(link.lstat().st_file_attributes & 0x400, 'Expected FILE_ATTRIBUTE_REPARSE_POINT')
-        self.addCleanup(lambda: os.rmdir(link) if link.is_junction() else None)
 
     def reparse_in_place(self, directory, target):
         """Set a real mount-point tag without renaming/replacing the directory."""
@@ -283,12 +279,17 @@ class WindowsNativeIOTests(unittest.TestCase):
             session.write_new(owned, b'transaction bytes')
             with self.assertRaises(PermissionError) as caught:
                 os.replace(foreign, owned)
-            self.assertIn(caught.exception.winerror, (32, 33))
+            # Windows may report ACCESS_DENIED for replacing a held target.
+            # Independently prove the target is protected by a sharing denial.
+            self.assertIn(caught.exception.winerror, (5, 32, 33))
+            self.assertIn(windows_write_open_error(owned), (32, 33))
             self.assertEqual(session.read(owned), b'transaction bytes')
             self.assertEqual(foreign.read_bytes(), b'foreign bytes')
             session.rollback()
         self.assertFalse(owned.exists())
         self.assertEqual(foreign.read_bytes(), b'foreign bytes')
+        os.replace(foreign, owned)
+        self.assertEqual(owned.read_bytes(), b'foreign bytes')
 
     def test_source_sharing_violation_fails_cleanly_and_retry_works(self):
         self.init()
@@ -462,7 +463,9 @@ $result = @(Get-Item -LiteralPath $env:RABBIT_TEST_VAULT; Get-ChildItem -Literal
             try:
                 note.write_bytes(b'concurrent replacement')
             except PermissionError as error:
-                self.assertIn(error.winerror, (32, 33), 'Only a real sharing/lock violation is expected')
+                self.assertEqual(error.errno, errno.EACCES)
+                self.assertIn(windows_write_open_error(note), (32, 33),
+                              'A separate Win32 open must prove actual sharing denial')
                 edited.append(False)
             else:
                 edited.append(True)
