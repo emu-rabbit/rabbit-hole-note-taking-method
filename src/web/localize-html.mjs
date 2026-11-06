@@ -4,7 +4,7 @@ import { escape } from './notes.js';
 export function localizeHtml(html, messages) {
   const messageFor = (tag, key) => messages[key]?.replace('{number}', /data-i18n-number="([^"]*)"/.exec(tag)?.[1] ?? '');
   const translated = html.replace(/<[a-z][^>]*>/g, tag => {
-    for (const attribute of ['aria-label', 'title', 'placeholder', 'content', 'alt', 'href']) {
+    for (const attribute of ['aria-label', 'title', 'placeholder', 'content', 'alt']) {
       const key = new RegExp(`data-i18n-${attribute}="([^"]+)"`).exec(tag)?.[1];
       const text = messageFor(tag, key);
       if (text !== undefined) tag = tag.replace(new RegExp(`(?<![\\w-])${attribute}="[^"]*"`), `${attribute}="${escape(text)}"`);

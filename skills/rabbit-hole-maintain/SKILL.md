@@ -29,5 +29,5 @@ A finished pass yields an actionable read-only report or a small reviewed update
 
 ## Example requests
 
-- 「只檢查這個兔子洞的連結和閱讀進度，不要改檔案。」
-- “Reconcile the next source section from the saved cursor and show what changed.”
+- 「用 $rabbit-hole-maintain 把這份新訪談補回現有的小刊物作品頁、相關故事和年表。訪談更正了首發日期，也補上當時合作的細節。請保留舊來源，說明理解改變的原因，並記下這次真正讀完的範圍。」
+- “Use $rabbit-hole-maintain to incorporate this new interview into the existing zine page, related story, and timeline. It corrects the launch date and adds details about the collaboration. Keep the earlier sources, explain why the understanding changed, and record the material actually read in this pass.”

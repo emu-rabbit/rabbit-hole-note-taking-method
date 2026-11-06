@@ -34,5 +34,5 @@ A saved note, or a chat draft when only drafting was requested, reads independen
 
 ## Example requests
 
-- 「把這段訪談寫成可以獨立閱讀的故事，保留當時與現在的差別。」
-- “Update the existing project page from this source, preserving its identity and earlier perspective.”
+- 「用 $rabbit-hole-write 把這個兔子洞裡我指定的搬家訪談，寫成一篇能獨立讀懂的短故事並存回庫中。依訪談交代朋友在當時的角色，把當年的感受和現在的回想分清楚，註腳連回原話。」
+- “Use $rabbit-hole-write to turn the moving-home interview I selected in this vault into a short, self-contained story and save it here. Use the interview to explain my friend’s role at the time, distinguish feelings then from recollections now, and link footnotes to the original words.”

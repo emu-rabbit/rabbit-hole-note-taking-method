@@ -26,5 +26,5 @@ This bundle has no automated export, packaging, hosting, or publication command.
 
 ## Example requests
 
-- “Prepare these two notes for my sibling as a local reading draft.”
-- 「用 $rabbit-hole-share 做給朋友看的閱讀草稿，先逐頁給我看。」
+- 「用 $rabbit-hole-share 把我指定的兩篇故事，做成準備給姊姊看、與主版本分開的本機閱讀草稿。我想先逐頁看過內容、來源節錄和連結，再決定分享哪些檔案。」
+- “Use $rabbit-hole-share to prepare a separate local reading draft of the two stories I selected for my older sister. I want to review each page, its source excerpts, and its links before deciding which files to share.”

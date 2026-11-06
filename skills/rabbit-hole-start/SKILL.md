@@ -33,5 +33,5 @@ A first memory is usable when its speaker and dates are clear, its story reads n
 
 ## Example requests
 
-- “Use $rabbit-hole-start to begin a private English vault from this one memory.”
-- 「用 $rabbit-hole-start 在新資料夾開始，只初始化，使用繁體中文。」
+- 「用 $rabbit-hole-start 在我指定的新資料夾建立私人兔子洞，使用繁體中文。我想從第一次搬家的回憶開始，先問我一題，再和我確認要保存的內容。本次只用我提供的回憶，留在本機。」
+- “Use $rabbit-hole-start to create a private English rabbit hole in a new folder I choose. Begin with the first time I moved home: ask me one question, then confirm what I want to save. Use only the memories I provide and keep the vault local.”

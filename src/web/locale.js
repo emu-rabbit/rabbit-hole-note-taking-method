@@ -50,7 +50,7 @@ export function initializeLocale(english) {
 
   function localize(root) {
     if (locale === 'en') {
-      for (const attribute of ['', 'aria-label', 'title', 'placeholder', 'content', 'alt', 'href']) {
+      for (const attribute of ['', 'aria-label', 'title', 'placeholder', 'content', 'alt']) {
         const marker = attribute ? `data-i18n-${attribute}` : 'data-i18n';
         for (const element of root.querySelectorAll(`[${marker}]`)) {
           const message = english[element.getAttribute(marker)];

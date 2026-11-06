@@ -27,5 +27,5 @@ The reader can find the requested material, understand why the route moves betwe
 
 ## Example requests
 
-- 「幫這五篇筆記做一條讀得完的閱讀路線，告訴讀者哪裡可以停。」
-- “Make the profile, reading map, and index useful for their different jobs.”
+- 「用 $rabbit-hole-connect 把我指定的五篇現有筆記串成一條給第一次來的讀者看的短路線。從人物概覽出發，經過搬家故事和一起做的小刊物，補上需要的連結與簡短背景，並在閱讀地圖標出可以停下的地方。」
+- “Use $rabbit-hole-connect to make a short first-visit route through the five existing notes I selected. Start with the profile, then visit the moving-home story and the zine we made together. Add the links and brief context readers need, and mark a comfortable stopping point in the reading map.”

@@ -7,8 +7,6 @@ export const siteEnglish = {
   heroTitle: 'Rabbit Hole',
   heroAccent: 'Notes',
   lede: 'Connect the stories, relationships, and creative work from different stages of your life, so that people or AI agents who come along later can get to know you over time.',
-  skillsGuide: 'Ready to begin? Install seven Rabbit Hole skills and start with one memory.',
-  skillsGuideHref: 'https://github.com/emu-rabbit/rabbit-hole-notes/blob/main/docs/skills.en.md',
   howToBuild: 'How to build a rabbit hole',
   burrowTitle: 'Inside a rabbit hole',
   burrowDescription: 'A white lop-eared rabbit digs among wildflowers. Warm lights illuminate connected chambers holding photos of friends, a storybook, sketches, and letters.',

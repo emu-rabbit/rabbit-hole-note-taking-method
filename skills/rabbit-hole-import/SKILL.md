@@ -23,5 +23,5 @@ Return counts, actual reading coverage, the source-index path, and a concrete so
 
 ## Example requests
 
-- “Use $rabbit-hole-import on these three selected local posts, preserving their dates.”
-- 「用 $rabbit-hole-import 預覽這份已挑選的材料，確認來源與修訂數量。」
+- 「用 $rabbit-hole-import 把我提供的 selected-posts.json 匯入這個私人兔子洞。這是已按來源格式挑好的三篇自己的貼文。先給我看預覽，我確認後再保存，保留作者、原始日期和來源 ID。」
+- “Use $rabbit-hole-import to bring the supplied selected-posts.json into this private vault. It contains three of my own posts prepared in the supported source format. Show me the preview first and save after I confirm, preserving authors, original dates, and source IDs.”

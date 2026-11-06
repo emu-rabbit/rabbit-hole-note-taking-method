@@ -28,5 +28,5 @@ The person has had space to answer and a clear stopping point. Return the saved 
 
 ## Example requests
 
-- 「用一兩題慢慢訪談我做第一件作品的那一天，先不要存檔。」
-- “Ask about this diary scene and save my answers as a dated source in this vault.”
+- 「用 $rabbit-hole-interview 陪我回想第一次和朋友一起做小刊物的經過，每次問一題，從我們為什麼開始聊起。這次先聊天，等我選好想留下的內容再保存。」
+- “Use $rabbit-hole-interview to help me recall the first zine I made with a friend. Ask one question at a time, starting with why we began. Keep this conversation unsaved until I choose what I want to preserve.”
