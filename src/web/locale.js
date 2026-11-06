@@ -28,17 +28,20 @@ export function initializeLocale(english) {
     const destination = equivalentUrl(location.href, counterpart, fragments);
     destination.searchParams.set('lang', locale);
     location.replace(destination);
+    return () => {};
   }
-  if (requested !== locale) {
+  if (!contentLocale && requested !== locale) {
     url.searchParams.set('lang', locale);
     history.replaceState(history.state, '', url);
   }
   document.documentElement.lang = locale;
 
   for (const button of document.querySelectorAll('.language-switcher [data-locale]')) {
-    button.setAttribute('aria-pressed', String(button.dataset.locale === locale));
-    button.addEventListener('click', () => {
+    if (button.tagName !== 'A') button.setAttribute('aria-pressed', String(button.dataset.locale === locale));
+    button.addEventListener('click', event => {
+      if (event?.button > 0 || event?.metaKey || event?.ctrlKey || event?.shiftKey || event?.altKey) return;
       if (button.dataset.locale === locale) return;
+      event?.preventDefault();
       const destination = counterpart ? equivalentUrl(location.href, counterpart, fragments) : new URL(location.href);
       destination.searchParams.set('lang', button.dataset.locale);
       location.assign(destination);
@@ -59,12 +62,12 @@ export function initializeLocale(english) {
       }
     }
     for (const link of root.querySelectorAll('a[href^="./"], a[href^="../"]')) {
-      if (link.hasAttribute('download')) continue;
+      if (link.hasAttribute('download') || link.dataset.locale) continue;
       const destination = new URL(link.href);
       if (link.dataset.exampleLink !== undefined) {
         destination.pathname = destination.pathname.replace(/\/reader(?:-en)?\//, locale === 'en' ? '/reader-en/' : '/reader/');
       }
-      destination.searchParams.set('lang', locale);
+      if (!contentLocale) destination.searchParams.set('lang', locale);
       link.href = destination.href;
     }
   }

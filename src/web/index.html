@@ -3,15 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" data-i18n-content="description" content="兔子洞是一種記錄一個人的筆記法。從故事、關係與作品，讀到一個人如何走到今天。">
-  <title data-i18n="siteTitle">兔子洞筆記法</title>
+  <!-- page-metadata -->
   <link rel="icon" href="./logo.svg" type="image/svg+xml">
   <link rel="stylesheet" href="./theme.css">
   <link rel="stylesheet" href="./site.css">
   <link rel="stylesheet" href="./locale.css">
   <script type="module" src="./site.js"></script>
 </head>
-<body>
+<body data-content-locale="zh-TW" data-counterpart="./en/" data-fragments='{"method":"method","why":"why","structure":"structure","example":"example","after-building":"after-building"}'>
   <header class="site-header">
     <div class="shell header-inner">
       <a class="brand" href="./index.html">
@@ -19,8 +18,8 @@
         <span data-i18n="siteTitle">兔子洞筆記法</span>
       </a>
       <div class="language-switcher" role="group" aria-label="Language">
-        <button type="button" data-locale="zh-TW" lang="zh-TW" aria-label="繁體中文" aria-pressed="true">中</button>
-        <button type="button" data-locale="en" lang="en" aria-label="English" aria-pressed="false">EN</button>
+        <a href="./" data-locale="zh-TW" lang="zh-TW" hreflang="zh-TW" aria-label="繁體中文" aria-current="page">中</a>
+        <a href="./en/" data-locale="en" lang="en" hreflang="en" aria-label="English">EN</a>
       </div>
     </div>
   </header>
@@ -108,6 +107,7 @@
         <span data-i18n="footerAuthor">作者</span>
         <a href="https://emu-rabbit.github.io/" target="_blank" rel="noopener"><strong data-i18n="authorName">絵夢羽さ沂</strong></a>
       </div>
+      <a href="./sitemap.xml" data-i18n="sitemap">網站地圖</a>
       <a href="https://github.com/emu-rabbit/rabbit-hole-notes" target="_blank" rel="noopener" data-i18n="footerRepository">GitHub 專案原始碼</a>
     </div>
   </footer>
