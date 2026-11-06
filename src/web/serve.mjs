@@ -12,6 +12,7 @@ const types = new Map([
   ['.jpg', 'image/jpeg'],
   ['.svg', 'image/svg+xml'],
   ['.zip', 'application/zip'],
+  ['.xml', 'application/xml; charset=utf-8'],
 ]);
 
 const server = createServer(async (request, response) => {
@@ -41,7 +42,7 @@ const server = createServer(async (request, response) => {
       response.writeHead(302, { Location: `/reader/${noteFile(legacyNote)}${url.search}` }).end();
       return;
     }
-    if (['/reader', '/reader-en'].includes(url.pathname)) {
+    if (['/en', '/reader', '/reader-en'].includes(url.pathname)) {
       response.writeHead(302, { Location: `${url.pathname}/${url.search}` }).end();
       return;
     }

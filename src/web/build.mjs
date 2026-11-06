@@ -10,6 +10,8 @@ import { createVaultZip } from './vault-zip.mjs';
 import { localizeHtml } from './localize-html.mjs';
 import { readerEnglish } from './reader/messages.js';
 import { renderStructure } from './structure.mjs';
+import { siteEnglish } from './site-messages.js';
+import { homeDescriptions, homePaths, noteDescription, renderMetadata, renderSitemap } from './seo.mjs';
 
 const mappings = JSON.parse(readFileSync(new URL('./example-paths.json', import.meta.url)));
 const locales = [
@@ -26,8 +28,12 @@ for (const config of locales) validateLibrary(config.library);
 function renderPage(note, config) {
   const { library, locale, title: readerTitle } = config;
   const other = locales.find(item => item !== config);
+  const pageTitle = note.title === readerTitle
+    ? `${readerTitle} | ${locale === 'en' ? 'Rabbit Hole Notes public example' : '兔子洞筆記法公開範例'}`
+    : `${note.title} | ${readerTitle}`;
   const pair = mappings.find(pair => pair[locale] === note.path);
   const translated = other.library.notes.get(pair[other.locale]);
+  const paths = Object.fromEntries(locales.map(item => [item.locale, `${item.route}/${noteFile(pair[item.locale])}`]));
   const ids = htmlIds(translated.html);
   const fragments = Object.fromEntries([...htmlIds(note.html)].filter(id => ids.has(id)).map(id => [id, id]));
   const headings = htmlHeadingIds(note.html);
@@ -43,7 +49,7 @@ function renderPage(note, config) {
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="referrer" content="no-referrer">
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'self'; img-src 'self'; connect-src 'self'; base-uri 'none'; form-action 'none'">
-  <title>${escape(note.title)} | ${escape(readerTitle)}</title>
+  ${renderMetadata({ title: pageTitle, description: noteDescription(note), locale, paths, type: 'article' })}
   <link rel="icon" href="../logo.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../theme.css">
   <link rel="stylesheet" href="./reader.css">
@@ -52,7 +58,7 @@ function renderPage(note, config) {
 </head>
 <body data-note-file="${noteFile(note.path)}" data-content-locale="${locale}" data-counterpart="../${other.route}/${noteFile(translated.path)}" data-fragments="${escape(JSON.stringify(fragments))}">
   <aside id="sidebar" class="sidebar" aria-label="筆記側欄" data-i18n-aria-label="sidebar" tabindex="-1">
-    <a class="vault" href="../index.html" title="回到兔子洞筆記法" data-i18n-title="backToSite">
+    <a class="vault" href="../${homePaths[locale]}" title="回到兔子洞筆記法" data-i18n-title="backToSite">
       <img class="vault-mark" src="../logo.svg" width="36" height="36" alt="">
       <strong${readerTitle ? '' : ' data-i18n="readerTitle"'}>${escape(readerTitle || '兔子洞閱讀器')}</strong>
     </a>
@@ -69,8 +75,8 @@ function renderPage(note, config) {
       <button type="button" class="nav-toggle" aria-label="切換筆記側欄" data-i18n-aria-label="toggleSidebar" aria-controls="sidebar" aria-expanded="false">${icon('menu')}</button>
       <div class="breadcrumbs">${renderBreadcrumbs(note)}</div>
       <div class="language-switcher" role="group" aria-label="Language">
-        <button type="button" data-locale="zh-TW" lang="zh-TW" aria-label="繁體中文" aria-pressed="${locale === 'zh-TW'}">中</button>
-        <button type="button" data-locale="en" lang="en" aria-label="English" aria-pressed="${locale === 'en'}">EN</button>
+        <a href="../${paths['zh-TW']}" data-locale="zh-TW" lang="zh-TW" hreflang="zh-TW" aria-label="繁體中文"${locale === 'zh-TW' ? ' aria-current="page"' : ''}>中</a>
+        <a href="../${paths.en}" data-locale="en" lang="en" hreflang="en" aria-label="English"${locale === 'en' ? ' aria-current="page"' : ''}>EN</a>
       </div>
     </header>
     <main class="workspace">
@@ -84,6 +90,7 @@ function renderPage(note, config) {
 
 const output = fileURLToPath(new URL('../../dist/', import.meta.url));
 mkdirSync(join(output, 'reader'), { recursive: true });
+mkdirSync(join(output, 'en'), { recursive: true });
 mkdirSync(join(output, 'reader-en'), { recursive: true });
 mkdirSync(join(output, 'downloads'), { recursive: true });
 mkdirSync(join(output, 'vendor'), { recursive: true });
@@ -101,14 +108,37 @@ for (const asset of ['site.css', 'site.js']) {
   const version = createHash('sha256').update(contents).digest('hex').slice(0, 12);
   index = index.replace(`"./${asset}"`, `"./${asset}?v=${version}"`);
 }
-writeFileSync(join(output, 'index.html'), index.replace('<!-- structure-browser -->', renderStructure));
+for (const { locale } of locales) {
+  let html = index.replace('<!-- structure-browser -->', renderStructure(locale));
+  if (locale === 'en') {
+    html = localizeHtml(html, siteEnglish)
+      .replace('<html lang="zh-TW">', '<html lang="en">')
+      .replace('data-content-locale="zh-TW"', 'data-content-locale="en"')
+      .replace('data-counterpart="./en/"', 'data-counterpart="../"')
+      .replaceAll('href="./', 'href="../').replaceAll('src="./', 'src="../')
+      .replace('class="brand" href="../index.html"', 'class="brand" href="./"')
+      .replaceAll('href="../reader/index.html"', 'href="../reader-en/index.html"')
+      .replace(' aria-current="page"', '')
+      .replace('aria-label="English"', 'aria-label="English" aria-current="page"');
+  }
+  html = html.replace('<!-- page-metadata -->', renderMetadata({
+    title: locale === 'en' ? siteEnglish.siteTitle : '兔子洞筆記法',
+    description: homeDescriptions[locale], locale, paths: homePaths,
+  }));
+  writeFileSync(join(output, homePaths[locale], 'index.html'), html);
+}
+const sitemapPairs = [homePaths, ...mappings.map(pair =>
+  Object.fromEntries(locales.map(config => [config.locale, `${config.route}/${noteFile(pair[config.locale])}`])))];
+writeFileSync(join(output, 'sitemap.xml'), renderSitemap(sitemapPairs));
 
 for (const config of locales) {
   const { library } = config;
   const home = library.notes.get(startNote);
   const readerOutput = join(output, config.route);
   for (const asset of ['reader.css', 'reader.js', 'view.js', 'messages.js']) copyFileSync(new URL(`./reader/${asset}`, import.meta.url), join(readerOutput, asset));
-  writeFileSync(join(readerOutput, 'navigation.html'), renderTree(orderedTree(library.tree, home), noteUrl));
+  writeFileSync(join(readerOutput, 'navigation.html'), `<!doctype html>
+<html lang="${config.locale}"><head><meta charset="utf-8"><meta name="robots" content="noindex, follow"><title>${config.locale === 'en' ? 'Note navigation' : '筆記導覽'}</title></head>
+<body>${renderTree(orderedTree(library.tree, home), noteUrl)}</body></html>`);
   const built = new Set();
   for (const note of library.notes.values()) {
     const filename = noteFile(note.path);

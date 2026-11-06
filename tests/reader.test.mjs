@@ -132,7 +132,7 @@ function englishPresentation(html, messages = {}) {
     const attrs = Object.fromEntries([...token.matchAll(/([\w-]+)="([^"]*)"/g)].map(([,key,value]) => [key, decodeEntities(value)]));
     const suppressed = stack.at(-1)?.suppress || ['script','style'].includes(name)
       || (attrs.class?.split(/\s+/).includes('structure-browser') && attrs.lang === 'zh-TW')
-      || (name === 'button' && attrs['data-locale'] === 'zh-TW');
+      || (['button', 'a'].includes(name) && attrs['data-locale'] === 'zh-TW');
     let replaced = false;
     if (!suppressed) {
       for (const attribute of ['aria-label','title','placeholder','alt']) {
@@ -163,8 +163,8 @@ test('English presentation guard detects text, tooltip and numeric-entity regres
 test('all English homepage panels, example link, reader pages, labels and paths contain no untranslated Chinese', () => {
   const root = fileURLToPath(new URL('../', import.meta.url));
   execFileSync(process.execPath, ['src/web/build.mjs'], {cwd: root});
-  const homepage = readFileSync(new URL('../dist/index.html', import.meta.url), 'utf8');
-  const text = assertEnglishPresentation(homepage, siteEnglish, 'English homepage');
+  const homepage = readFileSync(new URL('../dist/en/index.html', import.meta.url), 'utf8');
+  const text = assertEnglishPresentation(homepage, {}, 'Static English homepage');
   assert.ok(text.includes("Emu-rabbit's Rabbit Hole"));
   assert.ok(text.includes('Emu-rabbit'));
   assert.equal((homepage.match(/id="structure-en-\d+-panel"/g) ?? []).length, 9);
@@ -174,4 +174,113 @@ test('all English homepage panels, example link, reader pages, labels and paths 
   const paths = JSON.parse(readFileSync(new URL('../src/web/example-paths.json', import.meta.url)));
   for (const pair of paths) assert.ok(!hanOrChinesePunctuation.test(pair.en), `English path: ${pair.en}`);
   for (const message of [...Object.values(siteEnglish), ...Object.values(readerEnglish)]) assert.ok(!hanOrChinesePunctuation.test(message), `English message: ${message}`);
+});
+
+import { existsSync } from 'node:fs';
+import { siteBase, homePaths, siteUrl, homeDescriptions } from '../src/web/seo.mjs';
+import { htmlIds } from '../src/web/validate.mjs';
+
+const attributes = tag => Object.fromEntries([...tag.matchAll(/([\w:-]+)="([^"]*)"/g)].map(([, key, value]) => [key, decodeEntities(value)]));
+const tags = (html, name) => [...html.matchAll(new RegExp(`<${name}\\b[^>]*>`, 'g'))].map(([tag]) => attributes(tag));
+const buildFile = path => new URL(`../dist/${path.endsWith('/') || !path ? path + 'index.html' : path}`, import.meta.url);
+
+test('generated public pages have canonical, reciprocal language, robots and social metadata', () => {
+  const mappings = JSON.parse(readFileSync(new URL('../src/web/example-paths.json', import.meta.url)));
+  const pairs = [homePaths, ...mappings.map(pair => ({'zh-TW': `reader/${noteFile(pair['zh-TW'])}`, en: `reader-en/${noteFile(pair.en)}`}))];
+  const canonicals = new Set();
+  for (const pair of pairs) for (const [locale, path] of Object.entries(pair)) {
+    const html = readFileSync(buildFile(path), 'utf8');
+    const head = html.split('</head>')[0];
+    assert.ok(html.includes(`<html lang="${locale}">`), path);
+    const meta = tags(head, 'meta');
+    const value = key => meta.find(item => item.name === key || item.property === key)?.content;
+    const links = tags(head, 'link');
+    const canonical = links.filter(link => link.rel === 'canonical');
+    assert.equal(canonical.length, 1, path);
+    assert.equal(canonical[0].href, siteUrl(path), path);
+    assert.ok(!/[?#]/.test(canonical[0].href));
+    assert.ok(!canonicals.has(canonical[0].href));
+    canonicals.add(canonical[0].href);
+    assert.deepEqual(links.filter(link => link.rel === 'alternate').map(({hreflang, href}) => [hreflang, href]), [
+      ['zh-TW', siteUrl(pair['zh-TW'])], ['en', siteUrl(pair.en)], ['x-default', siteUrl(pair['zh-TW'])],
+    ], path);
+    const title = decodeEntities(/<title>([^<]+)<\/title>/.exec(head)?.[1] ?? '');
+    assert.ok(title.length > 0);
+    assert.notEqual(title.split(' | ')[0], title.split(' | ')[1], 'avoid repeating the reader title');
+    assert.equal(meta.filter(item => item.name === 'description').length, 1);
+    assert.ok(value('description')?.length > 10, path);
+    assert.ok(Array.from(value('description')).length <= 170, path);
+    assert.equal(value('robots'), 'index, follow, max-image-preview:large');
+    assert.equal(value('og:url'), siteUrl(path));
+    assert.equal(value('og:title'), title);
+    assert.equal(value('twitter:title'), title);
+    assert.equal(value('og:description'), value('description'));
+    assert.equal(value('twitter:description'), value('description'));
+    assert.equal(value('og:locale'), locale === 'en' ? 'en_US' : 'zh_TW');
+    assert.equal(value('twitter:card'), 'summary_large_image');
+    assert.equal(value('og:image'), siteUrl('rabbit-hole.jpg'));
+    assert.equal(value('twitter:image'), value('og:image'));
+    assert.ok(value('og:image:alt'));
+    assert.ok(/<h1\b/.test(html), path + ' must contain static content');
+    if (path.startsWith('reader')) {
+      assert.ok(/<article[^>]*>[\s\S]*?<p>/.test(html), path);
+    } else {
+      assert.equal(value('description'), homeDescriptions[locale]);
+      assert.equal((html.match(/class="structure-browser"/g) ?? []).length, 1);
+      assert.equal((html.match(new RegExp(`id="structure-${locale}-\\d+-panel"`, 'g')) ?? []).length, 9);
+    }
+    const switchLinks = tags(html, 'a').filter(link => link['data-locale']);
+    assert.equal(switchLinks.length, 2);
+    for (const link of switchLinks) assert.equal(new URL(link.href, siteUrl(path)).href, siteUrl(pair[link['data-locale']]));
+  }
+  assert.equal(canonicals.size, 114);
+
+  const sitemap = readFileSync(new URL('../dist/sitemap.xml', import.meta.url), 'utf8');
+  const entries = [...sitemap.matchAll(/<url>([\s\S]*?)<\/url>/g)].map(match => match[1]);
+  assert.equal(entries.length, 114);
+  assert.deepEqual(new Set(entries.map(entry => /<loc>([^<]+)<\/loc>/.exec(entry)[1])), canonicals);
+  for (const entry of entries) {
+    const loc = /<loc>([^<]+)<\/loc>/.exec(entry)[1];
+    const alternates = tags(entry, 'xhtml:link');
+    assert.equal(alternates.length, 3);
+    assert.ok(alternates.some(link => link.href === loc), loc);
+    for (const link of alternates) assert.ok(canonicals.has(link.href), link.href);
+  }
+  assert.ok(!/<lastmod>|<priority>|<changefreq>|navigation\.html|downloads\/|\.md<|\/\.git(?:\/|<)/.test(sitemap));
+  // A project-level robots.txt cannot control this GitHub Pages origin.
+  assert.ok(!existsSync(new URL('../dist/robots.txt', import.meta.url)));
+  for (const route of ['reader', 'reader-en']) {
+    const nav = readFileSync(buildFile(`${route}/navigation.html`), 'utf8');
+    assert.equal(tags(nav.split('</head>')[0], 'meta').find(item => item.name === 'robots')?.content, 'noindex, follow');
+    assert.ok(!nav.split('<body>')[1].includes('noindex'));
+  }
+});
+
+test('every generated internal link, fragment and asset resolves under the GitHub Pages project path', () => {
+  const files = ['index.html', 'en/index.html', ...['reader', 'reader-en'].flatMap(route => readdirSync(new URL(`../dist/${route}/`, import.meta.url)).filter(file => file.endsWith('.html')).map(file => `${route}/${file}`))];
+  for (const path of files) {
+    const html = readFileSync(buildFile(path), 'utf8');
+    for (const tag of [...tags(html, 'a'), ...tags(html, 'link'), ...tags(html, 'script'), ...tags(html, 'img')]) {
+      const href = tag.href ?? tag.src;
+      if (!href) continue;
+      const url = new URL(href, siteUrl(path));
+      if (!url.href.startsWith(siteBase)) continue;
+      const relative = url.pathname.slice(new URL(siteBase).pathname.length);
+      const target = buildFile(relative);
+      assert.ok(existsSync(target), `${path}: missing ${url.href}`);
+      if (url.hash) {
+        const targetHtml = readFileSync(target, 'utf8');
+        assert.ok(htmlIds(targetHtml).has(decodeURIComponent(url.hash.slice(1))), `${path}: missing fragment ${url.href}`);
+      }
+    }
+  }
+});
+
+test('static homepage URLs keep their language and legacy query links redirect with section anchors', () => {
+  const data = {contentLocale: 'zh-TW', counterpart: './en/', fragments: '{"method":"method"}'};
+  assert.equal(localeHarness('https://example.test/repo/', data).lang, 'zh-TW');
+  assert.equal(localeHarness('https://example.test/repo/?lang=en#method', data).calls.replace, 'https://example.test/repo/en/?lang=en#method');
+  const english = {contentLocale: 'en', counterpart: '../', fragments: '{"method":"method"}'};
+  assert.equal(localeHarness('https://example.test/repo/en/', english).lang, 'en');
+  assert.equal(localeHarness('https://example.test/repo/en/?lang=zh-TW#method', english).calls.replace, 'https://example.test/repo/?lang=zh-TW#method');
 });

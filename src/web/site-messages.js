@@ -39,4 +39,5 @@ export const siteEnglish = {
   footerAuthor: 'Author',
   authorName: 'Emu-rabbit',
   footerRepository: 'GitHub repository',
+  sitemap: 'Sitemap',
 };

@@ -7,7 +7,12 @@
   border-radius: 6px;
 }
 
-.language-switcher button {
+.language-switcher :is(button, a) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  text-decoration: none;
   min-width: 32px;
   min-height: 27px;
   padding: 0 4px;
@@ -19,5 +24,5 @@
   cursor: pointer;
 }
 
-.language-switcher button:hover { color: var(--accent-hover); }
-.language-switcher button[aria-pressed='true'] { background: var(--honey); color: var(--accent-hover); }
+.language-switcher :is(button, a):hover { color: var(--accent-hover); }
+.language-switcher :is(button, a):is([aria-pressed='true'], [aria-current='page']) { background: var(--honey); color: var(--accent-hover); }

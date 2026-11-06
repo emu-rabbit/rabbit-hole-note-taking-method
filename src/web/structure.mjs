@@ -34,14 +34,15 @@ function renderBrowser(locale, label, sections) {
   </div>`;
 }
 
-export function renderStructure() {
+export function renderStructure(locale) {
   const chinese = readSections('zh-TW');
   const english = readSections('en');
   if (!chinese.length || chinese.length !== english.length || chinese.some(({ code }, index) => code !== english[index].code)) {
     throw new Error('中英文的兔子洞分區必須使用相同的編號和順序。');
   }
-  return [
-    renderBrowser('zh-TW', '兔子洞分區', chinese),
-    renderBrowser('en', 'Rabbit hole sections', english),
-  ].join('\n');
+  const browsers = {
+    'zh-TW': () => renderBrowser('zh-TW', '兔子洞分區', chinese),
+    en: () => renderBrowser('en', 'Rabbit hole sections', english),
+  };
+  return locale ? browsers[locale]() : Object.values(browsers).map(render => render()).join('\n');
 }

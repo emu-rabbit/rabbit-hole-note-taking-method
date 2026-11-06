@@ -40,7 +40,8 @@ function markCurrentNote(href) {
 try {
   const response = await fetch('./navigation.html');
   if (!response.ok) throw new Error('Missing navigation');
-  tree.insertAdjacentHTML('afterbegin', await response.text());
+  const navigation = new DOMParser().parseFromString(await response.text(), 'text/html');
+  tree.insertAdjacentHTML('afterbegin', navigation.body.innerHTML);
   indexTree();
   markCurrentNote(`./${document.body.dataset.noteFile}`);
   localize(tree);
