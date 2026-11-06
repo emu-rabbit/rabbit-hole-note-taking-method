@@ -1,0 +1,4 @@
+interface:
+  display_name: "Rabbit Hole Connect"
+  short_description: "Link life notes into short, readable routes"
+  default_prompt: "Use $rabbit-hole-connect to build a short reading route through these existing notes."

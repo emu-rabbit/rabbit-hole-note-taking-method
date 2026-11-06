@@ -1,0 +1,4 @@
+interface:
+  display_name: "Rabbit Hole Write"
+  short_description: "Write readable life notes grounded in sources"
+  default_prompt: "Use $rabbit-hole-write to turn this source into a short, evidence-backed story in my vault."

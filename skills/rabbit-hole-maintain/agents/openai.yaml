@@ -1,0 +1,4 @@
+interface:
+  display_name: "Rabbit Hole Maintain"
+  short_description: "Reconcile evidence and maintain a living vault"
+  default_prompt: "Use $rabbit-hole-maintain to check my vault and report issues without changing files."

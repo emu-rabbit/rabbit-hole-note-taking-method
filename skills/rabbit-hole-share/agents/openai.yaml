@@ -1,0 +1,4 @@
+interface:
+  display_name: "Prepare a reading copy"
+  short_description: "Review a separate copy for a chosen audience"
+  default_prompt: "Use $rabbit-hole-share to prepare selected notes for local review, without publishing."

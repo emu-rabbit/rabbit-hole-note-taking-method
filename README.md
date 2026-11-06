@@ -4,10 +4,11 @@
 
 兔子洞是一種用來記錄一個「人」的筆記法。把人生經歷、重要的人、相處、故事與創作放在一起，讓後來走進來的人或 agent 能沿著時間和連結，慢慢認識你。
 
-這個 repo 放著方法介紹網站、可在瀏覽器閱讀的公開範例，以及網站的原始碼。範例是絵夢羽さ沂願意分享的 56 篇精選筆記，另有內容範圍相同的獨立英文版。你可以先走一小段故事，再回來看它怎麼組織。
+這個 repo 放著方法介紹網站、可在瀏覽器閱讀的公開範例、網站原始碼，以及可以安裝的兔子洞 skills 工具組。範例是絵夢羽さ沂願意分享的 56 篇精選筆記，另有內容範圍相同的獨立英文版。你可以先走一小段故事，再回來看它怎麼組織。
 
 ## 從哪裡開始
 
+- **想直接建立自己的兔子洞**：安裝[七個 skills](docs/skills.md)，從一段回憶或你挑選的本機材料起步。包含來源匯入、訪談、寫作、連結、維護與分享前審閱，預設保留在私人工作區。
 - **想先感受兔子洞怎麼讀**：打開[中文範例](https://emu-rabbit.github.io/rabbit-hole-notes/reader/index.html?lang=zh-TW)。入口提供三條短路線，從一盒馬卡龍、一件工具，或她身邊的兩個人開始。範例裡的閱讀地圖再帶你走深。
 - **想了解方法**：先看[網站介紹](https://emu-rabbit.github.io/rabbit-hole-notes/?lang=zh-TW)，再讀完整的[兔子洞筆記法](examples/emu-rabbit-tw/00_入口/兔子洞筆記法.md)。方法保留作者原文。
 - **想在 Obsidian 裡體驗**：在範例閱讀器按「下載範例」，解壓後將含 README.md 的資料夾開成儲存庫。從 README 開始，不需要社群外掛。
@@ -29,9 +30,11 @@
 - [examples/emu-rabbit-en/](examples/emu-rabbit-en/)：同一份精選的英文翻譯。方法與英文命名見 [00_Entry/Rabbit Hole Method.md](<examples/emu-rabbit-en/00_Entry/Rabbit Hole Method.md>)。
 - [src/web/](src/web/)：雙語介紹頁、靜態閱讀器與建置程式。
 - [src/web/example-paths.json](src/web/example-paths.json)：中英文章的對照，用於檢查兩份範例是否齊全及語言切換。
-- [tests/](tests/)：閱讀器、連結、語言切換與下載封裝的檢查。
+- [skills/](skills/)：七個可一同安裝的 skills，含共用方法與本機初始化、匯入、檢查工具。
+- [docs/skills.md](docs/skills.md)：安裝、第一個請求、支援格式與限制。
+- [tests/](tests/)：閱讀器、下載封裝、skills 安裝與本機工具的檢查。
 
-目前可用的是方法、公開範例和閱讀器。Skills 的安裝、初始化、匯入、訪談與維護工具留待後續規劃；src/mcp 目前也只有預留位置。
+目前可用的是方法、公開範例、閱讀器與 skills 工具組。匯入程式支援選定的本機文字、Markdown、約定格式 JSON／JSONL；各社群原生匯出檔與 API 尚無專用轉接器。訪談、寫作、串聯與分享前審閱由 agent 按 skills 進行，並非自動發布服務。src/mcp 仍只有預留位置。
 
 ## 建立自己的兔子洞
 
@@ -55,4 +58,4 @@ npm run check
 
 執行測試與完整建置。建置會核對中英文章配對、Wiki 連結與段落定位；輸出放在 dist/。新增或更名文章時，連同對應語言與 example-paths.json 一起維護，並實際走讀受影響的路線。
 
-既有 GitHub Actions 只在 main 或手動觸發時部署 Pages，沒有 PR 檢查工作流程；提出 PR 前請先執行上述本機檢查。本機提交不需要設定自動推送 hook。維護時請使用獨立分支與 PR，先確認內容、來源和公開範圍，再由維護者決定合併。
+GitHub Actions 會在 PR 執行網站、skills 格式與 Python 測試；Pages 仍只在 main 或手動觸發時部署。修改 skills 時，也請執行 `python3 scripts/validate-skills.py` 與 `python3 -m unittest discover -s tests -p 'test_*.py' -v`（Python 3.10 以上）。本機提交不需要設定自動推送 hook。維護時請使用獨立分支與 PR，先確認內容、來源和公開範圍，再由維護者決定合併。

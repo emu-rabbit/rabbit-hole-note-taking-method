@@ -1,0 +1,4 @@
+interface:
+  display_name: "Bring in sources"
+  short_description: "Preserve local sources and incremental revisions"
+  default_prompt: "Use $rabbit-hole-import to preview this selected local source batch."
