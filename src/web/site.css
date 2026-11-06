@@ -116,6 +116,7 @@ html[lang='en'] .structure-browser[lang='zh-TW'] { display: none; }
 
 .structure-example { margin: 20px 0 0; color: var(--muted); font-size: 15px; line-height: 1.75; }
 .structure-example a { color: var(--accent); font-weight: 700; text-underline-offset: .18em; white-space: nowrap; }
+.structure-example-note { display: block; margin-top: 4px; font-size: 14px; }
 
 .after-building { padding-block: clamp(44px, 6vw, 72px); background: var(--honey-wash); }
 .after-building-copy { max-width: 52rem; margin-top: 16px; color: var(--body); line-height: 1.85; }

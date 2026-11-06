@@ -31,6 +31,7 @@ initializeLocale({
   structureTitle: 'What’s inside a rabbit hole?',
   structureIntro: 'Choose a section to see what it’s for and what kinds of notes belong there.',
   structureExample: 'Hard to picture? Take a look at an example rabbit hole!',
+  structureExampleNote: 'This is a condensed version of the author’s rabbit hole. You can make yours as deep and expansive as you like.',
   afterBuildingTitle: 'You’ve built a rabbit hole. Now what?',
   afterBuildingIntro: 'A rabbit hole is like a wiki library built around you. It gives people and AI agents a way to get to know you and try to understand you.',
   afterBuildingSharing: 'Your rabbit hole holds details about your past experiences and how you felt, and it may also include personal information about other people. Take care when publishing or sharing it. Before handing it over, review each page yourself for anything that should stay private.',
