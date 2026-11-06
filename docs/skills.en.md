@@ -8,11 +8,19 @@ This is a SKILL.md bundle with local Python helpers for selected source files. Y
 
 ## Install the bundle
 
-The local installer and helpers currently support macOS and Linux with Python 3.10 or newer and no third-party packages. Windows is not yet supported. Website development separately needs Node.js 22+. Check `python3 --version`; on Macs with an older system Python, use an already-installed newer interpreter. Keep your private vault outside this public code checkout.
+The local installer and helpers support macOS and Linux with Python 3.10 or newer. **Windows support remains experimental: native Windows Server 2025 x64 tests passed on Python 3.13 and 3.14; Windows 11 desktop validation is pending.** See the [validation record](skills-windows-validation.md) for evidence and remaining checks. Target versions and path requirements are listed in the [CLI platform scope](../skills/rabbit-hole-start/references/cli.md#platform-scope). No third-party Python packages are needed. Website development separately needs Node.js 22+. Keep your private vault outside this public code checkout.
+
+Get the repository first. These two commands also work in PowerShell:
 
 ```sh
 git clone https://github.com/emu-rabbit/rabbit-hole-notes.git
 cd rabbit-hole-notes
+```
+
+**macOS and Linux:** check the version first; if `python3` is older, use an already-installed newer interpreter.
+
+```sh
+python3 --version
 python3 scripts/validate-skills.py
 python3 scripts/install-skills.py
 ```
@@ -23,7 +31,24 @@ The last command previews only. To install after reviewing it:
 python3 scripts/install-skills.py --apply
 ```
 
-The default destination is `$CODEX_HOME/skills`, or `~/.codex/skills` when unset. Use `--dest /your/skills/directory` for a different compatible agent's skill directory. Install all five together: they share the method, internal references and local helpers in `rabbit-hole-start`. Check discovery on your next turn; reopen your client if it has not refreshed its skills.
+**Windows PowerShell (experimental):** these operations passed native Server tests; Windows 11 desktop validation is pending, so start with fictional material. Check that your Python matches the platform scope above. If an installed interpreter uses `py -3.13`, confirm with `py -3.13 --version`, then replace `python` below with `py -3.13`.
+
+```powershell
+python --version
+[Console]::OutputEncoding = [System.Text.UTF8Encoding]::new($false)
+python -X utf8 scripts/validate-skills.py
+python -X utf8 scripts/install-skills.py
+```
+
+After reviewing the preview, install all five skills:
+
+```powershell
+python -X utf8 scripts/install-skills.py --apply
+```
+
+The helpers do not request elevation or change PowerShell ExecutionPolicy; standard-user Windows 11 operation remains unvalidated. `-X utf8` makes Python use UTF-8; see the [CLI PowerShell notes](../skills/rabbit-hole-start/references/cli.md#windows-powershell) for saving output reports.
+
+The default destination is `$CODEX_HOME/skills`, or `~/.codex/skills` when unset. On Windows these are `$env:CODEX_HOME\skills` and `$env:USERPROFILE\.codex\skills`. Use `--dest` followed by your chosen skill-directory path for a different compatible agent. Install all five together: they share the method, internal references and local helpers in `rabbit-hole-start`. Check discovery on your next turn; reopen your client if it has not refreshed its skills.
 
 The installer validates all files, links and collisions before writing. It never overwrites existing skills or changes global settings. If it finds a matching skill or an older entrypoint, it stops. Back up the existing Rabbit Hole skills and decide where to move them outside the skills directory, then install the complete new bundle. Automatic upgrade/removal is not implemented; unrelated skills remain untouched. Client discovery varies. File installation and Codex format are tested, not every compatible agent product.
 
@@ -96,7 +121,9 @@ The agent then reads it as someone arriving for the first time: can a reader und
 
 ## Runnable local helpers
 
-The core helper installs with rabbit-hole-start. For the default installation, replacing the example paths with yours:
+The core helper installs with rabbit-hole-start. Replace the example paths with yours. These examples use the default installation; if you used `--dest`, locate the helper in that directory instead.
+
+**macOS and Linux:**
 
 ```sh
 TOOL="${CODEX_HOME:-$HOME/.codex}/skills/rabbit-hole-start/scripts/rabbit_hole.py"
@@ -105,6 +132,18 @@ python3 "$TOOL" init --vault /your/new-private-vault --name 'Your chosen name' -
 python3 "$TOOL" import --vault /your/private-vault --input /your/selected-posts.json \
   --namespace selected-posts --owner 'Your chosen name' --author 'Actual speaker'
 python3 "$TOOL" check --vault /your/private-vault
+```
+
+**Windows PowerShell:** use the Python and UTF-8 setup checked above, and choose a local location within the [CLI platform scope](../skills/rabbit-hole-start/references/cli.md#platform-scope).
+
+```powershell
+$CodexRoot = if ($env:CODEX_HOME) { $env:CODEX_HOME } else { Join-Path $env:USERPROFILE '.codex' }
+$Tool = Join-Path $CodexRoot 'skills\rabbit-hole-start\scripts\rabbit_hole.py'
+$Vault = Join-Path $env:USERPROFILE 'RabbitHole'
+python -X utf8 "$Tool" init --vault "$Vault" --name 'Your chosen name' --lang en
+# After preview, add --apply to the same command to write.
+python -X utf8 "$Tool" import --vault "$Vault" --input 'C:\Users\YourName\selected-posts.json' --namespace selected-posts --owner 'Your chosen name' --author 'Actual speaker'
+python -X utf8 "$Tool" check --vault "$Vault"
 ```
 
 `init` and `import` preview by default; `check` is read-only. Initialization never overwrites an existing path. Write commands refuse vaults inside Git repositories or reached through symlinks. Helpers create no remote, push nothing, grant no sharing access and make no network calls. See the [CLI reference](../skills/rabbit-hole-start/references/cli.md) for paths, arguments and failure handling.
@@ -130,6 +169,8 @@ python3 scripts/validate-skills.py
 python3 -m unittest discover -s tests -p 'test_*.py' -v
 npm run check
 ```
+
+In PowerShell, use the verified `python -X utf8` invocation above for Python commands and `npm.cmd run check` for website checks. Native Windows Server 2025 installation, file protections and the complete helper workflow passed CI; Windows 11 desktop/client compatibility remains unvalidated. Results on other platforms do not establish Windows support.
 
 Synthetic tests cover both languages, repeat imports, preserved revisions, source injection, path boundaries, isolated installation and the existing website. They do not guarantee every agent's behavior or the safety of arbitrary private data. The bundled method matches the public editions; implementation choices live in [conventions.md](../skills/rabbit-hole-start/references/conventions.md). The repository's existing licensing caveat applies; this bundle adds no reuse permission for source material or creative work.
 

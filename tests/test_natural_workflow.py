@@ -40,11 +40,11 @@ class NaturalWorkflowOutputTests(unittest.TestCase):
     def test_saved_source_text_matches_exact_supplied_posts(self):
         raw = (FIXTURE / 'selected-posts.json').read_bytes()
         expected = {item['id']: item for item in json.loads(raw)}
-        rows = json.loads((VAULT / '90_Maintenance/import-ledger.json').read_text())['records']
+        rows = json.loads((VAULT / '90_Maintenance/import-ledger.json').read_text(encoding='utf-8'))['records']
         self.assertEqual({row['source_id'] for row in rows}, set(expected))
         self.assertEqual(len(rows), len(expected))
         for row in rows:
-            text = (VAULT / row['note']).read_text()
+            text = (VAULT / row['note']).read_text(encoding='utf-8')
             quote = re.search(r'^(`{3,})text\n(.*?)\n\1\s*$', text, re.M | re.S)
             self.assertIsNotNone(quote)
             self.assertEqual(quote[2], expected[row['source_id']]['text'])
@@ -60,7 +60,7 @@ class NaturalWorkflowOutputTests(unittest.TestCase):
             result = subprocess.run([sys.executable, '-B', str(SCRIPT), 'import', '--vault', str(target),
                                      '--input', str(FIXTURE / 'selected-posts.json'), '--namespace',
                                      'rowan-selected-posts', '--owner', 'Rowan', '--author', 'Rowan', '--apply'],
-                                    capture_output=True, text=True, check=True)
+                                    capture_output=True, text=True, check=True, encoding='utf-8')
             report = json.loads(result.stdout)
             self.assertEqual(report['skipped_records'], 3)
             self.assertEqual(report['added_revisions'], 0)

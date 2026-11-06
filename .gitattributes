@@ -1,0 +1,6 @@
+# Source files use LF on every checkout, including core.autocrlf=true.
+* text=auto eol=lf
+
+# Published evidence includes original hashes. Preserve every fixture byte;
+# Git must not normalize CRLF, BOM, binary originals, or note line endings.
+/tests/fixtures/** -text

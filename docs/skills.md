@@ -8,11 +8,19 @@
 
 ## 安裝一次，按需要使用
 
-本機安裝器與輔助程式目前支援 macOS、Linux，需要 Python 3.10 以上；尚未支援 Windows。沒有 Python 套件依賴；網站開發才另外需要 Node.js 22 以上。先用 `python3 --version` 確認版本，如果電腦上的 python3 較舊，請改用你已安裝的新版 Python。不要把私人資料放進這個公開程式庫。
+本機安裝器與輔助程式支援 macOS、Linux，使用 Python 3.10 以上。**Windows 支援仍屬實驗性：原生 Windows Server 2025 x64 的 Python 3.13、3.14 測試已通過，Windows 11 桌面仍待驗證**；實際證據與待驗項目見[驗證紀錄](skills-windows-validation.md)，目標版本與路徑條件集中列在 [CLI 平台範圍](../skills/rabbit-hole-start/references/cli.md#platform-scope)。沒有 Python 套件依賴；網站開發才另外需要 Node.js 22 以上。不要把私人資料放進這個公開程式庫。
+
+先取得程式庫，以下兩行也適用於 PowerShell：
 
 ```sh
 git clone https://github.com/emu-rabbit/rabbit-hole-notes.git
 cd rabbit-hole-notes
+```
+
+**macOS、Linux：**先確認版本；若 `python3` 較舊，改用已安裝的新版 Python。
+
+```sh
+python3 --version
 python3 scripts/validate-skills.py
 python3 scripts/install-skills.py
 ```
@@ -23,7 +31,24 @@ python3 scripts/install-skills.py
 python3 scripts/install-skills.py --apply
 ```
 
-預設放在 `$CODEX_HOME/skills`，未設定時為 `~/.codex/skills`。也可以用 `--dest /你的/skills/資料夾` 指定目的地，例如另一個相容 agent 的技能目錄。五個 skills 共用 `rabbit-hole-start` 裡的筆記法、內部參考與本機工具，必須一起安裝。安裝後在下一個回合確認是否能選到；若目前客戶端尚未重新載入，重新開啟它。
+**Windows PowerShell（實驗性）：**以下操作已通過原生 Server 測試，Windows 11 桌面仍待驗證，先用虛構資料試用。確認 Python 符合上述平台範圍；若已安裝的版本以 `py -3.13` 啟動，先用 `py -3.13 --version` 確認，再把以下的 `python` 換成 `py -3.13`。
+
+```powershell
+python --version
+[Console]::OutputEncoding = [System.Text.UTF8Encoding]::new($false)
+python -X utf8 scripts/validate-skills.py
+python -X utf8 scripts/install-skills.py
+```
+
+看過預覽後，安裝完整五個 skills：
+
+```powershell
+python -X utf8 scripts/install-skills.py --apply
+```
+
+工具不會要求提升系統管理員權限，也不會變更 PowerShell ExecutionPolicy；Windows 11 標準使用者操作仍待驗證。`-X utf8` 讓 Python 使用 UTF-8；保存輸出報告的方式見 [CLI PowerShell 說明](../skills/rabbit-hole-start/references/cli.md#windows-powershell)。
+
+預設放在 `$CODEX_HOME/skills`，未設定時為 `~/.codex/skills`；Windows 對應 `$env:CODEX_HOME\skills` 或 `$env:USERPROFILE\.codex\skills`。也可以用 `--dest` 加上自己的 skills 資料夾路徑，例如另一個相容 agent 的技能目錄。五個 skills 共用 `rabbit-hole-start` 裡的筆記法、內部參考與本機工具，必須一起安裝。安裝後在下一個回合確認是否能選到；若目前客戶端尚未重新載入，重新開啟它。
 
 安裝器會先檢查全部檔案、連結和衝突，不覆寫既有 skills，也不修改全域設定。遇到同名版本或舊版入口時會停止：先備份並由你決定如何把既有兔子洞 skills 移出技能目錄，再安裝完整新版；目前沒有自動更新或移除指令。其他 skills 不受影響。使用相容 agent 的載入方式可能不同；此處驗證的是檔案安裝與 Codex 格式，沒有宣稱各家客戶端都已實測。
 
@@ -96,7 +121,11 @@ agent 根據讀者和主題，挑選並列出建議包含的確切檔案，檢�
 
 ## 實際可執行的本機工具
 
-核心程式隨 `rabbit-hole-start` 一起安裝。以下以預設目錄示範，`/你的/…` 要換成自己的路徑：
+Windows 操作期間請暫停其他程式修改程式目錄、安裝目錄與私人兔子洞。目錄 handle 與 reparse 屬性檢查不等於能抵抗同帳號其他程式任意並行變更；相關測試已在原生 Server 通過，Windows 11 桌面仍待驗證。
+
+核心程式隨 `rabbit-hole-start` 一起安裝。以下以預設目錄示範，範例路徑要換成自己的位置；若安裝時指定 `--dest`，改用該目錄中的工具。
+
+**macOS、Linux：**
 
 ```sh
 TOOL="${CODEX_HOME:-$HOME/.codex}/skills/rabbit-hole-start/scripts/rabbit_hole.py"
@@ -105,6 +134,18 @@ python3 "$TOOL" init --vault /你的/新私人兔子洞 --name '你的稱呼' --
 python3 "$TOOL" import --vault /你的/私人兔子洞 --input /你的/已挑選貼文.json \
   --namespace selected-posts --owner '你的稱呼' --author '實際說話者'
 python3 "$TOOL" check --vault /你的/私人兔子洞
+```
+
+**Windows PowerShell：**沿用上方確認過的 Python 與 UTF-8 設定，先參照 [CLI 平台範圍](../skills/rabbit-hole-start/references/cli.md#platform-scope) 選好本機位置。
+
+```powershell
+$CodexRoot = if ($env:CODEX_HOME) { $env:CODEX_HOME } else { Join-Path $env:USERPROFILE '.codex' }
+$Tool = Join-Path $CodexRoot 'skills\rabbit-hole-start\scripts\rabbit_hole.py'
+$Vault = Join-Path $env:USERPROFILE 'RabbitHole'
+python -X utf8 "$Tool" init --vault "$Vault" --name '你的稱呼' --lang zh-TW
+# 看過預覽後，在同一命令加上 --apply 才會寫入。
+python -X utf8 "$Tool" import --vault "$Vault" --input 'C:\Users\你的帳號\selected-posts.json' --namespace selected-posts --owner '你的稱呼' --author '實際說話者'
+python -X utf8 "$Tool" check --vault "$Vault"
 ```
 
 `init` 和 `import` 預設只預覽；`check` 永遠唯讀。初始化不覆寫現有路徑，寫入命令拒絕 Git 儲存庫內或經過符號連結的私人資料夾。程式不建立 remote、不推送、不改分享設定、不開網路連線。更多參數、檔案位置與失敗處理見 [CLI 說明](../skills/rabbit-hole-start/references/cli.md)。
@@ -130,6 +171,8 @@ python3 scripts/validate-skills.py
 python3 -m unittest discover -s tests -p 'test_*.py' -v
 npm run check
 ```
+
+PowerShell 的 Python 命令改用上方確認的 `python -X utf8`；網站檢查使用 `npm.cmd run check`。原生 Windows Server 2025 的安裝、檔案保護與完整工具流程已通過 CI；Windows 11 桌面與客戶端相容性仍待驗證，不能以其他平台的結果代替。
 
 測試用虛構素材涵蓋兩種語言的起步、可重跑匯入、修訂保留、來源注入、路徑界線、安裝隔離和既有網站。測試不是對所有 agent 行為或私密資料的安全保證。skills 內的完整筆記法與公開範例保持一致，工具慣例另放在 [conventions.md](../skills/rabbit-hole-start/references/conventions.md)。整體 repo 的授權說明仍適用，這裡沒有替任何來源或作品追加重用授權。
 
