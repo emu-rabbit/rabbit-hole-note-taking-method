@@ -88,7 +88,7 @@ mkdirSync(join(output, 'reader-en'), { recursive: true });
 mkdirSync(join(output, 'downloads'), { recursive: true });
 mkdirSync(join(output, 'vendor'), { recursive: true });
 for (const path of [
-  'theme.css', 'site.css', 'site.js', 'locale.css', 'locale.js', 'logo.svg', 'rabbit-hole.jpg', 'notes.js',
+  'theme.css', 'site.css', 'site.js', 'site-messages.js', 'locale.css', 'locale.js', 'logo.svg', 'rabbit-hole.jpg', 'notes.js',
   'reader/reader.css', 'reader/reader.js', 'reader/view.js', 'reader/messages.js',
   'vendor/markdown-it.js', 'vendor/markdown-it.LICENSE',
 ]) {

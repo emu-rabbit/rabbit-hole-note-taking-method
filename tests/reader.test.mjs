@@ -103,3 +103,75 @@ test('structure naming follows public English manifest and distinguishes optiona
   assert.ok(structure.includes('does not include a `Circles/`'));
   assert.ok(structure.includes('no separate story index'));
 });
+
+import { execFileSync } from 'node:child_process';
+import { readdirSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import { siteEnglish } from '../src/web/site-messages.js';
+
+const hanOrChinesePunctuation = /[\p{Script=Han}\u3000-\u303f\uff00-\uffef]/u;
+const decodeEntities = value => value.replace(/&#(x[0-9a-f]+|[0-9]+);/gi, (_, number) => String.fromCodePoint(number[0].toLowerCase() === 'x' ? parseInt(number.slice(1), 16) : Number(number)))
+  .replace(/&(?:amp|lt|gt|quot|apos);/g, entity => ({'&amp;':'&','&lt;':'<','&gt;':'>','&quot;':'"','&apos;':"'"})[entity]);
+
+// Inspect the English presentation, not the multilingual HTML payload. Include
+// every English tab (even currently inactive), all accessible text and tooltips.
+// Only the alternate Chinese structure and the Chinese language-choice button
+// are exempt. data-i18n replacements use the same dictionary as the browser.
+function englishPresentation(html, messages = {}) {
+  const text = [], stack = [];
+  const voidTags = new Set(['meta','link','input','img','br','hr','source','wbr','area','base','embed','param','track']);
+  for (const token of html.match(/<!--[\s\S]*?-->|<![^>]*>|<[^>]+>|[^<]+/g) ?? []) {
+    if (token.startsWith('<!')) continue;
+    if (token.startsWith('</')) { stack.pop(); continue; }
+    if (!token.startsWith('<')) {
+      if (!stack.at(-1)?.suppress) text.push(decodeEntities(token));
+      continue;
+    }
+    const name = /^<([\w-]+)/.exec(token)?.[1];
+    if (!name) continue;
+    const attrs = Object.fromEntries([...token.matchAll(/([\w-]+)="([^"]*)"/g)].map(([,key,value]) => [key, decodeEntities(value)]));
+    const suppressed = stack.at(-1)?.suppress || ['script','style'].includes(name)
+      || (attrs.class?.split(/\s+/).includes('structure-browser') && attrs.lang === 'zh-TW')
+      || (name === 'button' && attrs['data-locale'] === 'zh-TW');
+    let replaced = false;
+    if (!suppressed) {
+      for (const attribute of ['aria-label','title','placeholder','alt']) {
+        const value = messages[attrs[`data-i18n-${attribute}`]] ?? attrs[attribute];
+        if (value) text.push(value);
+      }
+      const replacement = messages[attrs['data-i18n']];
+      if (replacement !== undefined) { text.push(replacement); replaced = true; }
+      if (name === 'meta' && attrs.name === 'description') text.push(messages[attrs['data-i18n-content']] ?? attrs.content ?? '');
+    }
+    if (!voidTags.has(name) && !token.endsWith('/>')) stack.push({suppress: suppressed || replaced});
+  }
+  return text.join('\n');
+}
+function assertEnglishPresentation(html, messages, label) {
+  const presented = englishPresentation(html, messages);
+  const unexpected = presented.split('\n').filter(line => hanOrChinesePunctuation.test(line));
+  assert.deepEqual(unexpected, [], `${label}: unexpected Chinese in English text or accessible labels`);
+  return presented;
+}
+
+test('English presentation guard detects text, tooltip and numeric-entity regressions without scanning hidden Chinese alternatives', () => {
+  assert.throws(() => assertEnglishPresentation('<p>&#x6545;&#x4e8b;</p>', {}, 'fixture'));
+  assert.throws(() => assertEnglishPresentation('<input aria-label="&#x7b46;&#x8a18;">', {}, 'fixture'));
+  assertEnglishPresentation('<div class="structure-browser" lang="zh-TW"><p>&#x6545;&#x4e8b;</p></div><div class="structure-browser" lang="en"><p>Stories</p></div><button data-locale="zh-TW" aria-label="&#x4e2d;">&#x4e2d;</button>', {}, 'fixture');
+});
+
+test('all English homepage panels, example link, reader pages, labels and paths contain no untranslated Chinese', () => {
+  const root = fileURLToPath(new URL('../', import.meta.url));
+  execFileSync(process.execPath, ['src/web/build.mjs'], {cwd: root});
+  const homepage = readFileSync(new URL('../dist/index.html', import.meta.url), 'utf8');
+  const text = assertEnglishPresentation(homepage, siteEnglish, 'English homepage');
+  assert.ok(text.includes("Emu-rabbit's Rabbit Hole"));
+  assert.ok(text.includes('Emu-rabbit'));
+  assert.equal((homepage.match(/id="structure-en-\d+-panel"/g) ?? []).length, 9);
+  for (const filename of readdirSync(new URL('../dist/reader-en/', import.meta.url)).filter(name => name.endsWith('.html'))) {
+    assertEnglishPresentation(readFileSync(new URL(`../dist/reader-en/${filename}`, import.meta.url), 'utf8'), {}, filename);
+  }
+  const paths = JSON.parse(readFileSync(new URL('../src/web/example-paths.json', import.meta.url)));
+  for (const pair of paths) assert.ok(!hanOrChinesePunctuation.test(pair.en), `English path: ${pair.en}`);
+  for (const message of [...Object.values(siteEnglish), ...Object.values(readerEnglish)]) assert.ok(!hanOrChinesePunctuation.test(message), `English message: ${message}`);
+});
