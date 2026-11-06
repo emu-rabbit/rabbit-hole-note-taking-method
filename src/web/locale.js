@@ -8,10 +8,27 @@ export function chooseLocale(requested, languages) {
   return supportedLocale(requested) ?? languages.map(supportedLocale).find(Boolean) ?? 'en';
 }
 
+export function equivalentUrl(href, destinationPath, fragments = {}) {
+  const url = new URL(destinationPath, href);
+  const current = new URL(href);
+  let fragment;
+  try { fragment = decodeURIComponent(current.hash.slice(1)); } catch { fragment = ''; }
+  if (fragments[fragment]) url.hash = fragments[fragment];
+  return url;
+}
+
 export function initializeLocale(english) {
   const url = new URL(location.href);
   const requested = url.searchParams.get('lang');
-  const locale = chooseLocale(requested, [...navigator.languages, navigator.language]);
+  const contentLocale = document.body.dataset.contentLocale;
+  const locale = chooseLocale(requested ?? contentLocale, [...navigator.languages, navigator.language]);
+  const counterpart = document.body.dataset.counterpart;
+  const fragments = JSON.parse(document.body.dataset.fragments || '{}');
+  if (contentLocale && locale !== contentLocale && counterpart) {
+    const destination = equivalentUrl(location.href, counterpart, fragments);
+    destination.searchParams.set('lang', locale);
+    location.replace(destination);
+  }
   if (requested !== locale) {
     url.searchParams.set('lang', locale);
     history.replaceState(history.state, '', url);
@@ -22,7 +39,7 @@ export function initializeLocale(english) {
     button.setAttribute('aria-pressed', String(button.dataset.locale === locale));
     button.addEventListener('click', () => {
       if (button.dataset.locale === locale) return;
-      const destination = new URL(location.href);
+      const destination = counterpart ? equivalentUrl(location.href, counterpart, fragments) : new URL(location.href);
       destination.searchParams.set('lang', button.dataset.locale);
       location.assign(destination);
     });
@@ -42,7 +59,11 @@ export function initializeLocale(english) {
       }
     }
     for (const link of root.querySelectorAll('a[href^="./"], a[href^="../"]')) {
+      if (link.hasAttribute('download')) continue;
       const destination = new URL(link.href);
+      if (link.dataset.exampleLink !== undefined) {
+        destination.pathname = destination.pathname.replace(/\/reader(?:-en)?\//, locale === 'en' ? '/reader-en/' : '/reader/');
+      }
       destination.searchParams.set('lang', locale);
       link.href = destination.href;
     }
