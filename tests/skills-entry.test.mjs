@@ -128,3 +128,12 @@ test('import examples introduce social exports with the actual format and privac
   // Preserve the heading behind the previously shared deep link.
   assert.ok(read('docs/skills.md').includes('### rabbit-hole-import：整理挑選好的貼文'));
 });
+
+
+test('bilingual sharing descriptions retain user control and require a separate MCP connection', () => {
+  const source = read('src/web/index.html');
+  const chinese = source.match(/<p data-i18n="afterBuildingIntro">([^<]+)<\/p>/)[1];
+  for (const text of ['信任的對象', '支援 Markdown', '資料夾的層次', '如果另行準備了合適的 MCP 連接工具', '你允許的範圍', '都由你決定']) assert.ok(chinese.includes(text));
+  for (const text of ['people you trust', 'supports Markdown', 'folder structure', 'MCP connection set up separately', 'scope you allow', 'up to you']) assert.ok(siteEnglish.afterBuildingIntro.includes(text));
+  assert.ok(localizeHtml(source, siteEnglish).includes(siteEnglish.afterBuildingIntro));
+});
