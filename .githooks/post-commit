@@ -1,0 +1,9 @@
+#!/bin/sh
+
+branch=$(git symbolic-ref --quiet --short HEAD) || exit 0
+[ "$branch" = main ] || exit 0
+
+if ! git push --no-follow-tags origin refs/heads/main:refs/heads/main; then
+  printf '%s\n' 'Commit saved locally. Run git push origin main to retry publishing.' >&2
+  exit 1
+fi
