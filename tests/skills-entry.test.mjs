@@ -133,7 +133,11 @@ test('import examples introduce social exports with the actual format and privac
 test('bilingual sharing descriptions retain user control and require a separate MCP connection', () => {
   const source = read('src/web/index.html');
   const chinese = source.match(/<p data-i18n="afterBuildingIntro">([^<]+)<\/p>/)[1];
-  for (const text of ['信任的對象', '支援 Markdown', '資料夾的層次', '如果另行準備了合適的 MCP 連接工具', '你允許的範圍', '都由你決定']) assert.ok(chinese.includes(text));
-  for (const text of ['people you trust', 'supports Markdown', 'folder structure', 'MCP connection set up separately', 'scope you allow', 'up to you']) assert.ok(siteEnglish.afterBuildingIntro.includes(text));
+  for (const text of ['信任的對象', '支援 Markdown', '資料夾的層次', '如果另行準備了合適的 MCP 連接工具', '你允許的範圍']) assert.ok(chinese.includes(text));
+  for (const text of ['people you trust', 'supports Markdown', 'folder structure', 'MCP connection set up separately', 'scope you allow']) assert.ok(siteEnglish.afterBuildingIntro.includes(text));
   assert.ok(localizeHtml(source, siteEnglish).includes(siteEnglish.afterBuildingIntro));
+  assert.ok(!chinese.includes('怎麼開啟、怎麼閱讀'));
+  assert.ok(!siteEnglish.afterBuildingIntro.includes('How it is opened, how it is read'));
+  assert.ok(source.includes('也建議交予之前人工確認過每個頁面是否有不該洩漏的內容'));
+  assert.ok(siteEnglish.afterBuildingSharing.includes('review each page yourself'));
 });
