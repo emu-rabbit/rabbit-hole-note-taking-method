@@ -1,0 +1,29 @@
+[
+  {
+    "id": "move-post-01",
+    "title": "At the bakery window",
+    "author": "Rowan",
+    "published_at": "2019-09-09",
+    "event_at": "The Saturday before this post",
+    "text": "Two days after moving, the yellow mug is still on the windowsill. Kit carried the books up two flights on Saturday. We never did find the little saucepan that day; Mum had packed it inside the large one. The room over the bakery smells like warm flour before I wake up.",
+    "visibility": "private"
+  },
+  {
+    "id": "move-post-02",
+    "title": "A table at last",
+    "author": "Rowan",
+    "published_at": "2019-09-21",
+    "event_at": "2019-09-21",
+    "text": "Kit came back with a folding table borrowed from their aunt. We ate noodles from the saucepan and put the yellow mug in the middle, holding the paper flowers Mum had posted. It is not my table to keep. Kit said their aunt would want it back in winter.",
+    "visibility": "private"
+  },
+  {
+    "id": "move-post-03",
+    "title": "The window in winter",
+    "author": "Rowan",
+    "published_at": "2020-01-12",
+    "event_at": "2020-01-12",
+    "text": "I returned the folding table to Kit in December for their aunt. A small secondhand desk fits beneath the window now. The paper flowers have faded, but I still keep them in the yellow mug. I like the room better in the morning than at night.",
+    "visibility": "private"
+  }
+]

@@ -4,10 +4,11 @@
 
 A note-taking method for documenting a life. A rabbit hole brings together experiences, important people, relationships, stories, and creative work, so someone arriving later, whether a person or an agent, can get to know you through time and connections.
 
-This repository holds the method website, a public example you can read in a browser, and the website's source code. The example contains 56 selected notes Emu-rabbit has chosen to share. Its English edition covers the same material as the Chinese edition. You can start with a short story before learning how the notes are organized.
+This repository holds the method website, a public example you can read in a browser, the website's source code, and an installable Rabbit Hole skills toolkit. The example contains 56 selected notes Emu-rabbit has chosen to share. Its English edition covers the same material as the Chinese edition. You can start with a short story before learning how the notes are organized.
 
 ## Where to start
 
+- **Build your own rabbit hole**: Install the [five skills](docs/skills.en.md) and begin with one memory or selected local material. Starting, importing, interviewing, maintaining, and preparing a reading copy are complete goals. The agent handles writing, linking and re-reading, with private local defaults.
 - **Experience a rabbit hole**: Open the [English example](https://emu-rabbit.github.io/rabbit-hole-notes/reader-en/index.html?lang=en). Its entrance offers three short routes, beginning with a box of macarons, a useful tool, or two people in her life. The reading map offers more ways to continue.
 - **Learn the method**: Visit the [introduction](https://emu-rabbit.github.io/rabbit-hole-notes/?lang=en), then read the full [Rabbit Hole Method](<examples/emu-rabbit-en/00_Entry/Rabbit Hole Method.md>). The translation includes English folder names and key filenames you can follow.
 - **Try it in Obsidian**: Choose “Download example” in the reader. Extract the ZIP and open the folder containing README.md as a vault. Start with that README; no community plugins are needed.
@@ -29,9 +30,11 @@ This public selection uses one index across its sections. It has no relationship
 - [examples/emu-rabbit-tw/](examples/emu-rabbit-tw/): the original Chinese public selection, including the author's original method.
 - [src/web/](src/web/): the bilingual introduction, static reader, and build code.
 - [src/web/example-paths.json](src/web/example-paths.json): corresponding note paths, used to check completeness and switch languages.
-- [tests/](tests/): checks for the reader, links, language navigation, and downloadable archives.
+- [skills/](skills/): five skills installed together, sharing the method, internal references and local initialization, import and check helpers in `rabbit-hole-start`.
+- [docs/skills.en.md](docs/skills.en.md): installation, a first request, formats and limitations.
+- [tests/](tests/): reader, archive, skill-installation and local-helper checks.
 
-The method, public examples, and reader are available now. Skills for installation, initialization, importing, interviewing, and maintenance are left for future work. The src/mcp directory is also only a placeholder.
+The method, public examples, reader and skills toolkit are available. The importer accepts selected local text, Markdown, normalized JSON and JSONL; native social-export/API adapters are not implemented. Setup can flow straight into an interview. Importing and interviewing integrate the material actually read into notes and navigation within the agreed saving scope. Archive-only intake, unsaved conversations and read-only checks are also available. Sharing preparation produces a local draft for review; delivery still needs permission. The src/mcp directory remains a placeholder.
 
 ## Make a rabbit hole of your own
 
@@ -55,4 +58,4 @@ npm run check
 
 Run the tests and full build. The build checks paired translations, Wiki links, and section or block references, then writes dist/. When adding or renaming a note, update both editions and example-paths.json together, and read through the affected routes.
 
-The existing GitHub Actions workflow deploys Pages on main or a manual trigger; it does not run checks for pull requests. Run the local checks above before opening a PR. Local commits do not need an automatic push hook. Work on a separate branch and open a pull request, checking the content, sources, and public scope before a maintainer decides whether to merge.
+GitHub Actions runs website, skill-format and Python tests for pull requests. Pages still deploys only on main or a manual trigger. For skill changes, also run `python3 scripts/validate-skills.py` and `python3 -m unittest discover -s tests -p 'test_*.py' -v` with Python 3.10+. Local commits do not need an automatic push hook. Work on a separate branch and open a pull request, checking the content, sources, and public scope before a maintainer decides whether to merge.

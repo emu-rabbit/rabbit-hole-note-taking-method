@@ -1,0 +1,4 @@
+interface:
+  display_name: "Interview me"
+  short_description: "Follow a memory and keep its place in your rabbit hole"
+  default_prompt: "Use $rabbit-hole-interview to interview me."

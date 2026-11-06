@@ -1,0 +1,4 @@
+interface:
+  display_name: "Organize a rabbit hole"
+  short_description: "Integrate updates and keep notes readable and findable"
+  default_prompt: "Use $rabbit-hole-maintain to continue organizing my rabbit hole."

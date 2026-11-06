@@ -1,0 +1,4 @@
+interface:
+  display_name: "Add records to a rabbit hole"
+  short_description: "Preserve sources and integrate the material you read"
+  default_prompt: "Use $rabbit-hole-import to add these selected records to my rabbit hole."
