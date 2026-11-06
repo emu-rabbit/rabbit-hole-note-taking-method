@@ -294,3 +294,47 @@ test('static homepage URLs keep their language and legacy query links redirect w
   assert.equal(localeHarness('https://example.test/repo/en/', english).lang, 'en');
   assert.equal(localeHarness('https://example.test/repo/en/?lang=zh-TW#method', english).calls.replace, 'https://example.test/repo/?lang=zh-TW#method');
 });
+
+
+import { createHash } from 'node:crypto';
+import { renamedPublicNotes, legacyHeadingIds } from '../src/web/public-url-compat.mjs';
+
+test('renamed public people retain published URLs, heading fragments and language destinations', () => {
+  const mappings = JSON.parse(readFileSync(new URL('../src/web/example-paths.json', import.meta.url)));
+  for (const rename of renamedPublicNotes) {
+    const originalFile = `note-${createHash('sha256').update(rename.from).digest('hex')}.html`;
+    assert.equal(noteFile(rename.to), originalFile);
+    assert.equal(noteFile(rename.from), originalFile, 'legacy note query resolves to the same published page');
+    const route = rename.locale === 'en' ? 'reader-en' : 'reader';
+    const html = readFileSync(buildFile(`${route}/${originalFile}`), 'utf8');
+    assert.ok(html.includes(`<h1 id="${rename.heading}">`));
+    assert.ok(htmlIds(html).has(rename.oldHeading));
+    assert.doesNotMatch(html.replace(/<[^>]*>/g, ''), /前主人[甲乙丙]|Former master [ABC]/);
+    const folder = rename.locale === 'en' ? 'emu-rabbit-en' : 'emu-rabbit-tw';
+    const archive = readFileSync(new URL(`../dist/downloads/${folder}.zip`, import.meta.url));
+    assert.ok(archive.includes(Buffer.from(rename.to)), 'download contains the renamed Markdown file');
+    assert.ok(!archive.includes(Buffer.from(rename.from)), 'download omits the obsolete Markdown filename');
+  }
+  for (const [path, aliases] of Object.entries(legacyHeadingIds)) {
+    const pair = mappings.find(pair => Object.values(pair).includes(path));
+    assert.ok(pair, path);
+    const locale = pair.en === path ? 'en' : 'zh-TW';
+    const route = locale === 'en' ? 'reader-en' : 'reader';
+    const otherRoute = locale === 'en' ? 'reader' : 'reader-en';
+    const otherPath = pair[locale === 'en' ? 'zh-TW' : 'en'];
+    const html = readFileSync(buildFile(`${route}/${noteFile(path)}`), 'utf8');
+    const body = tags(html, 'body')[0];
+    const fragments = JSON.parse(body['data-fragments']);
+    const otherHtml = readFileSync(buildFile(`${otherRoute}/${noteFile(otherPath)}`), 'utf8');
+    const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map(match => match[1]);
+    assert.equal(new Set(ids).size, ids.length, 'compatibility anchors stay unique');
+    for (const [oldId, currentId] of Object.entries(aliases)) {
+      assert.ok(htmlIds(html).has(oldId), path + ' old fragment');
+      assert.ok(htmlIds(html).has(currentId), path + ' current fragment');
+      assert.equal(fragments[oldId], fragments[currentId]);
+      assert.ok(htmlIds(otherHtml).has(fragments[oldId]), 'old fragment switches to a real translated heading');
+      const destination = equivalentUrl(`${siteUrl(`${route}/${noteFile(path)}`)}#${encodeURIComponent(oldId)}`, body['data-counterpart'], fragments);
+      assert.equal(decodeURIComponent(destination.hash.slice(1)), fragments[currentId]);
+    }
+  }
+});

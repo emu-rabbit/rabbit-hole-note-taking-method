@@ -2,10 +2,11 @@ import { createHash } from 'node:crypto';
 import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { createLibrary, startNote } from './notes.js';
+import { publicPathIdentity, retainLegacyHeadingIds } from './public-url-compat.mjs';
 
 export function noteFile(path) {
   if (path === startNote) return 'index.html';
-  const id = createHash('sha256').update(path).digest('hex');
+  const id = createHash('sha256').update(publicPathIdentity(path)).digest('hex');
   return `note-${id}.html`;
 }
 
@@ -30,5 +31,7 @@ export function loadLibrary(directory) {
   }
 
   readFolder([]);
-  return createLibrary(sources, { linkTo: noteUrl });
+  const library = createLibrary(sources, { linkTo: noteUrl });
+  for (const note of library.notes.values()) retainLegacyHeadingIds(note);
+  return library;
 }

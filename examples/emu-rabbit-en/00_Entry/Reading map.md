@@ -39,7 +39,7 @@ The first story links both to [[80_Sources/Contemporary records/Learning and dev
 
 One scene holds a response she received in a relationship; the other holds her own answer at a work gathering. Read the two scenes together and pause there. This selection does not fill in everything that happened between them.
 
-To meet the person in the first scene, visit [[40_Important people/People/Former master A|Former master A]].
+To meet the person in the first scene, visit [[40_Important people/People/First master|her first master]].
 
 ## Her two current partners
 
@@ -51,11 +51,11 @@ For how she describes her hopes for relationships, read [[80_Sources/Public prof
 
 ## Someone comes to stay, and some questions remain
 
-[[30_Stories/Chapters/Quiet company on a bench|Quiet company on a bench]] → [[40_Important people/People/Former master C|Former master C]]
+[[30_Stories/Chapters/Quiet company on a bench|Quiet company on a bench]] → [[40_Important people/People/Ex-girlfriend|Ex-girlfriend]]
 
-The first story is a night she spent with Former master B. The second turns to a different person: the happiness of watching the stars together and the questions she still had after they parted. A reading journey can end with a question still unanswered.
+The first story is a night she spent with her former master. The second turns to a different person: the happiness of watching the stars together and the questions she still had after they parted. A reading journey can end with a question still unanswered.
 
-A, B, and C are pseudonyms for different people. The [[40_Important people/Relationship map|relationship map]] explains their places in her life.
+First master, Former master, and Ex-girlfriend are labels for different people. The [[40_Important people/Relationship map|relationship map]] explains their places in her life.
 
 ## Wanting to go home for dinner
 

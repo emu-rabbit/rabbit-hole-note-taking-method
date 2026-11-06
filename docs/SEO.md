@@ -15,6 +15,12 @@ Each page has one self-canonical URL without query parameters or fragments, reci
 
 The homepage footers intentionally omit a visible sitemap link. The generated `sitemap.xml` remains available at its existing URL for search-engine submission and crawling. The sitemap includes exactly the two introductions and 112 existing public note pages. It excludes ZIP downloads, scripts, navigation helpers, skills, repository files, and anything outside the two explicitly configured public example folders. No private vault is read. No fabricated modification dates, ratings, search keywords, or authorship claims are emitted. Navigation helper documents are `noindex, follow`; the reader imports only their body so the directive never reaches an article page.
 
+## Renamed public notes
+
+The three people now use 第一任主人 / First master, 前主人 / Former master, and 前女友 / Ex-girlfriend. Their six published reader HTML URLs are pinned to the original path hashes in `src/web/public-url-compat.mjs`. Renaming the Markdown files therefore does not change reader URLs, canonical URLs, hreflang destinations, or sitemap entries. Old person-title and source-section heading fragments remain as non-visible anchor aliases; switching languages from an old fragment reaches the matching current heading. Existing source block IDs are unchanged.
+
+The downloaded vaults and repository use only the new Markdown filenames and updated links. Direct GitHub `blob/main/…` or raw-file links to the old Markdown paths are not covered by reader URL compatibility; use the new paths (or a historical commit for the old files). Compatibility aliases are build-time routing data, not duplicate notes or sitemap entries.
+
 ## GitHub Pages and robots.txt
 
 Crawlers use **`https://emu-rabbit.github.io/robots.txt`**, at the origin root. A file at `/rabbit-hole-notes/robots.txt` would not govern this project, so this build deliberately does not generate one.

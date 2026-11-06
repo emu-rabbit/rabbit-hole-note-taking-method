@@ -13,11 +13,11 @@ Emu-rabbit sees Doggo and Kitty as deeply important people with whom she wants t
 - [[40_Important people/People/Kitty|Kitty]]: Her human kitty, clingy and serious about housework. Sometimes Emu-rabbit asks for no chores during a date to leave more time for interaction.
 
 ## Past master–pet relationships
-- [[40_Important people/People/Former master A|Former master A]]: Gently told her it was all right when she could not yet bring herself to wear women's clothes again.
-- [[40_Important people/People/Former master B|Former master B]]: Once came to be beside her when she was low and spent some time with her on a bench.
-- [[40_Important people/People/Former master C|Former master C]]: Watching the stars together made her happy. After they parted, some questions remained unresolved for her.
+- [[40_Important people/People/First master|First master]]: Gently told her it was all right when she could not yet bring herself to wear women's clothes again.
+- [[40_Important people/People/Former master|Former master]]: Once came to be beside her when she was low and spent some time with her on a bench.
+- [[40_Important people/People/Ex-girlfriend|Ex-girlfriend]]: Watching the stars together made her happy. After they parted, some questions remained unresolved for her.
 
-A, B, and C are pseudonyms.
+First master, Former master, and Ex-girlfriend are labels used in this selection.
 
 ## Family
 - [[40_Important people/People/Mother|Mother]]: She later became able to smile and tell her mother she wanted to come home for dinner more often.
