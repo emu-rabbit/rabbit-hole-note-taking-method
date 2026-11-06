@@ -17,8 +17,6 @@ Emu-rabbit sees Doggo and Kitty as deeply important people with whom she wants t
 - [[40_Important people/People/Former master|Former master]]: Once came to be beside her when she was low and spent some time with her on a bench.
 - [[40_Important people/People/Ex-girlfriend|Ex-girlfriend]]: Watching the stars together made her happy. After they parted, some questions remained unresolved for her.
 
-First master, Former master, and Ex-girlfriend are labels used in this selection.
-
 ## Family
 - [[40_Important people/People/Mother|Mother]]: She later became able to smile and tell her mother she wanted to come home for dinner more often.
 - [[40_Important people/People/Mengmeng|Mengmeng]]: Her golden hamster, who continued to live on in the game nAnB after passing away.

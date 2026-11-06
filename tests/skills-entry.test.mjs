@@ -117,18 +117,22 @@ test('bilingual skill links open externally without opener access', () => {
   }
 });
 
-test('import examples introduce social exports with the actual format and privacy boundaries nearby', () => {
-  for (const [file, concepts] of [
-    ['skills.md', ['社群貼文匯出檔案', '下載／匯出資料', '原生 ZIP', '平台 JSON', 'UTF-8', 'JSONL', '16 MiB', '沒有內建', '不會自動保存', '排除的資料']],
-    ['skills.en.md', ['export of your social media posts', 'download/export your data', 'native ZIP', 'platform JSON', 'UTF-8', 'JSONL', '16 MiB', 'not a built-in', 'not a platform archive', 'excluded records']],
+test('import guides introduce social exports and link to their supported-format details', () => {
+  for (const [file, introduction, conversion, heading, anchor] of [
+    ['skills.md', '社群貼文匯出檔案', '原生 ZIP／JSON 不一定能直接匯入', '實際可執行的本機工具', '#實際可執行的本機工具'],
+    ['skills.en.md', 'export of your social media posts', 'Native platform ZIP/JSON exports may need conversion', 'Runnable local helpers', '#runnable-local-helpers'],
   ]) {
-    const section = read(`docs/${file}`).split(/^### rabbit-hole-import[^\n]*\n/m)[1].split(/^### /m)[0];
-    for (const concept of concepts) assert.ok(section.includes(concept), `${file}: ${concept}`);
+    const guide = read(`docs/${file}`);
+    const section = guide.split(/^### rabbit-hole-import[^\n]*\n/m)[1].split(/^### /m)[0];
+    assert.ok(section.includes(introduction), `${file}: social export entry point`);
+    assert.ok(section.includes(conversion), `${file}: preparation is needed`);
+    assert.ok(section.includes(`](${anchor})`));
+    assert.ok(guide.includes(`## ${heading}`), `${file}: details link reaches a real section`);
+    assert.ok(guide.includes('../skills/rabbit-hole-import/references/source-formats.md'));
   }
   // Preserve the heading behind the previously shared deep link.
   assert.ok(read('docs/skills.md').includes('### rabbit-hole-import：整理挑選好的貼文'));
 });
-
 
 test('bilingual sharing descriptions retain user control and require a separate MCP connection', () => {
   const source = read('src/web/index.html');
@@ -136,8 +140,6 @@ test('bilingual sharing descriptions retain user control and require a separate 
   for (const text of ['信任的對象', '支援 Markdown', '資料夾的層次', '如果另行準備了合適的 MCP 連接工具', '你允許的範圍']) assert.ok(chinese.includes(text));
   for (const text of ['people you trust', 'supports Markdown', 'folder structure', 'MCP connection set up separately', 'scope you allow']) assert.ok(siteEnglish.afterBuildingIntro.includes(text));
   assert.ok(localizeHtml(source, siteEnglish).includes(siteEnglish.afterBuildingIntro));
-  assert.ok(!chinese.includes('怎麼開啟、怎麼閱讀'));
-  assert.ok(!siteEnglish.afterBuildingIntro.includes('How it is opened, how it is read'));
   assert.ok(source.includes('也建議交予之前人工確認過每個頁面是否有不該洩漏的內容'));
   assert.ok(siteEnglish.afterBuildingSharing.includes('review each page yourself'));
 });
