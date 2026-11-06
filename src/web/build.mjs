@@ -1,10 +1,12 @@
-import { copyFileSync, mkdirSync, readdirSync, unlinkSync, writeFileSync } from 'node:fs';
+import { copyFileSync, mkdirSync, readdirSync, readFileSync, unlinkSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { escape, loadLibrary, noteFile, noteUrl, startNote } from './library.mjs';
+import { renderStructure } from './structure.mjs';
 
 const directory = process.env.NOTES_DIR || fileURLToPath(new URL('../../examples/emu-rabbit-tw/', import.meta.url));
-const readerTitle = process.env.READER_TITLE || (process.env.NOTES_DIR ? '' : '絵夢羽さ沂的兔子洞');
+const readerPageTitle = '絵夢羽さ沂的兔子洞';
+const readerTitle = process.env.READER_TITLE || (process.env.NOTES_DIR ? '' : readerPageTitle);
 const library = loadLibrary(directory);
 const home = library.notes.get(startNote);
 if (!home) throw new Error(`資料夾根目錄需要 ${startNote}。`);
@@ -68,7 +70,7 @@ function renderPage(note) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>${escape(note.name)}</title>
+  <title>${escape(readerPageTitle)}</title>
   <link rel="icon" href="../logo.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../theme.css">
   <link rel="stylesheet" href="./reader.css">
@@ -109,9 +111,12 @@ function renderPage(note) {
 const output = fileURLToPath(new URL('../../dist/', import.meta.url));
 const readerOutput = join(output, 'reader');
 mkdirSync(readerOutput, { recursive: true });
-for (const path of ['index.html', 'theme.css', 'site.css', 'site.js', 'locale.css', 'locale.js', 'logo.svg', 'rabbit-hole.jpg', 'reader/reader.css', 'reader/reader.js']) {
+for (const path of ['theme.css', 'site.css', 'site.js', 'locale.css', 'locale.js', 'logo.svg', 'rabbit-hole.jpg', 'reader/reader.css', 'reader/reader.js']) {
   copyFileSync(new URL(path, import.meta.url), join(output, path));
 }
+
+const index = readFileSync(new URL('./index.html', import.meta.url), 'utf8');
+writeFileSync(join(output, 'index.html'), index.replace('<!-- structure-browser -->', renderStructure));
 
 writeFileSync(join(readerOutput, 'navigation.html'), renderTree(tree));
 const built = new Set();
