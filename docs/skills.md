@@ -8,7 +8,7 @@
 
 ## 安裝一次，按需要使用
 
-本機安裝器與輔助程式支援 macOS、Linux，使用 Python 3.10 以上。**Windows 原生支援正在開發，尚待原生環境驗證**；實際證據與待驗項目見[驗證紀錄](skills-windows-validation.md)，目標版本與路徑條件集中列在 [CLI 平台範圍](../skills/rabbit-hole-start/references/cli.md#platform-scope)。沒有 Python 套件依賴；網站開發才另外需要 Node.js 22 以上。不要把私人資料放進這個公開程式庫。
+本機安裝器與輔助程式支援 macOS、Linux，使用 Python 3.10 以上。**Windows 支援仍屬實驗性：原生 Windows Server 2025 x64 的 Python 3.13、3.14 測試已通過，Windows 11 桌面仍待驗證**；實際證據與待驗項目見[驗證紀錄](skills-windows-validation.md)，目標版本與路徑條件集中列在 [CLI 平台範圍](../skills/rabbit-hole-start/references/cli.md#platform-scope)。沒有 Python 套件依賴；網站開發才另外需要 Node.js 22 以上。不要把私人資料放進這個公開程式庫。
 
 先取得程式庫，以下兩行也適用於 PowerShell：
 
@@ -31,7 +31,7 @@ python3 scripts/install-skills.py
 python3 scripts/install-skills.py --apply
 ```
 
-**Windows PowerShell（開發中）：**以下是待原生驗證的操作方式，先用虛構資料試用。確認 Python 符合上述平台範圍；若已安裝的版本以 `py -3.13` 啟動，先用 `py -3.13 --version` 確認，再把以下的 `python` 換成 `py -3.13`。
+**Windows PowerShell（實驗性）：**以下操作已通過原生 Server 測試，Windows 11 桌面仍待驗證，先用虛構資料試用。確認 Python 符合上述平台範圍；若已安裝的版本以 `py -3.13` 啟動，先用 `py -3.13 --version` 確認，再把以下的 `python` 換成 `py -3.13`。
 
 ```powershell
 python --version
@@ -46,7 +46,7 @@ python -X utf8 scripts/install-skills.py
 python -X utf8 scripts/install-skills.py --apply
 ```
 
-這些命令不需要系統管理員身分，也不需要變更 PowerShell ExecutionPolicy。`-X utf8` 讓 Python 使用 UTF-8；保存輸出報告的方式見 [CLI PowerShell 說明](../skills/rabbit-hole-start/references/cli.md#windows-powershell)。
+工具不會要求提升系統管理員權限，也不會變更 PowerShell ExecutionPolicy；Windows 11 標準使用者操作仍待驗證。`-X utf8` 讓 Python 使用 UTF-8；保存輸出報告的方式見 [CLI PowerShell 說明](../skills/rabbit-hole-start/references/cli.md#windows-powershell)。
 
 預設放在 `$CODEX_HOME/skills`，未設定時為 `~/.codex/skills`；Windows 對應 `$env:CODEX_HOME\skills` 或 `$env:USERPROFILE\.codex\skills`。也可以用 `--dest` 加上自己的 skills 資料夾路徑，例如另一個相容 agent 的技能目錄。五個 skills 共用 `rabbit-hole-start` 裡的筆記法、內部參考與本機工具，必須一起安裝。安裝後在下一個回合確認是否能選到；若目前客戶端尚未重新載入，重新開啟它。
 
@@ -121,7 +121,7 @@ agent 根據讀者和主題，挑選並列出建議包含的確切檔案，檢�
 
 ## 實際可執行的本機工具
 
-Windows 操作期間請暫停其他程式修改程式目錄、安裝目錄與私人兔子洞。目錄 handle 與 reparse 屬性檢查不等於能抵抗同帳號其他程式任意並行變更；原生競態測試尚待完成。
+Windows 操作期間請暫停其他程式修改程式目錄、安裝目錄與私人兔子洞。目錄 handle 與 reparse 屬性檢查不等於能抵抗同帳號其他程式任意並行變更；相關測試已在原生 Server 通過，Windows 11 桌面仍待驗證。
 
 核心程式隨 `rabbit-hole-start` 一起安裝。以下以預設目錄示範，範例路徑要換成自己的位置；若安裝時指定 `--dest`，改用該目錄中的工具。
 
@@ -172,7 +172,7 @@ python3 -m unittest discover -s tests -p 'test_*.py' -v
 npm run check
 ```
 
-PowerShell 的 Python 命令改用上方確認的 `python -X utf8`；網站檢查使用 `npm.cmd run check`。目前 Windows 原生安裝、檔案保護與完整流程仍待驗證，不能以其他平台的測試結果代替。
+PowerShell 的 Python 命令改用上方確認的 `python -X utf8`；網站檢查使用 `npm.cmd run check`。原生 Windows Server 2025 的安裝、檔案保護與完整工具流程已通過 CI；Windows 11 桌面與客戶端相容性仍待驗證，不能以其他平台的結果代替。
 
 測試用虛構素材涵蓋兩種語言的起步、可重跑匯入、修訂保留、來源注入、路徑界線、安裝隔離和既有網站。測試不是對所有 agent 行為或私密資料的安全保證。skills 內的完整筆記法與公開範例保持一致，工具慣例另放在 [conventions.md](../skills/rabbit-hole-start/references/conventions.md)。整體 repo 的授權說明仍適用，這裡沒有替任何來源或作品追加重用授權。
 
