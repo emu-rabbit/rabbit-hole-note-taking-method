@@ -1,0 +1,23 @@
+.language-switcher {
+  display: inline-flex;
+  flex: none;
+  gap: 2px;
+  padding: 3px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+
+.language-switcher button {
+  min-width: 32px;
+  min-height: 27px;
+  padding: 0 4px;
+  border: 0;
+  border-radius: 3px;
+  background: transparent;
+  color: var(--muted);
+  font: 700 12px/1 system-ui, 'Microsoft JhengHei', sans-serif;
+  cursor: pointer;
+}
+
+.language-switcher button:hover { color: var(--accent-hover); }
+.language-switcher button[aria-pressed='true'] { background: var(--honey); color: var(--accent-hover); }

@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="zh-TW">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" data-i18n-content="description" content="兔子洞是一種記錄一個人的筆記法。從故事、關係與作品，讀到一個人如何走到今天。">
+  <title data-i18n="siteTitle">兔子洞筆記法</title>
+  <link rel="icon" href="./logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./theme.css">
+  <link rel="stylesheet" href="./site.css">
+  <link rel="stylesheet" href="./locale.css">
+  <script type="module" src="./site.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a class="brand" href="./index.html">
+        <img src="./logo.svg" width="32" height="32" alt="">
+        <span data-i18n="siteTitle">兔子洞筆記法</span>
+      </a>
+      <div class="language-switcher" role="group" aria-label="Language">
+        <button type="button" data-locale="zh-TW" lang="zh-TW" aria-label="繁體中文" aria-pressed="true">中</button>
+        <button type="button" data-locale="en" lang="en" aria-label="English" aria-pressed="false">EN</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="shell hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow" data-i18n="eyebrow">一種記錄人的方式</p>
+        <h1 id="hero-title"><span data-i18n="heroTitle">兔子洞</span><br><span class="hero-accent" data-i18n="heroAccent">筆記法</span></h1>
+        <p class="lede" data-i18n="lede">把散落在不同時期的故事、關係與創作串起來，讓後來走進來的人或AI代理人，可以慢慢認識你。</p>
+        <div class="hero-actions">
+          <a class="button" href="#method"><span data-i18n="howToBuild">如何建立兔子洞</span><span aria-hidden="true">↘</span></a>
+          <a class="button button-secondary" href="./reader/index.html" target="_blank" rel="noopener" data-i18n="exampleLink">範例</a>
+        </div>
+      </div>
+
+      <figure class="hero-figure">
+        <img class="burrow" src="./rabbit-hole.jpg" width="1374" height="1145" fetchpriority="high"
+          alt="一隻垂耳白兔在花草間挖洞，暖燈照著彼此相連的地下洞室，裡面收藏了合照、故事書、畫稿和信件。" data-i18n-alt="burrowDescription">
+        <figcaption><span data-i18n="burrowTitle">兔子洞剖面</span><span data-i18n="burrowCaption">從不同筆記走進同一個人的脈絡</span></figcaption>
+      </figure>
+    </section>
+
+    <section class="shell method" id="method" aria-labelledby="method-title">
+      <div class="method-heading">
+        <p class="eyebrow" data-i18n="methodEyebrow">如何記錄</p>
+        <h2 id="method-title"><span data-i18n="methodTitle">把生活的片段</span><br><span data-i18n="methodTitleEnd">接回一個人</span></h2>
+      </div>
+      <ol class="steps">
+        <li>
+          <span class="step-number" aria-hidden="true">01</span>
+          <div><h3 data-i18n="collectTitle">從留下的片段開始</h3><p data-i18n="collectBody">收集日記、貼文或作品，保留原話、日期與上下文。也可以透過回憶或訪談，補上當時沒留下的感受。</p></div>
+        </li>
+        <li>
+          <span class="step-number" aria-hidden="true">02</span>
+          <div><h3 data-i18n="writeTitle">寫成能獨立閱讀的篇章</h3><p data-i18n="writeBody">沿時間整理人生階段，也為反覆出現的生活主題、重要他人與作品留下各自的位置。每篇都交代理解它所需的背景。</p></div>
+        </li>
+        <li>
+          <span class="step-number" aria-hidden="true">03</span>
+          <div><h3 data-i18n="linkTitle">讓筆記彼此接得上</h3><p data-i18n="linkBody">在故事裡連到人物，從作品回到創作當時的生活，也讓註腳帶讀者回查原話。新的經歷與理解可以繼續補進來。</p></div>
+        </li>
+      </ol>
+      <p class="boundary" data-i18n="boundary">要留下哪些資料、談哪些經歷，以及分享給誰，都由筆記的主人決定。</p>
+    </section>
+
+    <div class="quote-band">
+      <figure class="shell quote">
+        <blockquote><span data-i18n="quoteStart">「當我被認識甚至試圖被理解的時候，</span><br><span data-i18n="quoteEnd">我感受到我正在活著」</span></blockquote>
+        <figcaption data-i18n="quoteCredit">〈兔子洞筆記法〉</figcaption>
+      </figure>
+    </div>
+
+    <section class="shell entry" aria-labelledby="entry-title">
+      <div><h2 id="entry-title" data-i18n="entryTitle">從一篇筆記走進去</h2><p data-i18n="entryBody">從 README 開始，沿著你感興趣的故事、人物或作品往下讀。</p></div>
+      <a class="button" href="./reader/index.html"><span data-i18n="openReader">開啟閱讀器</span> <span aria-hidden="true">↗</span></a>
+    </section>
+  </main>
+</body>
+</html>

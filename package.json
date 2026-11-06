@@ -1,0 +1,8 @@
+{
+  "name": "rabbit-hole-reader",
+  "private": true,
+  "scripts": {
+    "build": "node src/web/build.mjs",
+    "start": "node src/web/build.mjs && node src/web/serve.mjs"
+  }
+}

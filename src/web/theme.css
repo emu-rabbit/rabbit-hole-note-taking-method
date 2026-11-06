@@ -1,0 +1,16 @@
+:root {
+  color-scheme: light;
+  --paper: #fffaf0;
+  --surface: #f7edd9;
+  --surface-hover: #f1e2c5;
+  --honey: #f3ddb3;
+  --honey-wash: #fbeed5;
+  --line: #e4d1b3;
+  --line-strong: #ba9669;
+  --ink: #382719;
+  --body: #503c2c;
+  --muted: #6a5542;
+  --accent: #8a451e;
+  --accent-hover: #6b3418;
+  --leaf: #52633c;
+}
