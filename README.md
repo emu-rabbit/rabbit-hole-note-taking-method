@@ -58,4 +58,4 @@ npm run check
 
 執行測試與完整建置。建置會核對中英文章配對、Wiki 連結與段落定位；輸出放在 dist/。新增或更名文章時，連同對應語言與 example-paths.json 一起維護，並實際走讀受影響的路線。
 
-GitHub Actions 會在 PR 執行網站、skills 格式與 Python 測試；Pages 仍只在 main 或手動觸發時部署。修改 skills 時，也請執行 `python3 scripts/validate-skills.py` 與 `python3 -m unittest discover -s tests -p 'test_*.py' -v`（Python 3.10 以上）。本機提交不需要設定自動推送 hook。維護時請使用獨立分支與 PR，先確認內容、來源和公開範圍，再由維護者決定合併。
+網站、skills 格式與 Python 測試目前需依文件中的指令在本機執行；現有 GitHub Actions 只在 main 分支上於推送或手動觸發時建置並部署 Pages。修改 skills 時，也請執行 `python3 scripts/validate-skills.py` 與 `python3 -m unittest discover -s tests -p 'test_*.py' -v`（Python 3.10 以上）。本機提交不需要設定自動推送 hook。維護時請使用獨立分支與 PR，先確認內容、來源和公開範圍，再由維護者決定合併。
