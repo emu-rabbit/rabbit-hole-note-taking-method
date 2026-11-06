@@ -2,14 +2,14 @@
 id: "guide-rabbit-hole-method"
 kind: "guide"
 title: "Rabbit Hole Method"
-updated: "2026-11-03"
+updated: "2026-11-06"
 ---
 
 # Rabbit Hole Method
 
 A rabbit hole is a note-taking method for documenting a person's life. It lets people or agents who arrive later get to know who you are, and follow what you have experienced, how you felt, and how you changed over time. Life experiences, important people, relationships, individual stories, and the things you have created and left in the world all have a place here.
 
-You can use social platforms' data-export features to obtain your public posts as firsthand material for your rabbit hole. By organizing and connecting stories across platforms, you can build a broad understanding of yourself and your context. Later, your own recollections or interviews by others can fill in the experiences and feelings that never appeared on social media, archiving them one by one. You can also entrust this work to people or agents you trust.
+You can begin by talking about a memory or organizing diaries and posts you already have, leaving records you can return to. Social platforms' data-export features are another way to obtain your public posts as firsthand material for your rabbit hole. By organizing and connecting these stories, you can build a broad understanding of yourself and your context. As you go, your own recollections or interviews by others can fill in experiences and feelings that were not recorded at the time, archiving them one by one. You can also entrust this work to people or agents you trust.
 
 A rabbit hole can stay alive. Over time, further interviews and work on its connections can bring it closer to who you are again.
 

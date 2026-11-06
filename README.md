@@ -8,7 +8,7 @@
 
 ## 從哪裡開始
 
-- **想直接建立自己的兔子洞**：安裝[七個 skills](docs/skills.md)，從一段回憶或你挑選的本機材料起步。包含來源匯入、訪談、寫作、連結、維護與分享前審閱，預設保留在私人工作區。
+- **想直接建立自己的兔子洞**：安裝[五個 skills](docs/skills.md)，從一段回憶或你挑選的本機材料起步。建立、匯入、訪談、整理與維護、準備分享版本各是一個完整入口；agent 負責寫作、串聯與走讀，資料預設留在私人工作區。
 - **想先感受兔子洞怎麼讀**：打開[中文範例](https://emu-rabbit.github.io/rabbit-hole-notes/reader/index.html?lang=zh-TW)。入口提供三條短路線，從一盒馬卡龍、一件工具，或她身邊的兩個人開始。範例裡的閱讀地圖再帶你走深。
 - **想了解方法**：先看[網站介紹](https://emu-rabbit.github.io/rabbit-hole-notes/?lang=zh-TW)，再讀完整的[兔子洞筆記法](examples/emu-rabbit-tw/00_入口/兔子洞筆記法.md)。方法保留作者原文。
 - **想在 Obsidian 裡體驗**：在範例閱讀器按「下載範例」，解壓後將含 README.md 的資料夾開成儲存庫。從 README 開始，不需要社群外掛。
@@ -30,11 +30,11 @@
 - [examples/emu-rabbit-en/](examples/emu-rabbit-en/)：同一份精選的英文翻譯。方法與英文命名見 [00_Entry/Rabbit Hole Method.md](<examples/emu-rabbit-en/00_Entry/Rabbit Hole Method.md>)。
 - [src/web/](src/web/)：雙語介紹頁、靜態閱讀器與建置程式。
 - [src/web/example-paths.json](src/web/example-paths.json)：中英文章的對照，用於檢查兩份範例是否齊全及語言切換。
-- [skills/](skills/)：七個可一同安裝的 skills，含共用方法與本機初始化、匯入、檢查工具。
+- [skills/](skills/)：五個需一同安裝的 skills，共用 `rabbit-hole-start` 裡的方法、內部參考與本機初始化、匯入、檢查工具。
 - [docs/skills.md](docs/skills.md)：安裝、第一個請求、支援格式與限制。
 - [tests/](tests/)：閱讀器、下載封裝、skills 安裝與本機工具的檢查。
 
-目前可用的是方法、公開範例、閱讀器與 skills 工具組。匯入程式支援選定的本機文字、Markdown、約定格式 JSON／JSONL；各社群原生匯出檔與 API 尚無專用轉接器。訪談、寫作、串聯與分享前審閱由 agent 按 skills 進行，並非自動發布服務。src/mcp 仍只有預留位置。
+目前可用的是方法、公開範例、閱讀器與 skills 工具組。匯入程式支援選定的本機文字、Markdown、約定格式 JSON／JSONL；各社群原生匯出檔與 API 尚無專用轉接器。建立後可直接開始訪談，匯入和訪談會在同意的範圍內，把實際讀過的材料整理進筆記與導覽；也可以只歸檔、先聊聊或唯讀檢查。分享入口準備供審閱的本機草稿，實際交付仍需許可。src/mcp 仍只有預留位置。
 
 ## 建立自己的兔子洞
 

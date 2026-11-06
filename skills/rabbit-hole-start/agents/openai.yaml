@@ -1,4 +1,4 @@
 interface:
   display_name: "Start a rabbit hole"
-  short_description: "Begin a private, evidence-grounded life record"
-  default_prompt: "Use $rabbit-hole-start to begin my private rabbit hole from one memory."
+  short_description: "Begin a life record from a memory or your records"
+  default_prompt: "Use $rabbit-hole-start to create my private rabbit hole and begin with a memory."

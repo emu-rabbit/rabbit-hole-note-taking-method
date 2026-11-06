@@ -1,4 +1,4 @@
 interface:
   display_name: "Prepare a reading copy"
-  short_description: "Review a separate copy for a chosen audience"
-  default_prompt: "Use $rabbit-hole-share to prepare selected notes for local review, without publishing."
+  short_description: "Make a reviewed local draft for your chosen audience"
+  default_prompt: "Use $rabbit-hole-share to prepare a local reading draft for me to review."

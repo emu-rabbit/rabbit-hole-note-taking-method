@@ -1,30 +1,29 @@
 ---
 name: rabbit-hole-share
-description: Prepare and review a separate audience-limited Rabbit Hole reading copy from selected notes. Use for 分享兔子洞、閱讀版 or privacy review; delivery requires its own authorization.
+description: Prepare a separate audience-limited Rabbit Hole reading draft, reviewing its content and dependencies. Use for 準備分享兔子洞、閱讀版 or privacy review; actual delivery requires authorization for the files, audience and destination.
 ---
 
-# Prepare a reading copy for a chosen audience
+# Prepare a reading copy
 
-Make a coherent local copy the owner can review page by page while the master remains intact.
+Give the owner a coherent local draft to review while the master remains intact.
 
-Follow the [shared conventions](../rabbit-hole-start/references/conventions.md), including first-use orientation to the author’s method. Read the vault’s guidance and the relevant source, index, and progress notes for this task. Use the [reading-copy checklist](references/review-checklist.md) on the actual staged files.
+Read the [shared conventions](../rabbit-hole-start/references/conventions.md) and [reading-copy checklist](references/review-checklist.md). Establish the audience, purpose, content boundary and local destination. When the owner names a topic rather than files, propose and prepare a suitable selection within that scope; choose its technical dependencies yourself.
 
-## Select and prepare
+## Prepare and review
 
-1. Establish audience, destination, purpose, and content scope. Distinguish preparing a local draft from delivering it. Build an exact file selection and read each chosen page in full, including metadata, links, and assets.
-2. Create an authorized new local staging folder. Copy the selected reviewed files individually, keeping master history, raw archives, ledgers, maintenance, caches, hidden files, and unrelated assets outside the copy.
-3. Review information about each person, including indirect identification through dates, quotations, relationships, or nicknames. Make approved edits and redactions in the copy’s actual bytes. Preserve accurate attribution and mark excerpts, translations, and omissions.
-4. Resolve dependencies deliberately. An excluded source can become an approved excerpt, an accurately labeled omitted-source reference, or a removed route. Including a page’s linked material is a separate selection decision.
-5. Rewrite the entrance and navigation for what this audience can actually read. Check links, Wiki links, embeds, and footnotes; use the core checker on the plain staged folder and manually walk the routes.
-6. Show the complete staged pages and a concise change/omission list for owner review, including source excerpts and assets. Track the exact reviewed version and audience; review later material changes again.
+1. Read each selected page in full, including metadata, links and assets. Review information about everyone represented and indirect identification through dates, quotations, relationships or nicknames.
+2. Create an authorized separate local staging folder and copy selected files individually. Keep master history, raw archives, ledgers, maintenance, caches and unrelated assets in the master.
+3. Make appropriate draft edits and redactions in the staged bytes. Preserve attribution and label excerpts, translations and omissions. Resolve excluded dependencies with a suitable excerpt, an accurately labeled unavailable-source note, or a removed route; additions remain within the chosen content boundary.
+4. Rewrite the entrance and navigation for this audience. Run the [checker](../rabbit-hole-start/references/cli.md), read all staged pages as a first-time reader after the omissions, and follow the entrance, story, evidence and return routes. Restore enough context for each first mention and transition.
+5. Present the complete local draft and concise selection/omission list for owner review, flagging disclosure decisions that require their judgment. Record the reviewed version privately, outside the reading copy.
 
-## Complete the requested handoff
+## Deliver only the approved version
 
-For a local draft, return its location, selection, and review status. Delivery needs authorization for the final files, recipient/audience, access level, and destination. Use an available authorized tool and report its actual outcome and verified access accurately.
+A local draft finishes with its path and review status. Actual sharing needs authorization identifying final files, recipient/audience, access level and destination; material changes require review again. Use an available authorized delivery tool and report the verified outcome.
 
-This bundle has no automated export, packaging, hosting, or publication command. If tools cannot enumerate and inspect the selection reliably, finish with a review plan. Structural checks support review; they cannot certify anonymity or decide permission to share.
+The bundle supplies no automated export, hosting or publication command. Its structural checker supports the agent's review; it cannot establish anonymity or grant permission to share.
 
-## Example requests
+## Examples
 
-- 「用 $rabbit-hole-share 把我指定的兩篇故事，做成準備給姊姊看、與主版本分開的本機閱讀草稿。我想先逐頁看過內容、來源節錄和連結，再決定分享哪些檔案。」
-- “Use $rabbit-hole-share to prepare a separate local reading draft of the two stories I selected for my older sister. I want to review each page, its source excerpts, and its links before deciding which files to share.”
+- 「把搬家和一起做小刊物的故事，整理成給姊姊看的本機草稿，我想先看過。」
+- “Prepare a local draft of the moving-home and zine stories for my older sister. I'd like to review it first.”

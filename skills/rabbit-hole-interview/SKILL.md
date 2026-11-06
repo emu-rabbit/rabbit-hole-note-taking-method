@@ -1,32 +1,25 @@
 ---
 name: rabbit-hole-interview
-description: Conduct a focused Rabbit Hole life-story interview and, when authorized, preserve a dated account. Use for 兔子洞訪談、回憶訪談 or everyday life missing from existing records.
+description: Interview someone for their Rabbit Hole life record and integrate the conversation into its sources, stories and navigation within the agreed saving scope. Use for 訪談我、兔子洞訪談 or remembering everyday life; also supports conversation without saving.
 ---
 
-# Follow one remembered scene
+# Follow a remembered scene
 
-Give the person room to describe a moment in their own words and at their own pace. A conversation-only interview can be complete without a vault.
+A request to be interviewed is enough. Handle the record-keeping and organization while the person follows their memories.
 
-Follow the [shared conventions](../rabbit-hole-start/references/conventions.md), including first-use orientation to the author’s method. Read the vault’s guidance and the relevant source, index, and progress notes for this task. For source-led questions, read the full passage around the selected scene. Establish the topic and whether the person wants conversation only, a saved account, or a later written story.
+Read the [shared conventions](../rabbit-hole-start/references/conventions.md), the [conversation guidance](../rabbit-hole-start/references/conversation.md), and the relevant existing context. Use established saving permission; when it is unknown, ask once whether to keep this conversation in a chosen private vault or simply talk.
 
-## Have the conversation
+## Converse, then carry the account through
 
-1. Start from a concrete moment. When using an existing source, give its date, a short exact excerpt, and a readable locator. Keep the event’s state clear: something that happened on an uncertain date, a proposal that remains unheld, or a later account of an earlier event.
-2. Ask one or two comfortable questions, then wait. Begin with setting or sequence, such as “What was happening just before that?” Follow the answer, asking about feelings then and understanding now as separate questions when useful.
-3. Clarify people and chronology where they matter. Keep uncertainty and “I don’t remember” in the account. Offer a pause or another topic when the person seems uncomfortable; let them decide how far to go.
-4. Park a brief optional question if another thread appears, and return to the chosen scene. At a natural stopping point, reflect the account back and invite correction of meaningful uncertainty or attribution.
+1. Begin with one concrete, comfortable question and follow the answer. Use existing sources when helpful, keeping their voices and dates clear.
+2. At a natural pause, reflect important uncertainty or attribution only where clarification would materially change the account. A person can stop, change topic, or leave something unresolved.
+3. For a saved interview, complete the [saved-work workflow](../rabbit-hole-start/references/finish.md) yourself. Preserve attributable answers and questions, integrate the relevant stories, people or works, update indexes and chronology, and read the result with its sources.
+4. Briefly say what was kept and where to read it, with at most a useful open question. For conversation-only, keep the account in the chat, leave files unchanged, and continue or close naturally.
 
-## Preserve the account when authorized
+The result can be a small addition to an existing page. Let the material decide whether a new story or person page would help; a separate command to write, connect or check is unnecessary.
 
-Save a dated manual source under the source section, or use **rabbit-hole-import** for supported intake. Include narrator, narration date, event date or approximate period, source type, permitted scope, and stable passage locators. Keep answers, interviewer questions, quoted speech, and editorial summaries distinguishable. Label edited summaries and omissions accurately; keep off-record material out of stored notes.
+## Examples
 
-Add the account to the source index and reading progress. Update the interview route with what was covered, what remains uncertain, and one optional next question. Use **rabbit-hole-write** if narrative writing was also requested.
-
-## Done means
-
-The person has had space to answer and a clear stopping point. Return the saved source path, or state that the conversation stayed unsaved, together with a brief account of what was covered and any unresolved date or attribution.
-
-## Example requests
-
-- 「用 $rabbit-hole-interview 陪我回想第一次和朋友一起做小刊物的經過，每次問一題，從我們為什麼開始聊起。這次先聊天，等我選好想留下的內容再保存。」
-- “Use $rabbit-hole-interview to help me recall the first zine I made with a friend. Ask one question at a time, starting with why we began. Keep this conversation unsaved until I choose what I want to preserve.”
+- 「訪談我。」
+- “Interview me.”
+- 「這次只聊，不保存。」 / “Let's just talk this time, without saving.”

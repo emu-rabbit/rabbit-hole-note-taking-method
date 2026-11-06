@@ -8,7 +8,7 @@ This repository holds the method website, a public example you can read in a bro
 
 ## Where to start
 
-- **Build your own rabbit hole**: Install the [seven skills](docs/skills.en.md) and begin with one memory or selected local material. They cover source intake, interviewing, writing, links, maintenance and sharing review, with private local defaults.
+- **Build your own rabbit hole**: Install the [five skills](docs/skills.en.md) and begin with one memory or selected local material. Starting, importing, interviewing, maintaining, and preparing a reading copy are complete goals. The agent handles writing, linking and re-reading, with private local defaults.
 - **Experience a rabbit hole**: Open the [English example](https://emu-rabbit.github.io/rabbit-hole-notes/reader-en/index.html?lang=en). Its entrance offers three short routes, beginning with a box of macarons, a useful tool, or two people in her life. The reading map offers more ways to continue.
 - **Learn the method**: Visit the [introduction](https://emu-rabbit.github.io/rabbit-hole-notes/?lang=en), then read the full [Rabbit Hole Method](<examples/emu-rabbit-en/00_Entry/Rabbit Hole Method.md>). The translation includes English folder names and key filenames you can follow.
 - **Try it in Obsidian**: Choose “Download example” in the reader. Extract the ZIP and open the folder containing README.md as a vault. Start with that README; no community plugins are needed.
@@ -30,11 +30,11 @@ This public selection uses one index across its sections. It has no relationship
 - [examples/emu-rabbit-tw/](examples/emu-rabbit-tw/): the original Chinese public selection, including the author's original method.
 - [src/web/](src/web/): the bilingual introduction, static reader, and build code.
 - [src/web/example-paths.json](src/web/example-paths.json): corresponding note paths, used to check completeness and switch languages.
-- [skills/](skills/): seven skills installed together, with shared method references and local initialization, import and check helpers.
+- [skills/](skills/): five skills installed together, sharing the method, internal references and local initialization, import and check helpers in `rabbit-hole-start`.
 - [docs/skills.en.md](docs/skills.en.md): installation, a first request, formats and limitations.
 - [tests/](tests/): reader, archive, skill-installation and local-helper checks.
 
-The method, public examples, reader and skills toolkit are available. The importer accepts selected local text, Markdown, normalized JSON and JSONL; native social-export/API adapters are not implemented. Interviewing, writing, linking and sharing review are agent workflows, not an automatic publishing service. The src/mcp directory remains a placeholder.
+The method, public examples, reader and skills toolkit are available. The importer accepts selected local text, Markdown, normalized JSON and JSONL; native social-export/API adapters are not implemented. Setup can flow straight into an interview. Importing and interviewing integrate the material actually read into notes and navigation within the agreed saving scope. Archive-only intake, unsaved conversations and read-only checks are also available. Sharing preparation produces a local draft for review; delivery still needs permission. The src/mcp directory remains a placeholder.
 
 ## Make a rabbit hole of your own
 

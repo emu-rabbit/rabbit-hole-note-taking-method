@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate this pack's intentionally small, dependency-free skill format."""
+"""Validate the five-skill Rabbit Hole bundle's dependency-free format."""
 from __future__ import annotations
 import argparse
 import json
@@ -8,7 +8,22 @@ from pathlib import Path
 from urllib.parse import unquote, urlsplit
 
 SKILLS = tuple('rabbit-hole-' + part for part in
-               ('start', 'import', 'interview', 'write', 'connect', 'maintain', 'share'))
+               ('start', 'import', 'interview', 'maintain', 'share'))
+LEGACY_SKILLS = ('rabbit-hole-write', 'rabbit-hole-connect')
+
+
+def reject_legacy_skills(root: Path, names=None) -> None:
+    """Require an explicit migration; never remove a user's existing skills."""
+    if names is None:
+        names = [name for name in LEGACY_SKILLS
+                 if (root / name).exists() or (root / name).is_symlink()]
+    legacy = sorted(set(names).intersection(LEGACY_SKILLS))
+    if legacy:
+        raise ValueError(
+            f'legacy Rabbit Hole skills found in {root}: {", ".join(legacy)}. '
+            'Back up and move these entries outside the skills directory before '
+            'installing the five-skill bundle, then retry. Existing skills are never '
+            'automatically removed or migrated.')
 
 
 def scalar(value: str) -> str:
@@ -45,7 +60,7 @@ def anchors(text: str) -> set[str]:
     return found
 
 
-def check_link(file: Path, target: str, root: Path) -> None:
+def check_link(file: Path, target: str, root: Path, bundle: bool = False) -> None:
     target = unquote(target.strip().strip('<>'))
     parsed = urlsplit(target)
     if parsed.scheme or parsed.netloc:
@@ -53,6 +68,8 @@ def check_link(file: Path, target: str, root: Path) -> None:
     destination = (file.parent / parsed.path).resolve() if parsed.path else file.resolve()
     if not destination.is_relative_to(root.resolve()):
         raise ValueError(f'{file}: local link escapes installed skills: {target}')
+    if bundle and not any(destination.is_relative_to((root / name).resolve()) for name in SKILLS):
+        raise ValueError(f'{file}: local link escapes the five-skill bundle: {target}')
     if not destination.exists():
         raise ValueError(f'{file}: missing link target: {target}')
     if parsed.fragment and destination.suffix.lower() == '.md':
@@ -62,6 +79,7 @@ def check_link(file: Path, target: str, root: Path) -> None:
 
 def validate(root: Path) -> None:
     no_symlinks(root)
+    reject_legacy_skills(root)
     for name in SKILLS:
         directory = root / name
         if not directory.is_dir():
@@ -92,9 +110,9 @@ def validate(root: Path) -> None:
             # Ignore fenced examples, which can legitimately show hypothetical paths.
             prose = re.sub(r'^\s*(`{3,}|~{3,}).*?^\s*\1\s*$', '', body, flags=re.M | re.S)
             for target in re.findall(r'!?\[[^\]\n]*\]\(\s*(<[^>]+>|[^\s)]+)(?:\s+["\'][^\n]*?["\'])?\s*\)', prose):
-                check_link(markdown, target, root)
+                check_link(markdown, target, root, bundle=True)
             for target in re.findall(r'^\s*\[[^]]+\]:\s*(<[^>]+>|\S+)', prose, re.M):
-                check_link(markdown, target, root)
+                check_link(markdown, target, root, bundle=True)
         ui = directory / 'agents' / 'openai.yaml'
         if ui.exists():
             section, values = None, {}
@@ -123,7 +141,7 @@ def validate(root: Path) -> None:
                         raise ValueError(f'{ui}: empty {key}')
                     if key == 'short_description' and not 25 <= len(value) <= 64:
                         raise ValueError(f'{ui}: short_description needs 25–64 characters')
-                    if key == 'default_prompt' and '$' + name not in value:
+                    if key == 'default_prompt' and not re.search(r'\$' + re.escape(name) + r'(?![a-zA-Z0-9_-])', value):
                         raise ValueError(f'{ui}: default_prompt must mention ${name}')
                     if key == 'brand_color' and not re.fullmatch(r'#[0-9a-fA-F]{6}', value):
                         raise ValueError(f'{ui}: invalid brand_color')
@@ -140,7 +158,7 @@ def main() -> int:
         validate(args.skills_dir)
     except (ValueError, OSError) as exc:
         parser.exit(1, f'Validation failed: {exc}\n')
-    print(f'Validated {len(SKILLS)} skills in {args.skills_dir}')
+    print(f'Validated all {len(SKILLS)} Rabbit Hole skills in {args.skills_dir}')
     return 0
 
 if __name__ == '__main__':

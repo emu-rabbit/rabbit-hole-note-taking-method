@@ -169,6 +169,60 @@ class ToolkitTests(unittest.TestCase):
         (self.vault / '00_Entry' / 'extra.md').write_text('[home](../README.md)\n')
         self.assertTrue(self.run_cli('check', '--vault', self.vault)['ok'])
 
+    def test_heading_and_block_targets_resolve_in_both_link_forms(self):
+        self.init()
+        (self.vault / 'target.md').write_text(
+            '# Heading 中文\n\nParagraph. ^paragraph-one\n\n'
+            '^standalone-one\n\n[[#Heading 中文]]\n[local](#heading-中文)\n'
+            '[[#^paragraph-one]]\n[local block](#^standalone-one)\n')
+        (self.vault / '00_Entry' / 'links.md').write_text(
+            '[[target#Heading 中文|wiki heading]]\n'
+            '[heading](../target.md#heading-中文)\n'
+            '[[target#^paragraph-one|wiki block]]\n'
+            '[block](../target.md#^paragraph-one)\n'
+            '[[target#^standalone-one]]\n'
+            '[encoded block](../target.md#%5Estandalone-one)\n')
+        self.assertTrue(self.run_cli('check', '--vault', self.vault)['ok'])
+
+    def test_imported_block_targets_require_exact_caret_without_mutation(self):
+        self.init()
+        self.imp(self.source([{'id': 'one', 'title': 'Source heading', 'text': 'Original words.'}]), '--apply')
+        row = self.ledger()[0]
+        anchor = 'record-' + row['key'] + '-r1'
+        links = self.vault / 'links.md'
+        for fragment, valid in ((anchor, False), ('^' + anchor, True),
+                                ('^^' + anchor, False)):
+            for wiki in (True, False):
+                with self.subTest(fragment=fragment, wiki=wiki):
+                    target = row['note'] + '#' + fragment
+                    links.write_text('[[' + target + '|source]]\n' if wiki
+                                     else '[source](' + target + ')\n')
+                    before = {p.relative_to(self.vault): p.read_bytes()
+                              for p in self.vault.rglob('*') if p.is_file()}
+                    report = self.run_cli('check', '--vault', self.vault, code=0 if valid else 1)
+                    self.assertEqual(report['issues'], [] if valid else
+                                     [{'code': 'missing-anchor', 'path': 'links.md'}])
+                    after = {p.relative_to(self.vault): p.read_bytes()
+                             for p in self.vault.rglob('*') if p.is_file()}
+                    self.assertEqual(before, after)
+
+    def test_caret_heading_is_not_a_block_definition(self):
+        self.init()
+        (self.vault / 'target.md').write_text('# ^only-heading\n\n# Ordinary heading\n')
+        links = self.vault / 'links.md'
+        links.write_text('[heading](target.md#only-heading)\n'
+                         '[[target#Ordinary heading]]\n')
+        self.assertTrue(self.run_cli('check', '--vault', self.vault)['ok'])
+        for fragment in ('^only-heading', '^ordinary-heading'):
+            for wiki in (True, False):
+                with self.subTest(fragment=fragment, wiki=wiki):
+                    target = 'target.md#' + fragment
+                    links.write_text('[[' + target + ']]\n' if wiki
+                                     else '[block](' + target + ')\n')
+                    report = self.run_cli('check', '--vault', self.vault, code=1)
+                    self.assertEqual(report['issues'],
+                                     [{'code': 'missing-anchor', 'path': 'links.md'}])
+
     def test_ledger_path_traversal_rejected(self):
         self.init()
         p = self.source([{'id': 'one', 'text': 'first'}])

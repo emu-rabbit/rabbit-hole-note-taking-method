@@ -34,7 +34,7 @@ Keep namespace, owner, author, and explicit source ID stable across batches of t
 1. Identify the actual export format and select the authorized files/date range. When excluded records are mixed into one file and cannot be isolated without reading them, obtain an independently supplied permitted subset first. Inspect its actual schema rather than relying on the platform name.
 2. Retain the permitted supplied original separately from the normalized derivative, in the authorized location. Make a mapping note: original filename, record locator/ID, relevant fields, timezone, omissions and any decoding performed. Retain full exact source wording for the selected record where authorized.
 3. Map one post/account to the correct speaker. Keep replies and quoted speech attributed to their actual speakers.
-4. Normalize a small sample, compare it against the original, then process only the approved subset. Record failures and coverage. If the original has no stable ID, choose a documented stable locator with the owner's approval or accept content-based identity.
+4. Normalize a small sample, compare it against the original, then process only the approved subset. Record failures and coverage. If the original has no stable ID, use a documented, unambiguous source locator or accept content-based identity.
 5. Import the normalized file. The runtime stores the exact normalized input bytes, **not** the platform archive you did not pass it. Keep the original-to-normalized mapping and original reference in the source/progress notes so provenance is not overstated.
 
 These are agent-assisted preparation steps. The bundle has no native service adapters. If the available tools cannot safely inspect the format, ask its provider for a supported text/JSON subset.

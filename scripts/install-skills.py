@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Install the complete Rabbit Hole skill pack; preview unless --apply is given."""
+"""Install the complete five-skill Rabbit Hole bundle; preview unless --apply is given."""
 from __future__ import annotations
 import argparse
 import hashlib
@@ -38,6 +38,7 @@ def install(source: Path, destination: Path, apply: bool = False) -> None:
     validation.no_symlinks(destination)
     if destination.exists() and not destination.is_dir():
         raise ValueError(f'destination is not a directory: {destination}')
+    validation.reject_legacy_skills(destination)
     for name in SKILLS:
         target = destination / name
         if target.exists() or target.is_symlink():
@@ -45,7 +46,7 @@ def install(source: Path, destination: Path, apply: bool = False) -> None:
     for name in SKILLS:
         print(f'{"Install" if apply else "Would install"}: {source / name} -> {destination / name}')
     if not apply:
-        print('Preview only. Add --apply to install all seven skills.')
+        print('Preview only. Add --apply to install all five skills.')
         return
     # Mac/Linux: anchor every operation to no-follow directory descriptors.
     # Holding parents also makes rollback independent of later path replacement.
@@ -110,6 +111,7 @@ def install(source: Path, destination: Path, apply: bool = False) -> None:
             child = keep(os.open(name, directory_flags, dir_fd=source_fd))
             contents[name] = snapshot(child)
         destination_fd = open_directory(destination, create=True)
+        validation.reject_legacy_skills(destination, os.listdir(destination_fd))
         # Repeat collision preflight against the exact opened destination.
         for name in SKILLS:
             try:
@@ -154,7 +156,7 @@ def install(source: Path, destination: Path, apply: bool = False) -> None:
     finally:
         for fd in reversed(descriptors):
             os.close(fd)
-    print('Installed and verified all seven skills. Check for the skills on your next turn; reopen your client if discovery has not refreshed.')
+    print('Installed and verified all five skills. Check for the skills on your next turn; reopen your client if discovery has not refreshed.')
 
 
 def main() -> int:

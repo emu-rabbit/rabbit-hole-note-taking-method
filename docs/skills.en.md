@@ -2,7 +2,7 @@
 
 [繁體中文](skills.md) · [Repository](../README.en.md) · [Full method](<../examples/emu-rabbit-en/00_Entry/Rabbit Hole Method.md>)
 
-Begin with one memory you want to keep. Seven complementary skills cover starting, preserving sources, interviewing, writing, connecting, maintaining, and reviewing a reading copy. They help an agent do a useful piece of work and leave a clear place to continue.
+Begin with one memory you want to keep. Five skills cover five goals: start a rabbit hole, import material, revisit memories, maintain your notes, and prepare a reading copy. Tell the agent what you want to accomplish. It takes care of preserving sources, writing readable notes, connecting them, and reading through the result.
 
 This is a SKILL.md bundle with local Python helpers for selected source files. You choose what to preserve, how to tell it, and whether to share. The public example shows the method; your vault begins with your own material.
 
@@ -23,80 +23,72 @@ The last command previews only. To install after reviewing it:
 python3 scripts/install-skills.py --apply
 ```
 
-The default destination is `$CODEX_HOME/skills`, or `~/.codex/skills` when unset. Use `--dest /your/skills/directory` for a different compatible agent's skill directory. Install all seven together: they share the method, conventions and helpers in rabbit-hole-start. Check discovery on your next turn; reopen your client if it has not refreshed its skills.
+The default destination is `$CODEX_HOME/skills`, or `~/.codex/skills` when unset. Use `--dest /your/skills/directory` for a different compatible agent's skill directory. Install all five together: they share the method, internal references and local helpers in `rabbit-hole-start`. Check discovery on your next turn; reopen your client if it has not refreshed its skills.
 
-The installer validates all files, links and collisions before writing. It never overwrites existing skills or changes global settings. For an update, first back up the seven existing directories and decide where to move them, then install the new version. Automatic upgrade/removal is not implemented; unrelated skills remain untouched. Client discovery varies. File installation and Codex format are tested, not every compatible agent product.
+The installer validates all files, links and collisions before writing. It never overwrites existing skills or changes global settings. If it finds a matching skill or an older entrypoint, it stops. Back up the existing Rabbit Hole skills and decide where to move them outside the skills directory, then install the complete new bundle. Automatic upgrade/removal is not implemented; unrelated skills remain untouched. Client discovery varies. File installation and Codex format are tested, not every compatible agent product.
 
 ## Choose a skill
 
 | Skill | Use it for | Useful outcome |
 | --- | --- | --- |
-| `$rabbit-hole-start` | Starting or choosing the next step | A private minimal structure and a real entrance |
-| `$rabbit-hole-import` | Explicitly selected local records | Originals, source notes, locators and revision ledger |
-| `$rabbit-hole-interview` | Memories, relationships and feelings | One or two comfortable questions; dated accounts when saving is authorized |
-| `$rabbit-hole-write` | Turning sources into readable notes | Grounded stories, people, life themes or creative-work pages |
-| `$rabbit-hole-connect` | Making existing notes navigable | Natural links, indexes, timelines and short reading routes |
-| `$rabbit-hole-maintain` | New evidence, corrections or resuming | Bounded updates, changed understanding and honest reading progress |
-| `$rabbit-hole-share` | Preparing for a chosen audience | A separate local draft for page-by-page review |
+| `$rabbit-hole-start` | Starting your own rabbit hole | A private minimal structure, then an interview; a first note and entrance within the agreed saving scope |
+| `$rabbit-hole-import` | Bringing selected local material into your notes | Preserved originals and sources, with the batch actually read woven into notes and navigation |
+| `$rabbit-hole-interview` | Recalling experiences, relationships and feelings | A natural conversation; at a stopping point, saved accounts and updated notes and navigation within the agreed scope |
+| `$rabbit-hole-maintain` | Checking, writing, correcting or improving a reading route | Read-only findings, or authorized updates to narrative, evidence, indexes and routes |
+| `$rabbit-hole-share` | Preparing a version for a chosen audience | An exact proposed file list and required dependencies selected by the agent, plus a separate local draft for review |
 
-A common path is start → import or interview → write → connect → maintain. Use only the steps you need. Sharing is optional; preparing a reading draft does not authorize uploading it.
+Each entrypoint completes a useful piece of work that can be read, traced to evidence and explored further. Writing, linking, filing, indexing and re-reading belong to the agent. Shared writing and connection principles are internal references; `write` and `connect` are no longer separate skills to invoke. You provide the goal, permitted material and a place to keep it.
 
-## Seven practical requests
+Once the saving scope is established, the agent completes the work within it without asking again for every note or link. An unsaved conversation or a read-only check stays that way. Sharing is a separate decision: preparing a local draft does not authorize uploading or delivering it.
 
-Replace the folders, files, and notes with your own. Choose the task you need now; for an existing vault, provide its location so the agent can continue in its current structure.
+## Five natural requests
+
+Say what you want to accomplish. On your first use, the agent confirms the necessary folder, language and saving scope. For an existing vault, it continues in the current location and structure.
 
 ### rabbit-hole-start: Begin with one memory
 
-> Use $rabbit-hole-start to create a private English rabbit hole in a new folder I choose. Begin with the first time I moved home: ask me one question, then confirm what I want to save. Use only the memories I provide and keep the vault local.
+> Help me start my own rabbit hole, beginning with the first time I moved home.
 
-What you get: with permission to save, a memory source, a short story, and a route from README to the story and its evidence. Setup only or an unsaved conversation are also options.
+The agent creates a small private structure and asks the first question without requiring another skill invocation. At a natural stopping point, within the agreed saving scope, it preserves an attributed, dated account, writes a short story, and connects README to the story and its evidence. You can also ask for setup only or an unsaved conversation.
 
-### rabbit-hole-import: Preserve selected posts
+### rabbit-hole-import: Organize selected posts
 
-> Use $rabbit-hole-import to bring the supplied selected-posts.json into this private vault. It contains three of my own posts prepared in the supported source format. Show me the preview first and save after I confirm, preserving authors, original dates, and source IDs.
+> Bring these three posts I selected about moving home into my rabbit hole, so that part of my life is fuller.
 
-What you get: the original input, three locatable source notes, and a ledger. Reimporting identical records reports unchanged; turning them into stories is a separate next step.
+The agent preserves permitted originals, authors, dates, source IDs and the ledger. It then integrates the material actually read into relevant stories, people or life notes, updates navigation, indexes and reading progress, and reads through the result. Large collections are read in batches; imported does not mean understood. Ask for “archive only” to preserve sources without narrative edits. Reimporting identical material does not create duplicate sources.
 
 ### rabbit-hole-interview: Revisit a collaboration
 
-> Use $rabbit-hole-interview to help me recall the first zine I made with a friend. Ask one question at a time, starting with why we began. Keep this conversation unsaved until I choose what I want to preserve.
+> Help me recall the first zine I made with a friend and keep that memory in my rabbit hole.
 
-What you get: a conversation whose next question follows your answer. Once you choose what to save, the questions and answers can become an attributed, dated source.
-
-### rabbit-hole-write: Turn an interview into a story
-
-> Use $rabbit-hole-write to turn the moving-home interview I selected in this vault into a short, self-contained story and save it here. Use the interview to explain my friend’s role at the time, distinguish feelings then from recollections now, and link footnotes to the original words.
-
-What you get: a story with scene and context, nearby source footnotes, and updated indexes and reading progress.
-
-### rabbit-hole-connect: Guide a first-time reader
-
-> Use $rabbit-hole-connect to make a short first-visit route through the five existing notes I selected. Start with the profile, then visit the moving-home story and the zine we made together. Add the links and brief context readers need, and mark a comfortable stopping point in the reading map.
-
-What you get: a navigable route with an ending, natural links among people, stories and work, and lookup entries that help readers find them.
+The agent follows your answers with one or two questions at a time. At a natural stopping point, within the established saving scope, it preserves an attributed, dated source, integrates the story, people and creative work into existing notes, and updates and checks navigation. Feelings at the time stay distinct from present-day recollections, with uncertainty intact. You can pause saving or exclude a passage at any time.
 
 ### rabbit-hole-maintain: Weave new understanding into existing notes
 
-> Use $rabbit-hole-maintain to incorporate this new interview into the existing zine page, related story, and timeline. It corrects the launch date and adds details about the collaboration. Keep the earlier sources, explain why the understanding changed, and record the material actually read in this pass.
+> I found the zine’s actual launch date. Please correct the related material in my rabbit hole.
 
-What you get: updates to the existing pages, evidence for the date correction, and a clear place to resume reading. The contemporary records remain available.
+After reading the new evidence, the agent updates the existing work, story and timeline, preserves earlier sources and explains the changed understanding. This skill also handles writing from existing sources, linking notes and improving short reading routes. A request to check remains read-only and returns findings and suggestions. Each pass records what was actually read and where to continue.
 
 ### rabbit-hole-share: Prepare a reading draft for family
 
-> Use $rabbit-hole-share to prepare a separate local reading draft of the two stories I selected for my older sister. I want to review each page, its source excerpts, and its links before deciding which files to share.
+> Prepare a version of my moving-home story for my older sister. I’d like to look it over first.
 
-What you get: a separate local draft and a list of excerpts, edits, and files to review. Delivering it to your sister is a later, separately authorized step.
+The agent selects and lists the exact proposed files for the audience and topic, checks source excerpts, attachments and link dependencies, and prepares a separate local draft. Review its context, edits and unresolved questions page by page before deciding which files to deliver and to whom. Preparing the draft does not send, upload or publish it.
+
+### If you need to name the skill
+
+If your client does not select the right entrypoint, prefix your request with its name from the table, such as `$rabbit-hole-interview`. You do not need a sequence of writing, linking or indexing commands.
 
 ## After your first pass
 
-After the first pass, check four things:
+After the first pass, the agent should check four things and give you a working reading entrance:
 
 1. The memory you agreed to save is a dated, attributed source with uncertainty intact. You do not need a social export to preserve a permitted chat account.
 2. One short note stands on its own and its footnote reaches the actual source passage.
 3. README reaches the note, the source index no longer says “No sources imported yet,” and there is a route back.
 4. Maintenance records what was actually read and where to continue.
 
-Then read it as someone arriving for the first time: can you understand the scene, get a sense of the person, find the supporting passage, and choose where to stop? Revise confusing prose or navigation even when the structural check passes.
+The agent then reads it as someone arriving for the first time: can a reader understand the scene, get a sense of the person, find the supporting passage, and choose where to stop? It revises confusing prose or navigation even when the structural check passes.
 
 ## Runnable local helpers
 
@@ -135,6 +127,6 @@ python3 -m unittest discover -s tests -p 'test_*.py' -v
 npm run check
 ```
 
-Synthetic tests cover both languages, repeat imports, preserved revisions, source injection, path boundaries, isolated installation and the existing website. They do not guarantee every agent's behavior or the safety of arbitrary private data. The author's complete method remains unchanged; implementation choices live in [conventions.md](../skills/rabbit-hole-start/references/conventions.md). The repository's existing licensing caveat applies; this bundle adds no reuse permission for source material or creative work.
+Synthetic tests cover both languages, repeat imports, preserved revisions, source injection, path boundaries, isolated installation and the existing website. They do not guarantee every agent's behavior or the safety of arbitrary private data. The bundled method matches the public editions; implementation choices live in [conventions.md](../skills/rabbit-hole-start/references/conventions.md). The repository's existing licensing caveat applies; this bundle adds no reuse permission for source material or creative work.
 
 See the [evaluation record and synthetic reading sample](skills-evaluation.md) for actual findings, revisions, and re-reading results. The deep case is in Traditional Chinese; the record also identifies the smaller English test scope.

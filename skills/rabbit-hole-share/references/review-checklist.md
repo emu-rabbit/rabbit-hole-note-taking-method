@@ -4,7 +4,7 @@ Review the staged bytes and the reader’s experience, then record the outcome p
 
 ## Selection and disclosure
 
-- The owner chose the audience, destination, purpose, and exact files.
+- The draft has a clear audience, purpose and content boundary chosen by the owner, with its exact file selection documented for review.
 - Every page and asset has been read in full, including metadata, aliases, filenames, captions, and source excerpts.
 - Disclosure review covers each person’s information and indirect identification through quotations, dates, nicknames, relationships, or combined clues. Apply the required authorization for sensitive information and information about minors.
 - The copy contains only selected material. Master history, hidden files, raw archives, originals, ledgers, maintenance, and caches remain outside it.

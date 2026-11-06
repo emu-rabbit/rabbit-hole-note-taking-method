@@ -1,4 +1,4 @@
 interface:
-  display_name: "Rabbit Hole Interview"
-  short_description: "Explore one life scene and preserve its source"
-  default_prompt: "Use $rabbit-hole-interview to ask me about one remembered scene, one or two questions at a time."
+  display_name: "Interview me"
+  short_description: "Follow a memory and keep its place in your rabbit hole"
+  default_prompt: "Use $rabbit-hole-interview to interview me."

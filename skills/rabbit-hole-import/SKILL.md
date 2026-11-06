@@ -1,27 +1,25 @@
 ---
 name: rabbit-hole-import
-description: Preserve selected local sources in a Rabbit Hole vault with provenance, stable identities, and incremental revisions. Use for 兔子洞匯入 or preparing supported local source files.
+description: Bring selected local material into a Rabbit Hole and integrate the read material into its notes and navigation, preserving original sources and revisions. Use for 匯入兔子洞資料 or adding supported local records; archive-only requests preserve sources without narrative edits.
 ---
 
-# Preserve sources for later understanding
+# Bring records into a life
 
-Create attributable, locatable source notes that retain the supplied wording and its history.
+Preserve the supplied evidence and make the material actually read useful to a reader.
 
-Follow the [shared conventions](../rabbit-hole-start/references/conventions.md), including first-use orientation to the author’s method. Read the vault’s guidance and the relevant source, index, and progress notes for this task. Read [source formats](references/source-formats.md) for input preparation and the [CLI reference](../rabbit-hole-start/references/cli.md) for the exact command contract.
+Read the [shared conventions](../rabbit-hole-start/references/conventions.md), [source formats](references/source-formats.md), and [CLI reference](../rabbit-hole-start/references/cli.md). Read the existing entrance, relevant notes and reading progress before adding material.
 
-## Import a permitted batch
+## Import and integrate
 
-1. Establish which files and records may be read and retained. The importer retains the **entire input file’s exact bytes**. Use an independently supplied permitted batch when the original mixes allowed and excluded content. If selecting the subset would require reading excluded material, ask its provider for a clean subset first.
-2. Inspect the actual supported format and enough context to identify speakers, quotations, and dates. For a service export, normalize only the authorized portion using the source-format guidance and retain its mapping. Native platform archives and APIs require separate tools; this bundle accepts local text and normalized records.
-3. Choose a stable source namespace and identity as documented in the CLI. Keep source-supplied IDs; use `--source-id` for an evolving text/Markdown record. Content-based identity is appropriate when no stable ID exists, with edited text becoming a new record.
-4. Preview the exact input and metadata. Compare planned new, unchanged, and revised records with the intended batch, then apply an authorized write. Re-preview to check repeatability and run `check`. Open a generated source note and verify its original-byte provenance.
-5. Update the human source index and reading-progress note deliberately. Record what was ingested, the passages actually read, unsupported material, and the next reading position. The CLI maintains its own ledger separately.
+1. Establish the permitted files and records. The importer retains the entire input file's exact bytes. When allowed and excluded material are mixed, obtain a separately prepared allowed batch if selecting it would require reading excluded content.
+2. Inspect the supported format and identify speakers, quotations and dates. Normalize authorized service exports with a retained mapping when needed. The bundle accepts local text and normalized records; native platform archives and APIs need separate preparation.
+3. Keep namespace, owner, author and source IDs stable. Preview the batch, verify new/unchanged/revised counts, and apply within the approved saving scope. Respect a request to show the preview for confirmation first.
+4. Read a coherent, bounded set of imported passages and compare their generated notes with the input. Complete the [saved-work workflow](../rabbit-hole-start/references/finish.md) for that material, using its existing source locators. For archive-only requests, update source navigation and ingestion status without expanding into narrative edits.
+5. Re-preview to verify repeatability and run the structural check. Report imported counts separately from reading and integration coverage, with a useful entrance and the next unread range.
 
-## Finish with a usable source
+A large import may leave material unread. Record that boundary accurately and finish the selected batch rather than suggesting all imported records have been understood.
 
-Return counts, actual reading coverage, the source-index path, and a concrete source locator that a writer can cite. A successful import preserves evidence; prose organization is a separate next step when requested.
+## Examples
 
-## Example requests
-
-- 「用 $rabbit-hole-import 把我提供的 selected-posts.json 匯入這個私人兔子洞。這是已按來源格式挑好的三篇自己的貼文。先給我看預覽，我確認後再保存，保留作者、原始日期和來源 ID。」
-- “Use $rabbit-hole-import to bring the supplied selected-posts.json into this private vault. It contains three of my own posts prepared in the supported source format. Show me the preview first and save after I confirm, preserving authors, original dates, and source IDs.”
+- 「把這三篇我挑好的貼文匯入兔子洞。」
+- “Add these three posts I selected to my rabbit hole.”
