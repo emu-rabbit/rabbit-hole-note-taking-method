@@ -177,7 +177,7 @@ test('all English homepage panels, example link, reader pages, labels and paths 
 });
 
 import { existsSync } from 'node:fs';
-import { siteBase, homePaths, siteUrl, homeDescriptions } from '../src/web/seo.mjs';
+import { siteBase, homePaths, siteUrl, homeDescriptions, socialImage } from '../src/web/seo.mjs';
 import { htmlIds } from '../src/web/validate.mjs';
 
 const attributes = tag => Object.fromEntries([...tag.matchAll(/([\w:-]+)="([^"]*)"/g)].map(([, key, value]) => [key, decodeEntities(value)]));
@@ -218,7 +218,10 @@ test('generated public pages have canonical, reciprocal language, robots and soc
     assert.equal(value('twitter:description'), value('description'));
     assert.equal(value('og:locale'), locale === 'en' ? 'en_US' : 'zh_TW');
     assert.equal(value('twitter:card'), 'summary_large_image');
-    assert.equal(value('og:image'), siteUrl('rabbit-hole.jpg'));
+    assert.equal(value('og:image'), siteUrl(socialImage.path));
+    assert.equal(value('og:image:width'), String(socialImage.width));
+    assert.equal(value('og:image:height'), String(socialImage.height));
+    assert.equal(value('og:image:type'), socialImage.type);
     assert.equal(value('twitter:image'), value('og:image'));
     assert.ok(value('og:image:alt'));
     assert.ok(/<h1\b/.test(html), path + ' must contain static content');
@@ -226,6 +229,8 @@ test('generated public pages have canonical, reciprocal language, robots and soc
       assert.ok(/<article[^>]*>[\s\S]*?<p>/.test(html), path);
     } else {
       assert.equal(value('description'), homeDescriptions[locale]);
+      assert.ok(!tags(html, 'a').some(link => /sitemap\.xml/.test(link.href ?? '')), 'no visible sitemap link');
+      assert.ok(tags(html, 'img').some(image => image.src.endsWith('/rabbit-hole.jpg')), 'keep original hero');
       assert.equal((html.match(/class="structure-browser"/g) ?? []).length, 1);
       assert.equal((html.match(new RegExp(`id="structure-${locale}-\\d+-panel"`, 'g')) ?? []).length, 9);
     }
@@ -234,6 +239,7 @@ test('generated public pages have canonical, reciprocal language, robots and soc
     for (const link of switchLinks) assert.equal(new URL(link.href, siteUrl(path)).href, siteUrl(pair[link['data-locale']]));
   }
   assert.equal(canonicals.size, 114);
+  assert.deepEqual(readFileSync(new URL(`../dist/${socialImage.path}`, import.meta.url)), readFileSync(new URL(`../src/web/${socialImage.path}`, import.meta.url)), 'build copies the social asset byte-for-byte');
 
   const sitemap = readFileSync(new URL('../dist/sitemap.xml', import.meta.url), 'utf8');
   const entries = [...sitemap.matchAll(/<url>([\s\S]*?)<\/url>/g)].map(match => match[1]);

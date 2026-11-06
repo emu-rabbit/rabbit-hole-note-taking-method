@@ -61,7 +61,12 @@ test('the bundle exposes exactly five complete goal entrypoints', () => {
 test('each bilingual guide has five natural goal requests and an optional explicit invocation', () => {
   for (const file of ['skills.md', 'skills.en.md']) {
     const guide = read(`docs/${file}`);
-    const examples = [...guide.matchAll(/^### (rabbit-hole-[a-z]+)[^\n]*\n\n> (.+)$/gm)];
+    const examples = guide.split(/^### /m).slice(1).filter(section => section.startsWith('rabbit-hole-')).map(section => {
+      const name = /^(rabbit-hole-[a-z]+)/.exec(section)[1];
+      const prompts = [...section.matchAll(/^> (.+)$/gm)];
+      assert.equal(prompts.length, 1, `${file}: ${name} has one natural request`);
+      return [null, name, prompts[0][1]];
+    });
     assert.deepEqual(examples.map(match => match[1]), skillNames, `${file}: each goal has one example in order`);
     const tableNames = [...guide.matchAll(/^\| `\$(rabbit-hole-[a-z]+)` \|/gm)].map(match => match[1]);
     assert.deepEqual(tableNames, skillNames, `${file}: the skill selector matches the installed bundle`);
@@ -91,11 +96,35 @@ test('the homepage and method offer memories and existing records as starting po
   const zh = readFileSync(new URL('../examples/emu-rabbit-tw/00_入口/兔子洞筆記法.md', import.meta.url), 'utf8');
   const en = readFileSync(new URL('../examples/emu-rabbit-en/00_Entry/Rabbit Hole Method.md', import.meta.url), 'utf8');
   const invitation = '從一段回憶開始聊，或整理手邊的日記、貼文';
-  assert.ok(homepage.includes(invitation));
+  assert.ok(homepage.includes('從一段回憶開始聊，或整理手邊的日記、社群貼文'));
   assert.ok(zh.includes(invitation));
   assert.ok(zh.includes('也可以透過各社群的資料匯出功能'));
   assert.ok(siteEnglish.collectBody.includes('talking about a memory'));
-  assert.ok(siteEnglish.collectBody.includes('diaries and posts'));
+  assert.ok(siteEnglish.collectBody.includes('diaries and social media posts'));
   assert.ok(en.includes('begin by talking about a memory or organizing diaries and posts'));
   assert.ok(en.includes('data-export features are another way'));
+});
+
+
+test('bilingual skill links open externally without opener access', () => {
+  const source = read('src/web/index.html');
+  for (const [html, filename] of [[source, 'skills.md'], [localizeHtml(source, siteEnglish), 'skills.en.md']]) {
+    const link = /<a\b[^>]*data-i18n="skillsGuide"[^>]*>/.exec(html)?.[0];
+    assert.ok(link?.includes(`docs/${filename}`));
+    assert.ok(link.includes('target="_blank"'));
+    assert.ok(/rel="[^"]*\bnoopener\b[^"]*"/.test(link));
+    assert.ok(/rel="[^"]*\bnoreferrer\b[^"]*"/.test(link));
+  }
+});
+
+test('import examples introduce social exports with the actual format and privacy boundaries nearby', () => {
+  for (const [file, concepts] of [
+    ['skills.md', ['社群貼文匯出檔案', '下載／匯出資料', '原生 ZIP', '平台 JSON', 'UTF-8', 'JSONL', '16 MiB', '沒有內建', '不會自動保存', '排除的資料']],
+    ['skills.en.md', ['export of your social media posts', 'download/export your data', 'native ZIP', 'platform JSON', 'UTF-8', 'JSONL', '16 MiB', 'not a built-in', 'not a platform archive', 'excluded records']],
+  ]) {
+    const section = read(`docs/${file}`).split(/^### rabbit-hole-import[^\n]*\n/m)[1].split(/^### /m)[0];
+    for (const concept of concepts) assert.ok(section.includes(concept), `${file}: ${concept}`);
+  }
+  // Preserve the heading behind the previously shared deep link.
+  assert.ok(read('docs/skills.md').includes('### rabbit-hole-import：整理挑選好的貼文'));
 });

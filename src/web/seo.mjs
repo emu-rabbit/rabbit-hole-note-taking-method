@@ -5,6 +5,7 @@ import { siteEnglish } from './site-messages.js';
 // The repository is deployed under a GitHub Pages project path, not at /.
 export const siteBase = 'https://emu-rabbit.github.io/rabbit-hole-notes/';
 export const siteUrl = path => new URL(path, siteBase).href;
+export const socialImage = { path: 'rabbit-hole-social-1200x630.jpg', width: 1200, height: 630, type: 'image/jpeg' };
 export const homePaths = { 'zh-TW': '', en: 'en/' };
 export const homeDescriptions = {
   'zh-TW': '兔子洞是一種記錄一個人的筆記法。從故事、關係與作品，讀到一個人如何走到今天。',
@@ -24,7 +25,7 @@ export function noteDescription(note) {
 
 export function renderMetadata({ title, description, locale, paths, type = 'website' }) {
   const canonical = siteUrl(paths[locale]);
-  const image = siteUrl('rabbit-hole.jpg');
+  const image = siteUrl(socialImage.path);
   const imageAlt = locale === 'en' ? siteEnglish.burrowDescription : '白兔與收藏合照、故事、畫稿和信件的相連洞室';
   return `<title>${escape(title)}</title>
   <meta name="description" content="${escape(description)}">
@@ -40,8 +41,9 @@ export function renderMetadata({ title, description, locale, paths, type = 'webs
   <meta property="og:locale" content="${locale === 'en' ? 'en_US' : 'zh_TW'}">
   <meta property="og:locale:alternate" content="${locale === 'en' ? 'zh_TW' : 'en_US'}">
   <meta property="og:image" content="${image}">
-  <meta property="og:image:width" content="1374">
-  <meta property="og:image:height" content="1145">
+  <meta property="og:image:type" content="${socialImage.type}">
+  <meta property="og:image:width" content="${socialImage.width}">
+  <meta property="og:image:height" content="${socialImage.height}">
   <meta property="og:image:alt" content="${escape(imageAlt)}">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="${escape(title)}">

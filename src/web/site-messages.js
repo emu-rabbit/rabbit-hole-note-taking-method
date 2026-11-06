@@ -14,7 +14,7 @@ export const siteEnglish = {
   methodEyebrow: 'How to take these notes',
   methodTitle: 'Start with memories or records, and let the words that describe you take shape over time.',
   collectTitle: 'Begin with a small moment you want to keep',
-  collectBody: 'Begin by talking about a memory, or organize diaries and posts you already have into records you can return to.',
+  collectBody: 'Begin by talking about a memory, or organize diaries and social media posts you already have into records you can return to.',
   interviewTitle: 'Dig deeper through interviews and memories',
   interviewBody: 'Start with a particular event, person, or aspect of your life. Revisit it from memory or ask someone to interview you, deepening each part and filling in the gaps one by one.',
   linkTitle: 'Link the notes to each other',
@@ -40,5 +40,4 @@ export const siteEnglish = {
   footerAuthor: 'Author',
   authorName: 'Emu-rabbit',
   footerRepository: 'GitHub repository',
-  sitemap: 'Sitemap',
 };

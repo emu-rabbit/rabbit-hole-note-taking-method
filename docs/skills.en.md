@@ -53,7 +53,13 @@ The agent creates a small private structure and asks the first question without 
 
 ### rabbit-hole-import: Organize selected posts
 
-> Bring these three posts I selected about moving home into my rabbit hole, so that part of my life is fuller.
+You can use a social platform’s “download/export your data” feature to obtain **an export of your social media posts**, then select the files, date range or posts you want the agent to read and preserve. These can become import material. You can also start with selected social media posts you already have; a full account export is not required.
+
+> I downloaded an export from a social platform. Bring the three social media posts I selected about moving home into my rabbit hole, so that part of my life is fuller.
+
+An export is a source of material, **not a promise that native ZIP archives or platform JSON work directly with the local import command**. The agent first checks the actual format and permitted scope. When its available tools support the format, it can unpack, read and convert the selected material into UTF-8 text, Markdown, normalized JSON arrays or JSONL, up to 16 MiB per input file. This is preparation for the files at hand, not a built-in set of platform ZIP/API adapters. An unreadable format needs a separately prepared readable subset; renaming its extension is not a conversion.
+
+Preserve authorized originals, source locators, authors and dates, and record how original records map to the converted content. The local helper retains only the input it actually receives, not a platform archive it was never given. If choosing a subset would require reading excluded records, provide a clean permitted subset first. Supplying an export does not authorize reading an entire account or every attachment.
 
 The agent preserves permitted originals, authors, dates, source IDs and the ledger. It then integrates the material actually read into relevant stories, people or life notes, updates navigation, indexes and reading progress, and reads through the result. Large collections are read in batches; imported does not mean understood. Ask for “archive only” to preserve sources without narrative edits. Reimporting identical material does not create duplicate sources.
 
