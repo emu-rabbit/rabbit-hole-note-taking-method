@@ -105,13 +105,6 @@ summary::-webkit-details-marker { display: none; }
 details[open] > summary .icon-chevron { transform: rotate(90deg); }
 .tree-message { margin: 10px 9px; font-size: 13px; color: var(--muted); }
 
-.zip-controls { flex: none; padding: 9px 13px 13px; border-top: 1px solid var(--line); }
-.zip-status { margin: 0 0 7px; color: var(--muted); font-size: 12px; line-height: 1.45; }
-.zip-open { width: 100%; min-height: 42px; padding: 8px; border: 0; border-radius: 6px; background: var(--accent-hover); color: var(--paper); font-size: 14px; font-weight: 700; cursor: pointer; }
-.zip-open:hover { background: var(--ink); }
-.zip-open:disabled { opacity: .65; cursor: default; }
-.zip-close { margin: 0 0 7px; padding: 0; border: 0; background: transparent; color: var(--accent); font-size: 12px; text-decoration: underline; cursor: pointer; }
-
 .topbar {
   position: sticky;
   top: 0;
@@ -242,3 +235,6 @@ details[open] > summary .icon-chevron { transform: rotate(90deg); }
     cursor: pointer;
   }
 }
+
+.reader-shortcuts { display: flex; flex-wrap: wrap; gap: 10px 20px; margin-bottom: 24px; font-size: 14px; }
+.example-download { padding: 16px 20px; font-size: 13px; border-top: 1px solid var(--line); }

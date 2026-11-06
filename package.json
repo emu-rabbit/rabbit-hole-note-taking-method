@@ -4,6 +4,8 @@
   "type": "module",
   "scripts": {
     "build": "node src/web/build.mjs",
-    "start": "node src/web/build.mjs && node src/web/serve.mjs"
+    "start": "node src/web/build.mjs && node src/web/serve.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "check": "npm test && npm run build"
   }
 }

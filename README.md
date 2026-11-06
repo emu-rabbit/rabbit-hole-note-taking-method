@@ -1,9 +1,58 @@
-# 兔子洞筆記法
+# 兔子洞筆記法 · Rabbit Hole Notes
 
-執行 `npm start` 可以在本機瀏覽介紹頁和範例閱讀器。
+[English](README.en.md) · [介紹網站](https://emu-rabbit.github.io/rabbit-hole-note-taking-method/?lang=zh-TW) · [走進公開範例](https://emu-rabbit.github.io/rabbit-hole-note-taking-method/reader/index.html?lang=zh-TW)
 
-## GitHub Pages
+兔子洞是一種用來記錄一個「人」的筆記法。把人生經歷、重要的人、相處、故事與創作放在一起，讓後來走進來的人或 agent 能沿著時間和連結，慢慢認識你。
 
-在 GitHub repository 的 **Settings → Pages → Source** 選擇 **GitHub Actions**。每次推送 `main` 時，Actions 會建置網站，並部署 `dist/` 裡的介紹頁和範例閱讀器。
+這個 repo 放著方法介紹網站、可在瀏覽器閱讀的公開範例，以及網站的原始碼。範例是絵夢羽さ沂願意分享的 56 篇精選筆記，另有內容範圍相同的獨立英文版。你可以先走一小段故事，再回來看它怎麼組織。
 
-若要在本機提交 `main` 後自動推送，在這份 checkout 執行一次 `git config --local core.hooksPath .githooks`。推送失敗時，提交會留在本機，可以執行 `git push origin main` 重試。
+## 從哪裡開始
+
+- **想先感受兔子洞怎麼讀**：打開[中文範例](https://emu-rabbit.github.io/rabbit-hole-note-taking-method/reader/index.html?lang=zh-TW)。入口提供三條短路線，從一盒馬卡龍、一件工具，或她身邊的兩個人開始。範例裡的閱讀地圖再帶你走深。
+- **想了解方法**：先看[網站介紹](https://emu-rabbit.github.io/rabbit-hole-note-taking-method/?lang=zh-TW)，再讀完整的[兔子洞筆記法](examples/emu-rabbit-tw/00_入口/兔子洞筆記法.md)。方法保留作者原文。
+- **想在 Obsidian 裡體驗**：在範例閱讀器按「下載範例」，解壓後將含 README.md 的資料夾開成儲存庫。從 README 開始，不需要社群外掛。
+- **想用英文閱讀**：從 [English website](https://emu-rabbit.github.io/rabbit-hole-note-taking-method/?lang=en) 進入 [English example](https://emu-rabbit.github.io/rabbit-hole-note-taking-method/reader-en/index.html?lang=en)。文章、來源譯文、資料夾與重要檔名都使用英文；閱讀器切換語言會前往同一篇的另一語言版本。
+
+也可以直接下載[中文範例 ZIP](https://emu-rabbit.github.io/rabbit-hole-note-taking-method/downloads/emu-rabbit-tw.zip) 或 [English example ZIP](https://emu-rabbit.github.io/rabbit-hole-note-taking-method/downloads/emu-rabbit-en.zip)。每份只包含該語言的 Markdown 筆記，不必下載整個程式專案。
+
+## 你會在範例裡讀到什麼
+
+一件作品可以連回開始做它的生活，一個人物可以連到相處的場景，正文的註腳則帶你回到來源。當年的記錄和後來的回憶各自保留時間與位置；未完成的嘗試、平常的陪伴，也有自己的篇幅。
+
+範例入口的 README 負責帶路，人物概覽介紹洞的主人，閱讀地圖提供可以讀完的小旅程，索引負責查找。網站的側欄仍能展開完整檔案樹，但不必先認識全部分區才能開始閱讀。
+
+這份公開精選用一篇索引串起各區，沒有另附關係圈、委託與共同創作或維護區。完整方法介紹的是可持續成長的安排；建立自己的洞時，依手上的材料逐步展開，不必為了湊齊結構建立空資料夾。
+
+## 方法、範例與程式碼
+
+- [examples/emu-rabbit-tw/](examples/emu-rabbit-tw/)：繁體中文公開範例。完整方法位於 00_入口/兔子洞筆記法.md。
+- [examples/emu-rabbit-en/](examples/emu-rabbit-en/)：同一份精選的英文翻譯。方法與英文命名見 [00_Entry/Rabbit Hole Method.md](<examples/emu-rabbit-en/00_Entry/Rabbit Hole Method.md>)。
+- [src/web/](src/web/)：雙語介紹頁、靜態閱讀器與建置程式。
+- [src/web/example-paths.json](src/web/example-paths.json)：中英文章的對照，用於檢查兩份範例是否齊全及語言切換。
+- [tests/](tests/)：閱讀器、連結、語言切換與下載封裝的檢查。
+
+目前可用的是方法、公開範例和閱讀器。Skills 的安裝、初始化、匯入、訪談與維護工具留待後續規劃；src/mcp 目前也只有預留位置。
+
+## 建立自己的兔子洞
+
+先讀方法，再決定哪些材料願意交給信任的人或 agent 整理。你可以從一段想留下的回憶開始，把相關的人、作品和原話慢慢接起來。個人的資料、整理與分享範圍由本人決定，不需要公開才能使用這個方法。
+
+範例中的人物、故事和來源是作者的生活，請保留它們的語境。英文來源清楚標示為譯文；引文中的方括號和省略符號沿用公開中文節錄的範圍。各項來源與作品的授權需分別確認；本 repo 尚未附整體授權條款，公開可讀不代表任意重用或再散布的授權。
+
+## 在本機開發
+
+需要 Node.js 22 或更新版本，沒有額外套件需要安裝。
+
+```sh
+npm start
+```
+
+依終端機顯示的網址開啟網站。它會先建置兩種語言的範例頁面和 ZIP，再啟動本機伺服器。
+
+```sh
+npm run check
+```
+
+執行測試與完整建置。建置會核對中英文章配對、Wiki 連結與段落定位；輸出放在 dist/。新增或更名文章時，連同對應語言與 example-paths.json 一起維護，並實際走讀受影響的路線。
+
+既有 GitHub Actions 只在 main 或手動觸發時部署 Pages，沒有 PR 檢查工作流程；提出 PR 前請先執行上述本機檢查。本機提交不需要設定自動推送 hook。維護時請使用獨立分支與 PR，先確認內容、來源和公開範圍，再由維護者決定合併。
