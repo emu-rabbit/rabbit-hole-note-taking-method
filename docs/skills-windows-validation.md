@@ -8,6 +8,7 @@ Windows support remains experimental. 本次實作仍屬開發中，不能把 ma
 - `python -B scripts/validate-skills.py`: all five skills validated.
 - `python -B -m unittest discover -s tests -p 'test_*.py' -v`: 111 tests, 89 passed, 22 native-Windows-only tests skipped.
 - `npm run check`: 31 website tests passed; both language builds completed (56 notes each).
+- A separate smoke run installed the actual repository bundle into a disposable Unicode/space-containing path, then invoked the installed helper for both languages: read-only initialization preview, applied initialization, import/reimport and integrity check passed. Source UTF-8 BOM/CRLF bytes were unchanged, and a second installation refused overwrite. This is macOS evidence only.
 - Independent read-only security review covered both I/O backends, runtime, installer, rollback, rename ABI and private DACL construction. Review identified the in-place reparse detection gap; parent attributes are now checked before/after relative opens and during identity queries. Static review is not native execution evidence.
 
 All workflow inputs are fictional. Tests exercise initialization, byte-preserving import/revisions/retries, integrity and link maintenance, and isolated five-skill installation. They do not install into the user's actual client directory. Tests do not open listening ports or stop services.
