@@ -100,7 +100,7 @@ test('structure naming follows public English manifest and distinguishes optiona
   const folders = [...new Set(mappings.map(pair => pair.en.split('/')[0]).filter(path => !path.endsWith('.md')))];
   for (const folder of folders) assert.ok(structure.includes(`## ${folder}:`), folder);
   assert.ok(structure.includes('does not include a `90_Maintenance/`'));
-  assert.ok(structure.includes('does not include a `Circles/`'));
+  assert.ok(structure.includes('`Dolls/` or `Relationship circles/`'));
   assert.ok(structure.includes('no separate story index'));
 });
 
@@ -297,7 +297,7 @@ test('static homepage URLs keep their language and legacy query links redirect w
 
 
 import { createHash } from 'node:crypto';
-import { renamedPublicNotes, legacyHeadingIds } from '../src/web/public-url-compat.mjs';
+import { renamedPublicNotes, relocatedPublicNotes, legacyHeadingIds } from '../src/web/public-url-compat.mjs';
 
 test('renamed public people retain published URLs, heading fragments and language destinations', () => {
   const mappings = JSON.parse(readFileSync(new URL('../src/web/example-paths.json', import.meta.url)));
@@ -336,5 +336,23 @@ test('renamed public people retain published URLs, heading fragments and languag
       const destination = equivalentUrl(`${siteUrl(`${route}/${noteFile(path)}`)}#${encodeURIComponent(oldId)}`, body['data-counterpart'], fragments);
       assert.equal(decodeURIComponent(destination.hash.slice(1)), fragments[currentId]);
     }
+  }
+});
+
+
+test('relationship directory moves preserve page URLs, navigation and downloadable paths', () => {
+  assert.equal(relocatedPublicNotes.length, 16);
+  for (const {locale, from, to} of relocatedPublicNotes) {
+    const original = renamedPublicNotes.find(rename => rename.to === to)?.from ?? from;
+    assert.equal(noteFile(to), `note-${createHash('sha256').update(original).digest('hex')}.html`);
+    assert.equal(noteFile(to), noteFile(from));
+    const route = locale === 'en' ? 'reader-en' : 'reader';
+    const html = readFileSync(buildFile(`${route}/${noteFile(to)}`), 'utf8');
+    assert.ok(html.includes(to.split('/')[0]));
+    assert.ok(!html.includes(from.split('/')[0]), 'obsolete category stays out of the visible tree');
+    const folder = locale === 'en' ? 'emu-rabbit-en' : 'emu-rabbit-tw';
+    const archive = readFileSync(new URL(`../dist/downloads/${folder}.zip`, import.meta.url));
+    assert.ok(archive.includes(Buffer.from(to)));
+    assert.ok(!archive.includes(Buffer.from(from)));
   }
 });

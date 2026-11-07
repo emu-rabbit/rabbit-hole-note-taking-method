@@ -18,7 +18,7 @@ export const siteEnglish = {
   interviewTitle: 'Dig deeper through interviews and memories',
   interviewBody: 'Start with a particular event, person, or aspect of your life. Revisit it from memory or ask someone to interview you, deepening each part and filling in the gaps one by one.',
   linkTitle: 'Link the notes to each other',
-  linkBody: 'Link stories to the people in them and creative work to the time you made it. Use footnotes to lead readers back to the sources or original words.',
+  linkBody: 'Link stories to important relationships and creative work to the time you made it. Use footnotes to lead readers back to the sources or original words.',
   livingTitle: 'A living rabbit hole',
   livingBody: 'Your rabbit hole grows with you. Return to it through another interview or a new round of organizing, so it reflects you a little more closely each time.',
   skillsGuide: 'Use the five Rabbit Hole skills to get started and keep your notes growing.',

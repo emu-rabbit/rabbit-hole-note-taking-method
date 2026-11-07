@@ -11,7 +11,7 @@ nAnB is a chatroom-style number-guessing game made by Emu-rabbit. A means both t
 
 While developing it, she noticed that computers are very good at exhaustive brute-force searches, which humans find difficult to use. When the search space is small, directly exploring every possibility can be a useful approach.[^2]
 
-The game's Mengmeng comes from her pet [[40_Important people/People/Mengmeng|golden hamster]]. Mengmeng later passed away, but Emu-rabbit continued to [[30_Stories/Chapters/Keeping Mengmeng in nAnB|keep the name alive]] through this project.[^3]
+The game's Mengmeng comes from her pet [[40_Important relationships/Pets/Mengmeng|golden hamster]]. Mengmeng later passed away, but Emu-rabbit continued to [[30_Stories/Chapters/Keeping Mengmeng in nAnB|keep the name alive]] through this project.[^3]
 
 ## Sources
 [^1]: [[80_Sources/Public work/Project introduction excerpts#^gh-030|The author's introduction]].

@@ -36,6 +36,8 @@ This public selection uses one index across its sections. It has no relationship
 
 The local tools officially support macOS, Linux and Windows; see [installation](docs/skills.en.md#install-the-bundle) for versions and path requirements. Import accepts text, Markdown, normalized JSON and JSONL; native social exports need conversion first. Sharing preparation creates a local draft for your review and authorization before delivery. `src/mcp` remains a placeholder.
 
+`40_Important relationships` holds `People/`, `Pets/`, `Dolls/` and `Relationship circles/`. People are one kind of important relationship; pets and dolls with an important emotional connection can have their own notes too. Create each folder when there is material for it.
+
 ## Make a rabbit hole of your own
 
 Choose material you want to entrust to a person or agent, gradually connecting it to people, projects and words from the time. Your rabbit hole can remain private; you decide what can be read, organized and shared.

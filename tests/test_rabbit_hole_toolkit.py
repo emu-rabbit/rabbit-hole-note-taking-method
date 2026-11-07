@@ -79,6 +79,42 @@ class ToolkitTests(unittest.TestCase):
                 self.assertEqual(self.ledger(), [])
                 self.run_cli('init', '--vault', self.vault, '--name', 'Other', '--lang', lang, '--apply', code=2)
 
+    def test_relationship_categories_have_reachable_notes_and_preserved_sources(self):
+        layouts = {
+            'en': ('40_Important relationships', ('People', 'Pets', 'Dolls', 'Relationship circles')),
+            'zh-TW': ('40_重要關係', ('人物', '寵物', '玩偶', '關係圈')),
+        }
+        for lang, (section, categories) in layouts.items():
+            with self.subTest(lang=lang):
+                self.vault = self.root / lang
+                self.init(lang)
+                self.assertFalse((self.vault / section).exists(), 'create folders only when there is material')
+                source = self.source([{'id': 'fictional-relationships', 'text':
+                    'Fictional test: Alex cares for Pip the pet, keeps Button the stuffed doll, '
+                    'and meets friends in a book circle.'}])
+                self.imp(source, '--apply')
+                row = self.ledger()[0]
+                original = (self.vault / row['original']).read_bytes()
+                imported = (self.vault / row['note']).read_bytes()
+                paths = []
+                for category, kind, name in zip(categories, ('person', 'pet', 'doll', 'circle'),
+                                                ('Alex', 'Pip', 'Button', 'Book circle')):
+                    path = f'{section}/{category}/{name}.md'
+                    destination = self.vault / path
+                    destination.parent.mkdir(parents=True, exist_ok=True)
+                    destination.write_text(f'---\nid: "fictional-{kind}"\nkind: "{kind}"\n---\n'
+                        f'# {name} (fictional)\n\n[[{row["note"][:-3]}|Source]]\n[[README|Entrance]]\n',
+                        encoding='utf-8')
+                    paths.append(path)
+                entrance = self.vault / 'README.md'
+                entrance.write_text(entrance.read_text(encoding='utf-8') + '\n' +
+                    '\n'.join(f'[[{path[:-3]}]]' for path in paths), encoding='utf-8')
+                self.run_cli('check', '--vault', self.vault, '--include-maintenance')
+                self.assertEqual((self.vault / row['original']).read_bytes(), original)
+                self.assertEqual((self.vault / row['note']).read_bytes(), imported)
+                (self.vault / paths[2]).unlink()
+                self.run_cli('check', '--vault', self.vault, code=1)
+
     def test_init_preview_creates_nothing(self):
         self.run_cli('init', '--vault', self.vault, '--name', 'Test', '--lang', 'en')
         self.assertFalse(self.vault.exists())

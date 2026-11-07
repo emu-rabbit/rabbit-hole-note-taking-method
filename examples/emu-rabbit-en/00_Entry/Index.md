@@ -37,11 +37,11 @@ updated: "2026-11-06"
 - [[30_Stories/Chapters/Lying under the stars again|Lying under the stars again]]
 - [[30_Stories/Chapters/Wanting to go home for dinner again|Wanting to go home for dinner again]]
 
-## 40 Important people
-[[40_Important people/Relationship map|Relationship map]]
-- [[40_Important people/People/Doggo|Doggo]] · [[40_Important people/People/Kitty|Kitty]]
-- [[40_Important people/People/First master|First master]] · [[40_Important people/People/Former master|Former master]] · [[40_Important people/People/Ex-girlfriend|Ex-girlfriend]]
-- [[40_Important people/People/Mother|Mother]] · [[40_Important people/People/Mengmeng|Mengmeng]]
+## 40 Important relationships
+[[40_Important relationships/Relationship map|Relationship map]]
+- [[40_Important relationships/People/Doggo|Doggo]] · [[40_Important relationships/People/Kitty|Kitty]]
+- [[40_Important relationships/People/First master|First master]] · [[40_Important relationships/People/Former master|Former master]] · [[40_Important relationships/People/Ex-girlfriend|Ex-girlfriend]]
+- [[40_Important relationships/People/Mother|Mother]] · [[40_Important relationships/Pets/Mengmeng|Mengmeng]]
 
 ## 50 Creative work
 [[50_Creative work/Independent work/Scientific Romance|Scientific Romance]] · [[50_Creative work/Independent work/FoodPower|FoodPower]] · [[50_Creative work/Independent work/LinkArray|LinkArray]] · [[50_Creative work/Independent work/nAnB|nAnB]] · [[50_Creative work/Independent work/Frozen Rabbit Workshop|Frozen Rabbit Workshop]] · [[50_Creative work/Independent work/Frozen Rabbit Tome|Frozen Rabbit Tome]] · [[50_Creative work/Independent work/Boundary Notes|Boundary Notes]]

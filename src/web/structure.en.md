@@ -22,16 +22,18 @@ Use the entry index to help readers choose a scene. A larger vault can add a ded
 
 The public example contains thirteen stories under `30_Stories/Chapters/`, reached from `00_Entry/Index.md` or `00_Entry/Reading map.md`. It has no separate story index.
 
-## 40_Important people: Understand relationships through the people in them
+## 40_Important relationships: Keep the connections that matter
 
-This section focuses on relationships formed through spending time together in real life. `Relationship map.md` leads to the people and circles that matter to you.
+This section records the relationships and emotional connections that matter to you. `Relationship map.md` leads to people, pets, dolls and relationship circles. Create subfolders as the material calls for them:
 
-- `People/` holds individual profiles. Introduce the person, their personality, and their life, then follow how you spent time together and how your feelings and relationship changed.
-- `Circles/` records groups formed through living, studying, working, or taking part in activities together. It explains how each group became part of your life.
+- `People/`: primarily one profile per person. Introduce who they are, their personality and life, then follow your time together, feelings and changing relationship.
+- `Pets/`: describe a pet's appearance, daily life, care and shared experiences, and their place in your life.
+- `Dolls/`: describe dolls or stuffed toys with an important emotional connection: how they came into your life, their companionship and the memories they hold.
+- `Relationship circles/`: record groups formed through living, studying, working or participating in activities together, preserving how that group became part of your life.
 
-Keep a person's changing role and closeness to you in the same note, and link it to the stories you share.
+Keep changing roles and closeness in the existing relationship note, linked to relevant stories. Toys you simply enjoy or collect can go in Favorites; a doll with an important bond or history of companionship can have its own note here. Describe relationships and feelings from the sources without inventing a pet's or doll's unrecorded thoughts.
 
-The public example includes `Relationship map.md` and seven profiles under `40_Important people/People/`. It does not include a `Circles/` folder.
+The public example includes `Relationship map.md`, six profiles under `People/` and Mengmeng the hamster under `Pets/`. Add `Dolls/` or `Relationship circles/` when there is material for them.
 
 ## 50_Creative work: Keep what you made and why you made it
 
@@ -50,7 +52,7 @@ Games, music, books, films, toys, activities, and people you admire can all have
 
 Choose categories that fit your material, such as music, performers, games, films, animation, or objects. Add a category when you have something to put in it, and let the categories change as your interests and notes grow.
 
-This section is for the people and things you like. Relationships formed through spending time together belong in Important people. Experiences with more complicated feelings can live in the relevant life topic or story. Link between the sections when they overlap so the full account has a place of its own.
+This section is for the people and things you like. Established relationships and meaningful companionship belong in Important relationships. Experiences with more complicated feelings can live in the relevant life topic or story. Link between the sections when they overlap so the full account has a place of its own.
 
 The public example includes Minecraft under `60_Favorites/Games/` and a macaron shop under `60_Favorites/Places/`. Both are listed in `00_Entry/Index.md`; there is no separate favorites index.
 

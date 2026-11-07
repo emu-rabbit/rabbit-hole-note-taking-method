@@ -24,9 +24,9 @@ Support narrative claims and reported feelings with exact source passages. Attri
 
 ## Keep identities stable and pages readable
 
-Look up existing titles, IDs, and aliases before creating a person, story, or work page. Continue that page as names, roles, and relationships change. Keep uncertain identities separate until evidence resolves them. Preserve the reason and necessary earlier text or recoverable revision for substantial changes of understanding.
+Look up existing titles, IDs, and aliases before creating a relationship, story, or work page. Continue that page as names, roles, and relationships change. Keep uncertain identities separate until evidence resolves them. Preserve the reason and necessary earlier text or recoverable revision for substantial changes of understanding.
 
-For new human-authored notes, a short unique ASCII ID and quoted YAML values work well. Optional frontmatter fields are `id`, `kind`, `title`, and `updated`; useful kinds include `profile`, `period`, `theme`, `story`, `person`, `circle`, `work`, `favorite`, and `index`. Imported sources follow their CLI-managed schema.
+For new human-authored notes, a short unique ASCII ID and quoted YAML values work well. Optional frontmatter fields are `id`, `kind`, `title`, and `updated`; useful kinds include `profile`, `period`, `theme`, `story`, `person`, `pet`, `doll`, `circle`, `work`, `favorite`, and `index`. Imported sources follow their CLI-managed schema.
 
 Use names, forms of address and pronouns established by the owner or sources; when pronouns are unknown, use the supplied name or natural omission.
 
@@ -40,12 +40,14 @@ A new vault begins with usable entrance, source, and maintenance sections. Add t
 | Life periods and timeline | `10_人生脈絡` | `10_Life context` |
 | Themes across periods | `20_自我與生活` | `20_Self and life` |
 | Complete scenes | `30_故事/故事篇章` | `30_Stories/Chapters` |
-| People / circles | `40_重要他人/人物`, `關係圈` | `40_Important people/People`, `Circles` |
+| Important relationships | `40_重要關係` → `人物`, `寵物`, `玩偶`, `關係圈` | `40_Important relationships` → `People`, `Pets`, `Dolls`, `Relationship circles` |
 | Work and collaborations | `50_創作/自主創作`, `委託與共同創作` | `50_Creative work/Independent work`, `Commissions and collaborations` |
 | Favorites, categories as needed | `60_喜歡的人事物` | `60_Favorites` |
 | Source notes and provenance | `80_來源` | `80_Sources` |
 | Progress and review | `90_維護` | `90_Maintenance` |
 
+
+People are one kind of important relationship. Pets and dolls or stuffed toys with meaningful companionship can have their own notes; ordinary toy preferences or collections fit Favorites. Keep human nicknames distinct from animal species, and ground feelings in the supplied account without inventing another being’s thoughts.
 
 ## Track reading separately from ingestion
 

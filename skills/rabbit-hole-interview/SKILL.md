@@ -13,10 +13,10 @@ Read the [shared conventions](../rabbit-hole-start/references/conventions.md), t
 
 1. Begin with one concrete, comfortable question and follow the answer. Use existing sources when helpful, keeping their voices and dates clear.
 2. At a natural pause, reflect important uncertainty or attribution only where clarification would materially change the account. A person can stop, change topic, or leave something unresolved.
-3. For a saved interview, complete the [saved-work workflow](../rabbit-hole-start/references/finish.md) yourself. Preserve attributable answers and questions, integrate the relevant stories, people or works, update indexes and chronology, and read the result with its sources.
+3. For a saved interview, complete the [saved-work workflow](../rabbit-hole-start/references/finish.md) yourself. Preserve attributable answers and questions, integrate the relevant stories, relationships or works, update indexes and chronology, and read the result with its sources.
 4. Briefly say what was kept and where to read it, with at most a useful open question. For conversation-only, keep the account in the chat, leave files unchanged, and continue or close naturally.
 
-The result can be a small addition to an existing page. Let the material decide whether a new story or person page would help; a separate command to write, connect or check is unnecessary.
+The result can be a small addition to an existing page. Let the material decide whether a new story or relationship note would help; a separate command to write, connect or check is unnecessary.
 
 ## Examples
 

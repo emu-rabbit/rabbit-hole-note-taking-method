@@ -27,7 +27,7 @@ For another design choice, [[50_Creative work/Independent work/Frozen Rabbit Tom
 
 ## Getting stuck, and what stays afterward
 
-[[30_Stories/Chapters/The function finally returns true|The function finally returns true]] → [[50_Creative work/Independent work/LinkArray|LinkArray]] → [[80_Sources/Contemporary records/Learning and development#2022–2024: Learning and projects|What she learned stays with her]]
+[[30_Stories/Chapters/The function finally returns true|The function finally returns true]] → [[50_Creative work/Independent work/LinkArray|LinkArray]] → [[80_Sources/Contemporary records/Learning and development#2022–2024: learning and projects|What she learned stays with her]]
 
 Go from a day and a half of trying to an experiment she still loves years later, then return to what she wrote about learning in 2022 and 2024. At the last stop, read only the linked section, ending with the new kinds of projects she could make.
 
@@ -39,11 +39,11 @@ The first story links both to [[80_Sources/Contemporary records/Learning and dev
 
 One scene holds a response she received in a relationship; the other holds her own answer at a work gathering. Read the two scenes together and pause there. This selection does not fill in everything that happened between them.
 
-To meet the person in the first scene, visit [[40_Important people/People/First master|her first master]].
+To meet the person in the first scene, visit [[40_Important relationships/People/First master|her first master]].
 
 ## Her two current partners
 
-[[40_Important people/People/Doggo|Doggo]] → [[40_Important people/People/Kitty|Kitty]]
+[[40_Important relationships/People/Doggo|Doggo]] → [[40_Important relationships/People/Kitty|Kitty]]
 
 First see Doggo's smile over a good meal, then meet Kitty, who takes chores seriously while Emu-rabbit wants more time together on a date. Each profile introduces one person and a glimpse of daily life. You can stop after the pair.
 
@@ -51,11 +51,11 @@ For how she describes her hopes for relationships, read [[80_Sources/Public prof
 
 ## Someone comes to stay, and some questions remain
 
-[[30_Stories/Chapters/Quiet company on a bench|Quiet company on a bench]] → [[40_Important people/People/Ex-girlfriend|Ex-girlfriend]]
+[[30_Stories/Chapters/Quiet company on a bench|Quiet company on a bench]] → [[40_Important relationships/People/Ex-girlfriend|Ex-girlfriend]]
 
 The first story is a night she spent with her former master. The second turns to a different person: the happiness of watching the stars together and the questions she still had after they parted. A reading journey can end with a question still unanswered.
 
-First master, Former master, and Ex-girlfriend are labels for different people. The [[40_Important people/Relationship map|relationship map]] explains their places in her life.
+First master, Former master, and Ex-girlfriend are labels for different people. The [[40_Important relationships/Relationship map|relationship map]] explains their places in her life.
 
 ## Wanting to go home for dinner
 

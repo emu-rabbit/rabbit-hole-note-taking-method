@@ -18,7 +18,7 @@ In operations work, she turned reports that required repeatedly assembling field
 About six years later, she asked AI to review LinkArray. Even after learning there were better options for its original goal, she still loved it. [[50_Creative work/Independent work/Frozen Rabbit Tome|Frozen Rabbit Tome]] also has few users, but the design trade-offs she learned while making it keep it dear to her.[^4]
 
 ## Words and memories
-In high school, she wrote [[50_Creative work/Independent work/Scientific Romance|“Scientific Romance”]] and led her classmates in a recitation. Later, when making her portfolio, she put [[30_Stories/Chapters/Six years of macarons in a portfolio|a macaron shop she had loved for six years]] into the website. Her golden hamster [[40_Important people/People/Mengmeng|Mengmeng]] continued to live on in nAnB after passing away.[^5]
+In high school, she wrote [[50_Creative work/Independent work/Scientific Romance|“Scientific Romance”]] and led her classmates in a recitation. Later, when making her portfolio, she put [[30_Stories/Chapters/Six years of macarons in a portfolio|a macaron shop she had loved for six years]] into the website. Her golden hamster [[40_Important relationships/Pets/Mengmeng|Mengmeng]] continued to live on in nAnB after passing away.[^5]
 
 ## Keeping her own way of doing things
 Promoting [[50_Creative work/Independent work/Boundary Notes|Boundary Notes]] met with a few small setbacks. Looking back, the secret-keeping rabbit's company and the detail of the content still represent what she wants to express.[^6]

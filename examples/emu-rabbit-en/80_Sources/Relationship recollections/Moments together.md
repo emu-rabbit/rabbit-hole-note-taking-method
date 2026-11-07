@@ -73,7 +73,7 @@ Source: a 2026 interview with the author, looking back on later changes in the r
 
 ^former-c-questions
 
-Related notes: [[40_Important people/People/Ex-girlfriend|Ex-girlfriend]].
+Related notes: [[40_Important relationships/People/Ex-girlfriend|Ex-girlfriend]].
 
 ## Mother: wanting to go home for dinner
 
@@ -94,7 +94,7 @@ Source: a 2026 interview with the author. Excerpt from her own words.
 
 ^mother-change
 
-Related notes: [[40_Important people/People/Mother|Mother]].
+Related notes: [[40_Important relationships/People/Mother|Mother]].
 
 ## Care and rest
 

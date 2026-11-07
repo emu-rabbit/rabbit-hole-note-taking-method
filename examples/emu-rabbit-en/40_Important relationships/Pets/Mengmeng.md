@@ -1,6 +1,6 @@
 ---
 id: "person-mengmeng"
-kind: "person"
+kind: "pet"
 title: "Mengmeng"
 updated: "2026-11-06"
 ---
