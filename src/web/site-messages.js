@@ -11,6 +11,8 @@ export const siteEnglish = {
   burrowTitle: 'Inside a rabbit hole',
   burrowDescription: 'A white lop-eared rabbit digs among wildflowers. Warm lights illuminate connected chambers holding photos of friends, a storybook, sketches, and letters.',
   burrowCaption: 'Different notes lead into the same life',
+  fullMethod: 'Read the full method',
+  fullMethodHref: '../method/en/',
   methodEyebrow: 'How to take these notes',
   methodTitle: 'Start with memories or records, and let the words that describe you take shape over time.',
   collectTitle: 'Begin with a small moment you want to keep',

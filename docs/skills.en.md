@@ -1,6 +1,6 @@
 # Start your own rabbit hole with skills
 
-[繁體中文](skills.md) · [Repository](../README.en.md) · [Full method](<../examples/emu-rabbit-en/00_Entry/Rabbit Hole Method.md>)
+[繁體中文](skills.md) · [Repository](../README.en.md) · [Full method](<method.en.md>)
 
 Begin with a memory you want to keep or material you have selected. Tell the agent what you want to accomplish. It preserves sources, writes readable notes, connects them and reads through the result. You decide what to keep, where to save it and whether to share.
 

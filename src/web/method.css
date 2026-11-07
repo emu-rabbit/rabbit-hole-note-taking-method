@@ -1,0 +1,5 @@
+body.method-document { display: block; }
+.method-header, .method-main { width: min(100% - 40px, 724px); margin-inline: auto; }
+.method-header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; padding-block: 24px; }
+.method-header nav { display: flex; flex-wrap: wrap; gap: 16px; font-size: 14px; }
+.method-main { padding-block: 18px 64px; }

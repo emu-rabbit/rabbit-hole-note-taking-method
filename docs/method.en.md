@@ -25,13 +25,13 @@ That is why the rabbit hole exists. Like a video camera, it records your experie
 
 A rabbit hole begins with an overall picture of you, then goes deeper through time, life, stories, important relationships, creative work, and the people and things you like. Each section has its own place, and links bring them together: readers can get to know people through stories, or return from a project to your life when you made it.
 
-The root contains `README.md` and `AGENTS.md`, which provide basic information and initial guidance for people and agents respectively, and explain the purpose of each entry document. The profile and this method live in `00_Entry`. The profile introduces you fully; this document remains independently readable, explaining the method, structure, and principles. Sections `00` through `60`, `80`, and `90` are the shared main sections. Article topics and source subfolders develop according to your experiences, the materials you hold, and what you are willing to provide.
+The root contains `README.md` and `AGENTS.md`, which provide basic information and initial guidance for people and agents respectively, and explain the purpose of each entry document. The profile lives in `00_Entry` and introduces you fully. This method stands outside individual vaults, explaining the method, structure, and principles; the entrance can link to it without copying its body. Sections `00` through `60`, `80`, and `90` are the shared main sections. Article topics and source subfolders develop according to your experiences, the materials you hold, and what you are willing to provide.
 
-**English-edition note:** This is a translation of the general method with English folder and key-file naming conventions. These names describe the same structure, not additional method features. The public example contains a selection of that structure; it does not include every folder described here, such as `90_Maintenance`, `Relationship circles/`, or `Commissions and collaborations/`.
+**English-edition note:** This is a translation of the general method with English folder and key-file naming conventions. These names describe the same structure, not additional method features. Individual vaults use the parts of this structure supported by their material.
 
 ### 00_Entry: knowing where to begin
 
-This section introduces four entry documents in order of importance: `Profile.md`, `Reading map.md`, `Index.md`, and `Rabbit Hole Method.md`. The profile gives a full introduction to you. The reading map offers selected routes across sections, letting readers go deeper through stories, people, periods, and works. The index explains what each content section holds and where to look. The method independently explains how to document a person's life and the principles for doing so.
+This section introduces three entry documents in order of importance: `Profile.md`, `Reading map.md`, and `Index.md`. The profile gives a full introduction to you. The reading map offers selected routes across sections, letting readers go deeper through stories, people, periods, and works. The index explains what each content section holds and where to look. The general method has its own independent document, which the entrance can link to.
 
 ### 10_Life chapters: getting to know you through time
 
@@ -141,3 +141,5 @@ An interview can begin with a concrete scene. Focusing on one or two questions a
 ## Finally, choose a way of writing and maintaining that fits
 
 A rabbit hole is not a rigid framework. It should feel comfortable and help others get to know you. The practices and writing approaches in this document are starting points to consider and try when you begin digging. If you find a way that feels right as you go, use it.
+
+[Chinese edition](method.zh-TW.md)

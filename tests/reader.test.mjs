@@ -177,6 +177,7 @@ test('all English homepage panels, example link, reader pages, labels and paths 
 });
 
 import { existsSync } from 'node:fs';
+import {methodPaths, methodNotes} from '../src/web/method-pages.mjs';
 import { siteBase, homePaths, siteUrl, homeDescriptions, socialImage } from '../src/web/seo.mjs';
 import { htmlIds } from '../src/web/validate.mjs';
 
@@ -186,7 +187,7 @@ const buildFile = path => new URL(`../dist/${path.endsWith('/') || !path ? path 
 
 test('generated public pages have canonical, reciprocal language, robots and social metadata', () => {
   const mappings = JSON.parse(readFileSync(new URL('../src/web/example-paths.json', import.meta.url)));
-  const pairs = [homePaths, ...mappings.map(pair => ({'zh-TW': `reader/${noteFile(pair['zh-TW'])}`, en: `reader-en/${noteFile(pair.en)}`}))];
+  const pairs = [homePaths, methodPaths, ...mappings.filter(pair => pair.en !== methodNotes.en).map(pair => ({'zh-TW': `reader/${noteFile(pair['zh-TW'])}`, en: `reader-en/${noteFile(pair.en)}`}))];
   const canonicals = new Set();
   for (const pair of pairs) for (const [locale, path] of Object.entries(pair)) {
     const html = readFileSync(buildFile(path), 'utf8');
@@ -225,7 +226,7 @@ test('generated public pages have canonical, reciprocal language, robots and soc
     assert.equal(value('twitter:image'), value('og:image'));
     assert.ok(value('og:image:alt'));
     assert.ok(/<h1\b/.test(html), path + ' must contain static content');
-    if (path.startsWith('reader')) {
+    if (path.startsWith('reader') || path.startsWith('method')) {
       assert.ok(/<article[^>]*>[\s\S]*?<p>/.test(html), path);
     } else {
       assert.equal(value('description'), homeDescriptions[locale]);
@@ -297,7 +298,7 @@ test('static homepage URLs keep their language and legacy query links redirect w
 
 
 import { createHash } from 'node:crypto';
-import { renamedPublicNotes, relocatedPublicNotes, legacyHeadingIds } from '../src/web/public-url-compat.mjs';
+import { renamedPublicNotes, relocatedPublicNotes, legacyHeadingIds, methodHeadingAliases } from '../src/web/public-url-compat.mjs';
 
 test('renamed public people retain published URLs, heading fragments and language destinations', () => {
   const mappings = JSON.parse(readFileSync(new URL('../src/web/example-paths.json', import.meta.url)));
@@ -354,5 +355,39 @@ test('relationship directory moves preserve page URLs, navigation and downloadab
     const archive = readFileSync(new URL(`../dist/downloads/${folder}.zip`, import.meta.url));
     assert.ok(archive.includes(Buffer.from(to)));
     assert.ok(!archive.includes(Buffer.from(from)));
+  }
+});
+
+
+test('independent method pages preserve legacy reader URLs and translated fragments', () => {
+  for (const locale of ['zh-TW', 'en']) {
+    const other = locale === 'en' ? 'zh-TW' : 'en';
+    const canonical = readFileSync(buildFile(methodPaths[locale]), 'utf8');
+    const legacyPath = `${locale === 'en' ? 'reader-en' : 'reader'}/${noteFile(methodNotes[locale])}`;
+    const legacy = readFileSync(buildFile(legacyPath), 'utf8');
+    const translated = readFileSync(buildFile(methodPaths[other]), 'utf8');
+    for (const [path, html] of [[methodPaths[locale], canonical], [legacyPath, legacy]]) {
+      assert.ok(html.includes('class="method-document"'));
+      assert.ok(!html.includes('id="sidebar"'), 'the general method has no personal vault tree');
+      assert.equal(tags(html, 'link').find(link => link.rel === 'canonical').href, siteUrl(methodPaths[locale]));
+      assert.deepEqual([...htmlIds(html)].sort(), [...htmlIds(canonical)].sort());
+      const body = tags(html, 'body')[0];
+      const fragments = JSON.parse(body['data-fragments']);
+      for (const [oldId, currentId] of Object.entries(methodHeadingAliases[methodNotes[locale]])) {
+        assert.ok(htmlIds(html).has(oldId));
+        assert.equal(fragments[oldId], fragments[currentId]);
+        assert.ok(htmlIds(translated).has(fragments[oldId]));
+        const next = equivalentUrl(siteUrl(path) + '#' + encodeURIComponent(oldId), body['data-counterpart'], fragments);
+        assert.equal(next.pathname, new URL(siteUrl(methodPaths[other])).pathname);
+        assert.equal(decodeURIComponent(next.hash.slice(1)), fragments[currentId]);
+      }
+      const article = /<article class="note">([\s\S]*?)<\/article>/.exec(html)[1];
+      const canonicalArticle = /<article class="note">([\s\S]*?)<\/article>/.exec(canonical)[1];
+      assert.equal(article.replace(/<[^>]+>/g, ''), canonicalArticle.replace(/<[^>]+>/g, ''), 'compatibility renders the canonical source text');
+    }
+    const folder = locale === 'en' ? 'emu-rabbit-en' : 'emu-rabbit-tw';
+    const archive = readFileSync(new URL(`../dist/downloads/${folder}.zip`, import.meta.url));
+    const fullBody = readFileSync(new URL(`../docs/method.${locale}.md`, import.meta.url), 'utf8').split('\n\n')[2];
+    assert.ok(!archive.includes(Buffer.from(fullBody)), 'download contains a method pointer, not the full method');
   }
 });

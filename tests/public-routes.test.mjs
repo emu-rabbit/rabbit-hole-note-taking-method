@@ -1,4 +1,6 @@
 import test from 'node:test';
+import {methodPaths, methodNotes} from '../src/web/method-pages.mjs';
+import {siteUrl} from '../src/web/seo.mjs';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
@@ -57,7 +59,12 @@ test('translations retain note identity, source dates and external locators', ()
       const pattern = new RegExp('^' + field + ':.*$', 'm');
       assert.equal(english.match(pattern)?.[0], chinese.match(pattern)?.[0], pair.en + ' ' + field);
     }
-    const urls = text => [...text.matchAll(/https?:\/\/[^\s)]+/g)].map(match => match[0]).sort();
+    const methodUrls = new Set(Object.values(methodPaths).map(siteUrl));
+    if (pair.en === methodNotes.en) {
+      assert.ok(chinese.includes(siteUrl(methodPaths['zh-TW'])));
+      assert.ok(english.includes(siteUrl(methodPaths.en)));
+    }
+    const urls = text => [...text.matchAll(/https?:\/\/[^\s)]+/g)].map(match => match[0]).filter(url => !methodUrls.has(url)).sort();
     assert.deepEqual(urls(english), urls(chinese), pair.en + ' external sources');
   }
 });

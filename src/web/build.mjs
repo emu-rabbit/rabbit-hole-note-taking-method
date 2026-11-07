@@ -1,3 +1,4 @@
+import {methodPaths, methodNotes, renderMethod} from './method-pages.mjs';
 import { createHash } from 'node:crypto';
 import { copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync, unlinkSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
@@ -28,6 +29,7 @@ for (const config of locales) validateLibrary(config.library);
 
 function renderPage(note, config) {
   const { library, locale, title: readerTitle } = config;
+  if (note.path === methodNotes[locale]) return renderMethod(locale, `${config.route}/${noteFile(note.path)}`);
   const other = locales.find(item => item !== config);
   const pageTitle = note.title === readerTitle
     ? `${readerTitle} | ${locale === 'en' ? 'Rabbit Hole Notes public example' : '兔子洞筆記法公開範例'}`
@@ -99,7 +101,7 @@ mkdirSync(join(output, 'reader-en'), { recursive: true });
 mkdirSync(join(output, 'downloads'), { recursive: true });
 mkdirSync(join(output, 'vendor'), { recursive: true });
 for (const path of [
-  'theme.css', 'site.css', 'site.js', 'site-messages.js', 'locale.css', 'locale.js', 'logo.svg', 'rabbit-hole.jpg', socialImage.path, 'notes.js',
+  'method.css', 'method.js', 'theme.css', 'site.css', 'site.js', 'site-messages.js', 'locale.css', 'locale.js', 'logo.svg', 'rabbit-hole.jpg', socialImage.path, 'notes.js',
   'reader/reader.css', 'reader/reader.js', 'reader/view.js', 'reader/messages.js',
   'vendor/markdown-it.js', 'vendor/markdown-it.LICENSE',
 ]) {
@@ -131,7 +133,11 @@ for (const { locale } of locales) {
   }));
   writeFileSync(join(output, homePaths[locale], 'index.html'), html);
 }
-const sitemapPairs = [homePaths, ...mappings.map(pair =>
+for (const {locale} of locales) {
+  mkdirSync(join(output, methodPaths[locale]), {recursive: true});
+  writeFileSync(join(output, methodPaths[locale], 'index.html'), renderMethod(locale));
+}
+const sitemapPairs = [homePaths, methodPaths, ...mappings.filter(pair => pair.en !== methodNotes.en).map(pair =>
   Object.fromEntries(locales.map(config => [config.locale, `${config.route}/${noteFile(pair[config.locale])}`])))];
 writeFileSync(join(output, 'sitemap.xml'), renderSitemap(sitemapPairs));
 

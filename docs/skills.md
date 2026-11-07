@@ -1,6 +1,6 @@
 # 用 skills 開始自己的兔子洞
 
-[English](skills.en.md) · [回到專案](../README.md) · [完整筆記法](../examples/emu-rabbit-tw/00_入口/兔子洞筆記法.md)
+[English](skills.en.md) · [回到專案](../README.md) · [完整筆記法](method.zh-TW.md)
 
 從一段想留下的回憶，或手邊挑好的材料開始。告訴 agent 你想完成什麼，它會保存來源、寫成可讀筆記、串起連結，並走讀檢查。留下哪些材料、保存到哪裡、是否分享，都由你決定。
 

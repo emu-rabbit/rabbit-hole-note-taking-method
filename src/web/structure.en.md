@@ -1,6 +1,6 @@
 ## 00_Entry: Find your way in
 
-This section offers four places to start. `Profile.md` introduces you as a person. `Reading map.md` suggests routes through stories, people, periods, and creative work. `Index.md` explains what each section holds and where to look. `Rabbit Hole Method.md` explains how to document a person and what principles guide that work.
+This section offers three places to start. `Profile.md` introduces you as a person. `Reading map.md` suggests routes through stories, people, periods, and creative work. `Index.md` explains what each section holds and where to look. The general method is an independent document linked from the entrance.
 
 In this public example, `00_Entry/Index.md` is the shared index for the whole vault, including stories, creative work, and favorites.
 
