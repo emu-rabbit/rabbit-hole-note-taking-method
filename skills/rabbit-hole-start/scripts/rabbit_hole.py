@@ -390,6 +390,7 @@ def anchor_set(text, *, blocks=False):
 
 def check(args):
     root, meta = load_vault(args.vault, structural=True)
+    include_maintenance = getattr(args, 'include_maintenance', False)
     issues = []
     ledger_status = 'absent; structural checks only'
     candidates = [meta] if meta else [{'version': VERSION, 'lang': lang} for lang in LAYOUT]
@@ -418,9 +419,12 @@ def check(args):
         notes = {p.relative_to(root).as_posix(): p for p, info in session.walk(root)
                  if info['kind'] == 'file' and p.suffix.lower() == '.md'}
         note_ids = {session.info(p)['identity']: name for name, p in notes.items()}
+    scanned = {name: p for name, p in notes.items()
+               if include_maintenance or not re.match(r'^90(?:_[^/]*)?/', name)}
     texts = {}
+    maintenance_targets = {}
     ids = {}
-    for name, p in notes.items():
+    for name, p in scanned.items():
         try:
             text = read_bytes(p).decode('utf-8-sig')
         except (UnicodeError, ValueError, OSError):
@@ -436,7 +440,7 @@ def check(args):
                     issues.append({'code': 'duplicate-note-id', 'path': name, 'other': ids[note_id]})
                 ids[note_id] = name
     for name, text in texts.items():
-        links = [(m[1].split('|', 1)[0], True) for m in re.finditer(r'!?\[\[([^\]\n]+)\]\]', text)]
+        links = [(re.split(r'\\?\|', m[1], maxsplit=1)[0], True) for m in re.finditer(r'!?\[\[([^\]\n]+)\]\]', text)]
         links += [(m[1] or m[2], False) for m in re.finditer(r'!?\[[^\]\n]*\]\((?:<([^>]+)>|([^\s)]+))(?:\s+(?:"[^"]*"|\'[^\']*\'))?\)', text)]
         for target, wiki in links:
             target = unquote(target)
@@ -465,8 +469,9 @@ def check(args):
                     if not candidate.is_relative_to(root):
                         raise Refusal('Unsafe link path')
                     candidate = safe_path(candidate)
-                    if wiki and not candidate.suffix:
-                        candidate = candidate.with_suffix('.md')
+                    if wiki and (not candidate.suffix or
+                                 (candidate.suffix.casefold() != '.md' and not local_exists(candidate, 'file'))):
+                        candidate = candidate.with_name(candidate.name + '.md')
                     resolved = candidate.relative_to(root).as_posix()
                     if not local_exists(candidate, 'file') and wiki and '/' not in path:
                         matches = set()
@@ -491,11 +496,15 @@ def check(args):
                     resolved = note_ids.get(identity, resolved)
                 block = anchor.startswith('^')
                 fragment = anchor[1:] if block else anchor
-                if anchor and fragment not in anchor_set(texts.get(resolved, ''), blocks=block):
-                    issues.append({'code': 'missing-anchor', 'path': name})
+                if anchor:
+                    if resolved in notes and resolved not in scanned and resolved not in maintenance_targets:
+                        maintenance_targets[resolved] = visible_markdown(read_bytes(notes[resolved]).decode('utf-8-sig'))
+                    target_text = texts.get(resolved, maintenance_targets.get(resolved, ''))
+                    if fragment not in anchor_set(target_text, blocks=block):
+                        issues.append({'code': 'missing-anchor', 'path': name})
             except (ValueError, OSError):
                 issues.append({'code': 'unsafe-link', 'path': name})
-    return {'command': 'check', 'vault_kind': 'managed' if meta else 'unmanaged', 'ledger_status': ledger_status, 'ok': not issues, 'issues': issues, 'notes_checked': len(notes), 'limits': 'Structural checks only; not semantic accuracy, authorization, or privacy proof. Markdown parsing is intentionally limited to inline and wiki links; reference links and HTML are not validated.'}
+    return {'command': 'check', 'vault_kind': 'managed' if meta else 'unmanaged', 'ledger_status': ledger_status, 'ok': not issues, 'issues': issues, 'notes_checked': len(scanned), 'maintenance_included': include_maintenance, 'limits': 'Structural checks only; not semantic accuracy, authorization, or privacy proof. Markdown parsing is intentionally limited to inline and wiki links; reference links and HTML are not validated.'}
 
 def main(argv=None):
     secure_io.configure_output()
@@ -516,6 +525,7 @@ def main(argv=None):
     p.set_defaults(run=import_sources)
     p = sub.add_parser('check', help='Read-only structural checks, not a privacy or semantic proof')
     p.add_argument('--vault', required=True)
+    p.add_argument('--include-maintenance', action='store_true', help='Also scan notes under top-level 90 and 90_* folders')
     p.set_defaults(run=check)
     args = parser.parse_args(argv)
     try:
