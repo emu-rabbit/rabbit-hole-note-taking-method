@@ -18,12 +18,13 @@ In the public example, [`Timeline.md`](<../../examples/emu-rabbit-en/10_Life cha
 
 Bring together experiences and feelings from different years around individual themes. Readers can see what continues to influence you and how your thoughts change.
 
-The public example uses four notes to explore different sides of Emu-rabbit:
+The public example uses five notes to explore different sides of Emu-rabbit:
 
 - [`Making things.md`](<../../examples/emu-rabbit-en/20_Self and daily life/Making things.md>): why she creates and what she hopes her work will leave behind.
 - [`Learning, comparison, and what stays.md`](<../../examples/emu-rabbit-en/20_Self and daily life/Learning, comparison, and what stays.md>): curiosity, comparison and frustration in learning, and the abilities she developed along the way.
 - [`Dressing as she likes.md`](<../../examples/emu-rabbit-en/20_Self and daily life/Dressing as she likes.md>): clothing, self-expression and experiences in different settings.
 - [`Freedom, honesty, and relationships.md`](<../../examples/emu-rabbit-en/20_Self and daily life/Freedom, honesty, and relationships.md>): hopes for relationships, and everyday companionship, care and rest.
+- [`Seeing a future before thinking of saving.md`](<../../examples/emu-rabbit-en/20_Self and daily life/Seeing a future before thinking of saving.md>): seeing a future, then thinking of saving and learning to manage money.
 
 ## 30_Stories: Step into a complete scene
 

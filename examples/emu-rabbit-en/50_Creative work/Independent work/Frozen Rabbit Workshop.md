@@ -2,7 +2,7 @@
 id: "work-frozen-rabbit-workshop"
 kind: "work"
 title: "Frozen Rabbit Workshop"
-updated: "2026-11-06"
+updated: "2026-11-07"
 ---
 
 # Frozen Rabbit Workshop
@@ -19,6 +19,11 @@ The Workshop received many messages of thanks and affection. Emu-rabbit said the
 
 She also has another FF14 tool, [[50_Creative work/Independent work/Frozen Rabbit Tome|Frozen Rabbit Tome]], which helps players choose gathering strategies and simulate skill combinations.[^5]
 
+## Being recognized in the game
+Recalling interactions with players, Emu-rabbit compared the Workshop to an outgoing, popular child, because it solved so many players' material-preparation problems. She put her player ID in the website title and was often recognized in the game afterward. Players praised her work, making her happy and satisfying her wish to be seen.[^6]
+
+“Frozen rabbit meat” that could not actually be eaten also became a frequent joke. Some people wanted to roast it, others to microwave it, and others called it three-cup rabbit. These are her later recollections of those interactions.[^6]
+
 ## Sources
 [^1]: [[80_Sources/Public work/Project introduction excerpts#^gh-010|How the project began]].
 [^2]: [[80_Sources/Public work/Project introduction excerpts#^gh-011|The choice of a flat list]].
@@ -26,5 +31,7 @@ She also has another FF14 tool, [[50_Creative work/Independent work/Frozen Rabbi
 [^4]: [[80_Sources/Interviews/Learning and creating#One-click reports at work|Work recollections]].
 
 [^5]: [[80_Sources/Public work/Project documentation excerpts#Frozen Rabbit Tome: gathering strategies and simulation|Frozen Rabbit Tome's features]].
+
+[^6]: [[80_Sources/Interviews/Everyday life, games, and the future#^everyday-workshop-child|Like an outgoing child]]; [[80_Sources/Interviews/Everyday life, games, and the future#^everyday-workshop-recognition|Being recognized in the game]]; [[80_Sources/Interviews/Everyday life, games, and the future#^everyday-workshop|Jokes about rabbit meat]].
 
 [[00_Entry/Reading map|Reading map]] · [[00_Entry/Index|Index]]

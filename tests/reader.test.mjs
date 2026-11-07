@@ -243,12 +243,12 @@ test('generated public pages have canonical, reciprocal language, robots and soc
     assert.equal(switchLinks.length, 2);
     for (const link of switchLinks) assert.equal(new URL(link.href, siteUrl(path)).href, siteUrl(pair[link['data-locale']]));
   }
-  assert.equal(canonicals.size, 112);
+  assert.equal(canonicals.size, 118);
   assert.deepEqual(readFileSync(new URL(`../dist/${socialImage.path}`, import.meta.url)), readFileSync(new URL(`../src/web/${socialImage.path}`, import.meta.url)), 'build copies the social asset byte-for-byte');
 
   const sitemap = readFileSync(new URL('../dist/sitemap.xml', import.meta.url), 'utf8');
   const entries = [...sitemap.matchAll(/<url>([\s\S]*?)<\/url>/g)].map(match => match[1]);
-  assert.equal(entries.length, 112);
+  assert.equal(entries.length, 118);
   assert.deepEqual(new Set(entries.map(entry => /<loc>([^<]+)<\/loc>/.exec(entry)[1])), canonicals);
   for (const entry of entries) {
     const loc = /<loc>([^<]+)<\/loc>/.exec(entry)[1];
@@ -434,7 +434,7 @@ test('nine sections distinguish generic profiles from real linked bilingual exam
       assert.doesNotMatch(html, /Emu Usagi/);
     }
     const anchors = tags(html, 'a');
-    assert.equal(anchors.length, 24);
+    assert.equal(anchors.length, 25);
     for (const {href} of anchors) assert.ok(mappings.some(pair => href === `./${locale === 'en' ? 'reader-en' : 'reader'}/${noteFile(pair[locale])}`), href);
     const profile = mappings.find(pair => pair.en === '00_Entry/Profile.md');
     assert.ok(html.includes(`href="./${locale === 'en' ? 'reader-en' : 'reader'}/${noteFile(profile[locale])}"`));

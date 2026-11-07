@@ -2,7 +2,7 @@
 id: "guide-index"
 kind: "guide"
 title: "Index"
-updated: "2026-11-06"
+updated: "2026-11-07"
 ---
 
 # Index
@@ -21,7 +21,10 @@ updated: "2026-11-06"
 ## 20 Self and daily life
 [[20_Self and daily life/Making things|Making things]] · [[20_Self and daily life/Learning, comparison, and what stays|Learning, comparison, and what stays]] · [[20_Self and daily life/Dressing as she likes|Dressing as she likes]] · [[20_Self and daily life/Freedom, honesty, and relationships|Freedom, honesty, and relationships]]
 
+[[20_Self and daily life/Seeing a future before thinking of saving|Seeing a future before thinking of saving]]
+
 ## 30 Stories
+- [[30_Stories/Chapters/The hour hand at four forty|The hour hand at four forty]]
 - [[30_Stories/Chapters/Turning repeated reports into one click|Turning repeated reports into one click]]
 - [[30_Stories/Chapters/The function finally returns true|The function finally returns true]]
 - [[30_Stories/Chapters/Wearing what she likes to a work party|Wearing what she likes to a work party]]
@@ -51,5 +54,7 @@ updated: "2026-11-06"
 
 ## 80 Sources
 [[80_Sources/Source index|Source index]] · [[80_Sources/Public work/The letter at the bottom of the box|The letter at the bottom of the box]] · [[80_Sources/Public work/Project introduction excerpts|Project introduction excerpts]] · [[80_Sources/Public work/Project documentation excerpts|Project documentation excerpts]] · [[80_Sources/Public profiles/Window-side Notes excerpts|Window-side Notes excerpts]] · [[80_Sources/Contemporary records/Learning and development|Learning and development]] · [[80_Sources/Interviews/Learning and creating|Learning and creating]] · [[80_Sources/Interviews/Clothing and daily life|Clothing and daily life]] · [[80_Sources/Interviews/Choosing projects|Choosing projects]] · [[80_Sources/Relationship recollections/Moments together|Moments together]]
+
+[[80_Sources/Interviews/Everyday life, games, and the future|Everyday life, games, and the future interview]]
 
 Return to [[README|entrance]].
