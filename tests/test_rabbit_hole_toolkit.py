@@ -92,6 +92,10 @@ class ToolkitTests(unittest.TestCase):
                 starter = next(self.vault.glob('00_*/Start.md')).read_text(encoding='utf-8')
                 for category in categories[:3]:
                     self.assertIn(category + '/', starter)
+                self.assertIn('`<Your name>.md`' if lang == 'en' else '`<你的名字>.md`', starter)
+                self.assertIn('across sections by topic' if lang == 'en' else '跨分區路線', starter)
+                self.assertNotIn('Emu Usagi', starter)
+                self.assertNotIn('絵夢羽さ沂', starter)
                 self.assertNotIn('Dolls/', starter)
                 self.assertNotIn('玩偶/', starter)
                 source = self.source([{'id': 'fictional-relationships', 'text':

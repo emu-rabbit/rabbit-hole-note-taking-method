@@ -1,15 +1,27 @@
 import { readFileSync } from 'node:fs';
 import MarkdownIt from './vendor/markdown-it.js';
+import { noteFile } from './library.mjs';
 
 const markdown = new MarkdownIt({ html: false });
 const escape = markdown.utils.escapeHtml;
+const examplePaths = JSON.parse(readFileSync(new URL('./example-paths.json', import.meta.url), 'utf8'));
+markdown.renderer.rules.link_open = (tokens, index, options, env, self) => {
+  const token = tokens[index];
+  const href = decodeURIComponent(token.attrGet('href'));
+  const prefix = `../../examples/emu-rabbit-${env.locale === 'en' ? 'en' : 'tw'}/`;
+  if (!href.startsWith(prefix) || !examplePaths.some(pair => pair[env.locale] === href.slice(prefix.length))) {
+    throw new Error(`Invalid ${env.locale} structure example link: ${href}`);
+  }
+  token.attrSet('href', `./${env.locale === 'en' ? 'reader-en' : 'reader'}/${noteFile(href.slice(prefix.length))}`);
+  return self.renderToken(tokens, index, options);
+};
 
 function readSections(locale) {
   const source = readFileSync(new URL(`./structure.${locale}.md`, import.meta.url), 'utf8');
   const headings = [...source.matchAll(/^## (\d{2})_([^：:\r\n]+)[：:][ \t]*(.+)$/gm)];
   return headings.map(([heading, code, name, purpose], index) => {
     const body = source.slice(headings[index].index + heading.length, headings[index + 1]?.index);
-    return { code, name, purpose, body: markdown.render(body.trim()) };
+    return { code, name, purpose, body: markdown.render(body.trim(), { locale }) };
   });
 }
 

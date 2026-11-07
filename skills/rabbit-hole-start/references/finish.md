@@ -22,7 +22,7 @@ Write in the owner's chosen voice, third person by default. Let ordinary life, c
 
 ## Make it findable
 
-Update the affected entrance, source index, lookup entries and chronology as the material warrants. Keep titles and short summaries consistent with the updated account, including its event state and date certainty. Keep roles distinct: README welcomes, a profile introduces, an index supports lookup, a reading map offers short journeys. These can share a page while the vault is small.
+Update the affected entrance, source index, lookup entries and chronology as the material warrants. Keep titles and short summaries consistent with the updated account, including its event state and date certainty. Keep roles distinct: README welcomes, a profile introduces, an index supports lookup, a reading map offers selected routes across sections based on readers’ interests. These can share a page while the vault is small.
 
 Add natural first-mention links to people, stories and works. Choose a meaningful next stop and return path, keeping article endings natural and optional source detours clear. Use actual targets; record undeveloped ideas as questions until they have content.
 

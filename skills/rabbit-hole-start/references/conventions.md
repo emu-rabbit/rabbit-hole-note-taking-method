@@ -18,7 +18,7 @@ Keep new masters private and use preview before authorized mutations. The helper
 
 Everyday companionship, mixed feelings and unfinished attempts deserve space alongside achievements. Keep different periods and later reflections distinct; do not invent growth, a neat ending or a universal character judgment. Let the owner’s pace and material determine the depth and structure.
 
-README welcomes readers, the profile introduces the owner, the index supports lookup and the reading map offers short routes. Link to the independent method when useful; do not inject its full text into a new vault.
+README welcomes readers, a profile such as `<Your name>.md` introduces the owner, the index lists content by section, and the reading map offers selected routes across sections based on readers’ interests. Link to the independent method when useful; do not inject its full text into a new vault.
 
 ## Keep evidence understandable
 
@@ -43,8 +43,8 @@ A new vault begins with usable entrance, source, and maintenance sections. Add t
 | Purpose | 中文 | English |
 | --- | --- | --- |
 | Entrance and orientation | `00_入口` | `00_Entry` |
-| Life periods and timeline | `10_人生脈絡` | `10_Life context` |
-| Themes across periods | `20_自我與生活` | `20_Self and life` |
+| Life periods and timeline | `10_人生脈絡` | `10_Life chapters` |
+| Themes across periods | `20_自我與生活` | `20_Self and daily life` |
 | Complete scenes | `30_故事/故事篇章` | `30_Stories/Chapters` |
 | Important relationships | `40_重要關係` → `人物`, `寵物`, `關係圈` | `40_Important relationships` → `People`, `Pets`, `Relationship circles` |
 | Work and collaborations | `50_創作/自主創作`, `委託與共同創作` | `50_Creative work/Independent work`, `Commissions and collaborations` |
