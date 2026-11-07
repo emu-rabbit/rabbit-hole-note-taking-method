@@ -79,6 +79,39 @@ class ToolkitTests(unittest.TestCase):
                 self.assertEqual(self.ledger(), [])
                 self.run_cli('init', '--vault', self.vault, '--name', 'Other', '--lang', lang, '--apply', code=2)
 
+    def test_work_pages_flat_within_participation_folders_and_multiple_indexes(self):
+        layouts = [('en', '50_Creative work', ('Independent work', 'Commissions and collaborations')),
+                   ('zh-TW', '50_創作', ('自主創作', '委託與共同創作'))]
+        for lang, section, categories in layouts:
+            with self.subTest(lang=lang):
+                self.vault = self.root / lang
+                self.init(lang)
+                starter = next(self.vault.glob('00_*/Start.md')).read_text(encoding='utf-8')
+                for category in categories:
+                    self.assertIn(f'`{section}/{category}/`', starter)
+                self.assertIn('Place each work page directly in its folder' if lang == 'en' else '作品直接放在各自資料夾中', starter)
+                self.assertIn('Use indexes for medium or theme' if lang == 'en' else '媒材與主題由索引分類', starter)
+                self.assertIn('Create subfolders within the relevant category' if lang == 'en' else '在所屬類別下增子資料夾', starter)
+                agent_guide = (self.vault / 'AGENTS.md').read_text(encoding='utf-8')
+                self.assertIn('established note paths and stable IDs' if lang == 'en' else '筆記路徑與穩定識別碼', agent_guide)
+                self.assertFalse((self.vault / section).exists(), 'no empty classification folders at initialization')
+                targets = []
+                for group, category in enumerate(categories):
+                    for number, filename in enumerate(('One work.md', 'Another work.md', 'A project/Details/Project work.md')):
+                        path = f'{section}/{category}/{filename}'
+                        target = self.vault / path
+                        target.parent.mkdir(parents=True, exist_ok=True)
+                        target.write_text(f'---\nid: "fictional-work-{group}-{number}"\nkind: "work"\n---\n# Work {group}-{number} (fictional)\n', encoding='utf-8')
+                        targets.append(path[:-3])
+                links = '\n'.join(f'[[{path}]]' for path in targets)
+                for filename, heading in [('By medium.md', 'Text'), ('By theme.md', 'Friendship')]:
+                    (self.vault / filename).write_text(f'# Index (fictional)\n## {heading}\n{links}\n', encoding='utf-8')
+                before = {p.relative_to(self.vault): p.read_bytes() for p in self.vault.rglob('*') if p.is_file()}
+                result = self.run_cli('check', '--vault', self.vault, '--include-maintenance')
+                self.assertTrue(result['ok'], result['issues'])
+                self.assertEqual(before, {p.relative_to(self.vault): p.read_bytes() for p in self.vault.rglob('*') if p.is_file()})
+                self.assertEqual(len(list((self.vault / section).rglob('*.md'))), 6, 'indexes reuse six owning pages')
+
     def test_standard_and_custom_relationship_notes_preserve_sources(self):
         layouts = {
             'en': ('40_Important relationships', ('People', 'Pets', 'Relationship circles', 'Keepsakes')),

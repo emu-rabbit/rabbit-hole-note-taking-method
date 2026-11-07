@@ -65,10 +65,14 @@ Keep changing roles and closeness in the existing relationship note, linked to r
 
 Record the creative work you take part in: what it is, why it began, how it took shape and changed, and each participant's role. Independent work, commissions and collaborations all have a place here, linked to stories of making them and the life around them.
 
-As the collection grows, a creative-work index can group works by how you participated and lead to the corresponding articles and subfolders:
+File each work page according to how you participate:
 
-- Independent work → `Independent work/`: work you led, recording its motivation, content, formation, and evolution, along with other collaborators' actual contributions.
-- Commissions and collaborations → `Commissions and collaborations/`: works you participated in through commissioning, concepts, or collaboration, with everyone's role made clear.
+- `50_Creative work/Independent work/`: work you lead, recording its motivation, content, development and collaborators' actual contributions.
+- `50_Creative work/Commissions and collaborations/`: work you participate in through commissioning, ideas or collaboration, making each person's role clear.
+
+Write one note for each work and place it directly in the appropriate folder. Use indexes to group novels, poetry, video and other media, or to offer perspectives by theme or reading interest. The same work page can appear in several indexes.
+
+When a project or category has enough material to benefit from separate organization, add a subfolder within its participation category. Create folders as you have content for them.
 
 A project page introduces the work itself; the complete scene of its making connects back to a story. Writing, images, crafts, performances, tools, and unfinished attempts can all have their own place here.
 
