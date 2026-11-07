@@ -131,9 +131,14 @@ The core script installs with `rabbit-hole-start`. You can also run it directly:
 
 ```sh
 TOOL="${CODEX_HOME:-$HOME/.codex}/skills/rabbit-hole-start/scripts/rabbit_hole.py"
-python3 "$TOOL" init --vault /your/new-private-vault --name 'Your chosen name' --lang en
+# Preview setup; review the result, then create the new vault.
+python3 "$TOOL" init --vault /your/private-vault --name 'Your chosen name' --lang en
+python3 "$TOOL" init --vault /your/private-vault --name 'Your chosen name' --lang en --apply
+# Preview import; review the result, then save the selected material.
 python3 "$TOOL" import --vault /your/private-vault --input /your/selected-posts.json \
   --namespace selected-posts --owner 'Your chosen name' --author 'Actual speaker'
+python3 "$TOOL" import --vault /your/private-vault --input /your/selected-posts.json \
+  --namespace selected-posts --owner 'Your chosen name' --author 'Actual speaker' --apply
 python3 "$TOOL" check --vault /your/private-vault
 ```
 
@@ -143,12 +148,16 @@ python3 "$TOOL" check --vault /your/private-vault
 $CodexRoot = if ($env:CODEX_HOME) { $env:CODEX_HOME } else { Join-Path $env:USERPROFILE '.codex' }
 $Tool = Join-Path $CodexRoot 'skills\rabbit-hole-start\scripts\rabbit_hole.py'
 $Vault = Join-Path $env:USERPROFILE 'RabbitHole'
+# Preview setup; review the result, then create the new vault.
 python -X utf8 "$Tool" init --vault "$Vault" --name 'Your chosen name' --lang en
+python -X utf8 "$Tool" init --vault "$Vault" --name 'Your chosen name' --lang en --apply
+# Preview import; review the result, then save the selected material.
 python -X utf8 "$Tool" import --vault "$Vault" --input 'C:\Users\YourName\selected-posts.json' --namespace selected-posts --owner 'Your chosen name' --author 'Actual speaker'
+python -X utf8 "$Tool" import --vault "$Vault" --input 'C:\Users\YourName\selected-posts.json' --namespace selected-posts --owner 'Your chosen name' --author 'Actual speaker' --apply
 python -X utf8 "$Tool" check --vault "$Vault"
 ```
 
-After reviewing the preview, add `--apply` to `init` or `import` to write. Import accepts UTF-8 text, Markdown, normalized JSON arrays and JSONL, up to 16 MiB per file. It retains the entire input, so supply only a permitted batch. Reuse namespace, owner, author and explicit IDs to append revisions while preserving earlier versions. See [source formats](../skills/rabbit-hole-import/references/source-formats.md) for examples and preparation of social exports. There are no native social ZIP/API adapters, OCR, media transcription or scheduled synchronization tools.
+Run each preview first and review its output before running the following `--apply` command. After setup succeeds, continue with import and `check`. Import accepts UTF-8 text, Markdown, normalized JSON arrays and JSONL, up to 16 MiB per file. It retains the entire input, so supply only a permitted batch. Reuse namespace, owner, author and explicit IDs to append revisions while preserving earlier versions. See [source formats](../skills/rabbit-hole-import/references/source-formats.md) for examples and preparation of social exports. There are no native social ZIP/API adapters, OCR, media transcription or scheduled synchronization tools.
 
 `check` recognizes escaped Obsidian table aliases such as `[[example.io\|Label]]` and dotted note names. By default, it skips the bodies of notes under top-level `90` and `90_*` maintenance folders. Incoming links from other notes, the import ledger and source integrity are still checked. Add `--include-maintenance` to scan maintenance notes too.
 

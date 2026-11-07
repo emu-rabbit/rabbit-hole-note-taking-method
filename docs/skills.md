@@ -131,9 +131,14 @@ agent 使用的核心程式隨 `rabbit-hole-start` 安裝，也可以直接執�
 
 ```sh
 TOOL="${CODEX_HOME:-$HOME/.codex}/skills/rabbit-hole-start/scripts/rabbit_hole.py"
-python3 "$TOOL" init --vault /你的/新私人兔子洞 --name '你的稱呼' --lang zh-TW
+# 先預覽建立結果；確認後，再建立新的兔子洞。
+python3 "$TOOL" init --vault /你的/私人兔子洞 --name '你的稱呼' --lang zh-TW
+python3 "$TOOL" init --vault /你的/私人兔子洞 --name '你的稱呼' --lang zh-TW --apply
+# 再預覽匯入結果；確認後，再保存材料。
 python3 "$TOOL" import --vault /你的/私人兔子洞 --input /你的/已挑選貼文.json \
   --namespace selected-posts --owner '你的稱呼' --author '實際說話者'
+python3 "$TOOL" import --vault /你的/私人兔子洞 --input /你的/已挑選貼文.json \
+  --namespace selected-posts --owner '你的稱呼' --author '實際說話者' --apply
 python3 "$TOOL" check --vault /你的/私人兔子洞
 ```
 
@@ -143,12 +148,16 @@ python3 "$TOOL" check --vault /你的/私人兔子洞
 $CodexRoot = if ($env:CODEX_HOME) { $env:CODEX_HOME } else { Join-Path $env:USERPROFILE '.codex' }
 $Tool = Join-Path $CodexRoot 'skills\rabbit-hole-start\scripts\rabbit_hole.py'
 $Vault = Join-Path $env:USERPROFILE 'RabbitHole'
+# 先預覽建立結果；確認後，再建立新的兔子洞。
 python -X utf8 "$Tool" init --vault "$Vault" --name '你的稱呼' --lang zh-TW
+python -X utf8 "$Tool" init --vault "$Vault" --name '你的稱呼' --lang zh-TW --apply
+# 再預覽匯入結果；確認後，再保存材料。
 python -X utf8 "$Tool" import --vault "$Vault" --input 'C:\Users\你的帳號\selected-posts.json' --namespace selected-posts --owner '你的稱呼' --author '實際說話者'
+python -X utf8 "$Tool" import --vault "$Vault" --input 'C:\Users\你的帳號\selected-posts.json' --namespace selected-posts --owner '你的稱呼' --author '實際說話者' --apply
 python -X utf8 "$Tool" check --vault "$Vault"
 ```
 
-確認預覽後，在 `init` 或 `import` 命令加上 `--apply` 才會寫入。匯入接受 UTF-8 文字、Markdown、約定格式 JSON 陣列與 JSONL，每檔最多 16 MiB；會保留整個輸入檔，請只提供允許保存的批次。相同來源要沿用 namespace、owner、author 與明確 ID，才能追加修訂並保留舊版。格式、範例與社群匯出檔轉換方式見[來源格式](../skills/rabbit-hole-import/references/source-formats.md)。工具沒有原生社群 ZIP／API 轉接器、OCR、影音轉錄或定時同步功能。
+逐行操作，先看每次預覽，再執行下一行帶 `--apply` 的命令；建立成功後才繼續匯入與 `check`。匯入接受 UTF-8 文字、Markdown、約定格式 JSON 陣列與 JSONL，每檔最多 16 MiB；會保留整個輸入檔，請只提供允許保存的批次。相同來源要沿用 namespace、owner、author 與明確 ID，才能追加修訂並保留舊版。格式、範例與社群匯出檔轉換方式見[來源格式](../skills/rabbit-hole-import/references/source-formats.md)。工具沒有原生社群 ZIP／API 轉接器、OCR、影音轉錄或定時同步功能。
 
 `check` 能辨識 Obsidian 表格裡的跳脫別名，例如 `[[example.io\|顯示文字]]`，以及帶點的筆記名稱。它預設不掃描頂層 `90` 或 `90_*` 維護筆記的內文；其他頁面指入維護區的連結、匯入台帳與來源完整性仍會核對。要連維護筆記一起檢查，加上 `--include-maintenance`。
 
