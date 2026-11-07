@@ -396,6 +396,8 @@ test('homepage quote credits link to the corresponding GitHub source lines', () 
     const caption = /<figcaption>([\s\S]*?)<\/figcaption>/.exec(quote)?.[1];
     assert.ok(caption, 'source credit stays at the bottom of the quote figure');
     assert.equal(tags(caption, 'a')[0].href, methodQuoteSources[locale].url);
+    assert.equal(tags(caption, 'a')[0].target, '_blank');
+    assert.deepEqual(tags(caption, 'a')[0].rel.split(/\s+/).sort(), ['noopener', 'noreferrer']);
     assert.ok(caption.includes(methodQuoteSources[locale].label));
     assert.ok(!html.includes('data-i18n="fullMethod"'));
     const source = readFileSync(new URL(`../docs/method.${locale}.md`, import.meta.url), 'utf8').split('\n');
