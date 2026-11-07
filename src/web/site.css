@@ -102,7 +102,7 @@ html[lang='en'] .structure-browser[lang='zh-TW'] { display: none; }
   border-radius: 8px;
   background: var(--honey-wash);
 }
-/* Inactive panels still size the shared row. */
+/* Keep desktop height steady when switching sections. */
 .structure-panel[hidden] { display: block; visibility: hidden; }
 .structure-panel:focus-visible { outline-offset: 2px; }
 .structure-label { display: flex; align-items: baseline; gap: 8px; margin: 0; color: var(--accent-hover); font-size: 13px; font-weight: 700; }
@@ -162,6 +162,7 @@ html[lang='en'] .structure-browser[lang='zh-TW'] { display: none; }
   .structure { padding-block: 46px 54px; }
   .structure-intro { margin-bottom: 20px; }
   .structure-browser { grid-template-columns: 1fr; }
+  .structure-panel[hidden] { display: none; }
   .structure-tabs { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .structure-tab { grid-template-columns: 1fr; gap: 2px; align-content: start; padding: 7px 8px; font-size: 13px; overflow-wrap: anywhere; }
 }
