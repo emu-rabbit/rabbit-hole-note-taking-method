@@ -24,16 +24,15 @@ The public example contains thirteen stories under `30_Stories/Chapters/`, reach
 
 ## 40_Important relationships: Keep the connections that matter
 
-This section records the relationships and emotional connections that matter to you. `Relationship map.md` leads to people, pets, dolls and relationship circles. Create subfolders as the material calls for them:
+This section records the relationships and emotional connections that matter to you. `Relationship map.md` leads to people, pets and relationship circles. Create subfolders as the material calls for them:
 
 - `People/`: primarily one profile per person. Introduce who they are, their personality and life, then follow your time together, feelings and changing relationship.
 - `Pets/`: describe a pet's appearance, daily life, care and shared experiences, and their place in your life.
-- `Dolls/`: describe dolls or stuffed toys with an important emotional connection: how they came into your life, their companionship and the memories they hold.
 - `Relationship circles/`: record groups formed through living, studying, working or participating in activities together, preserving how that group became part of your life.
 
-Keep changing roles and closeness in the existing relationship note, linked to relevant stories. Toys you simply enjoy or collect can go in Favorites; a doll with an important bond or history of companionship can have its own note here. Describe relationships and feelings from the sources without inventing a pet's or doll's unrecorded thoughts.
+Keep changing roles and closeness in the existing relationship note, linked to relevant stories. Add categories that fit your own material and needs, creating folders when there is content. Ground descriptions of relationships and feelings in the sources; leave unrecorded thoughts unknown.
 
-The public example includes `Relationship map.md`, six profiles under `People/` and Mengmeng the hamster under `Pets/`. Add `Dolls/` or `Relationship circles/` when there is material for them.
+The public example includes `Relationship map.md`, six profiles under `People/` and Mengmeng the hamster under `Pets/`. Add `Relationship circles/` or other suitable custom categories when there is material for them.
 
 ## 50_Creative work: Keep what you made and why you made it
 

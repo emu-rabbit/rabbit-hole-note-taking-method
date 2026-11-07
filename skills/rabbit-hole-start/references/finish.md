@@ -13,7 +13,7 @@ Read complete relevant passages and existing owning pages. Identify who did what
 Reuse existing relationship, story and work identities. Keep a short account together when that reads well; add a page when the material can support an independently useful article.
 
 - A story introduces people and circumstances, then lets the scene unfold.
-- A relationship note introduces a person, pet, emotionally significant doll or relationship circle and follows the documented connection over time.
+- A relationship note introduces its subject and follows the documented connection over time, using people, pets, circles or a category suited to the owner’s material.
 - A life period or topic brings particular experiences together without inventing causal connections.
 - A work page explains what was made, why, its development and each contributor's role.
 - A favorite preserves what the person enjoys and the experience or feeling that gives it meaning.

@@ -184,7 +184,7 @@ def init(args):
     maintenance_path = f'{maintenance}/README.md'
     intro = ('這是私人主版本。姓名是你提供的標籤；尚未加入任何人生事實。先留下你願意保存的一個場景，再接回來源。由你決定整理與分享界線。' if zh else 'This is a private master vault. The name is your supplied label; no life facts have been added. Begin with one scene you want to preserve, then connect it to its source. You decide the boundaries of collection and sharing.')
     guide = ('先問一題：你想留下哪個具體場景？可以暫停、跳過或不回答。依已同意的保存範圍，留下原話、敘述時間、事件時間與不確定處，接回有依據的故事、人物與入口，再回讀檢查。只聊天時保持檔案不變。' if zh else 'Start with one question: which specific scene would you like to preserve? You may pause, skip, or decline. Within the agreed saving scope, keep exact words, recording time, event time and uncertainty, integrate supported notes and navigation, then read and check the result. Conversation-only leaves files unchanged.')
-    relationships = ('重要關係放在 40_重要關係，依材料分成 人物/、寵物/、玩偶/ 與 關係圈/。有內容時再建立資料夾；寵物與有重要情感連結的玩偶也能有自己的筆記。' if zh else 'Important relationships belong in 40_Important relationships, with People/, Pets/, Dolls/ and Relationship circles/ as the material calls for them. Create folders when there is content; pets and emotionally significant dolls can have their own notes.')
+    relationships = ('重要關係放在 40_重要關係，常見分類是 人物/、寵物/ 與 關係圈/。可按自己的材料與需要擴充分類，有內容時再建立資料夾。' if zh else 'Important relationships belong in 40_Important relationships, with People/, Pets/ and Relationship circles/ as common categories. Add categories to suit your own material and needs, creating folders when there is content.')
     files = {
         '.rabbit-hole.json': encoded(meta),
         'README.md': f'# {markdown_label(args.name)}\n\n{intro}\n\n1. [[{start_path[:-3]}|{start}]]\n2. [[{source_path[:-3]}|{source_title}]]\n3. [[{maintenance_path[:-3]}|{maintenance_title}]]\n'.encode(),

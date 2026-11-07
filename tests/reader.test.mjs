@@ -100,7 +100,7 @@ test('structure naming follows public English manifest and distinguishes optiona
   const folders = [...new Set(mappings.map(pair => pair.en.split('/')[0]).filter(path => !path.endsWith('.md')))];
   for (const folder of folders) assert.ok(structure.includes(`## ${folder}:`), folder);
   assert.ok(structure.includes('does not include a `90_Maintenance/`'));
-  assert.ok(structure.includes('`Dolls/` or `Relationship circles/`'));
+  assert.ok(structure.includes('`Relationship circles/` or other suitable custom categories'));
   assert.ok(structure.includes('no separate story index'));
 });
 
@@ -403,5 +403,18 @@ test('homepage quote credits link to the corresponding GitHub source lines', () 
     const [, start, end] = /#L(\d+)-L(\d+)$/.exec(methodQuoteSources[locale].url);
     assert.ok(source[Number(start) - 1].startsWith(locale === 'en' ? 'This phrase comes from' : '這句話來自於'));
     assert.ok(source[Number(end) - 1].startsWith(locale === 'en' ? 'That is why the rabbit hole exists.' : '兔子洞為此而生。'));
+  }
+});
+
+
+test('public relationship sections offer three common categories and allow custom ones', () => {
+  for (const [locale, categories] of [['zh-TW', ['人物', '寵物', '關係圈']], ['en', ['People', 'Pets', 'Relationship circles']]]) {
+    for (const file of [`docs/method.${locale}.md`, `src/web/structure.${locale}.md`]) {
+      const text = readFileSync(new URL('../' + file, import.meta.url), 'utf8');
+      const section = text.split(/^#{2,3} 40_[^\n]*\n/m)[1].split(/^#{2,3} 50_/m)[0];
+      assert.deepEqual([...section.matchAll(/^- `([^`]+)\/`/gm)].map(match => match[1]), categories, file);
+      assert.doesNotMatch(section, /玩偶|Dolls/i);
+      assert.match(section, locale === 'en' ? /custom|categories that fit your own material/ : /自訂|分類可依自己的材料與需要擴充/);
+    }
   }
 });

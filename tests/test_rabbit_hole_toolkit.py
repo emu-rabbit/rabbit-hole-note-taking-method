@@ -79,26 +79,31 @@ class ToolkitTests(unittest.TestCase):
                 self.assertEqual(self.ledger(), [])
                 self.run_cli('init', '--vault', self.vault, '--name', 'Other', '--lang', lang, '--apply', code=2)
 
-    def test_relationship_categories_have_reachable_notes_and_preserved_sources(self):
+    def test_standard_and_custom_relationship_notes_preserve_sources(self):
         layouts = {
-            'en': ('40_Important relationships', ('People', 'Pets', 'Dolls', 'Relationship circles')),
-            'zh-TW': ('40_重要關係', ('人物', '寵物', '玩偶', '關係圈')),
+            'en': ('40_Important relationships', ('People', 'Pets', 'Relationship circles', 'Keepsakes')),
+            'zh-TW': ('40_重要關係', ('人物', '寵物', '關係圈', '珍藏')),
         }
         for lang, (section, categories) in layouts.items():
             with self.subTest(lang=lang):
                 self.vault = self.root / lang
                 self.init(lang)
                 self.assertFalse((self.vault / section).exists(), 'create folders only when there is material')
+                starter = next(self.vault.glob('00_*/Start.md')).read_text(encoding='utf-8')
+                for category in categories[:3]:
+                    self.assertIn(category + '/', starter)
+                self.assertNotIn('Dolls/', starter)
+                self.assertNotIn('玩偶/', starter)
                 source = self.source([{'id': 'fictional-relationships', 'text':
-                    'Fictional test: Alex cares for Pip the pet, keeps Button the stuffed doll, '
-                    'and meets friends in a book circle.'}])
+                    'Fictional test: Alex cares for Pip the pet, meets friends in a book circle, '
+                    'and keeps a blue ribbon from their first meeting.'}])
                 self.imp(source, '--apply')
                 row = self.ledger()[0]
                 original = (self.vault / row['original']).read_bytes()
                 imported = (self.vault / row['note']).read_bytes()
                 paths = []
-                for category, kind, name in zip(categories, ('person', 'pet', 'doll', 'circle'),
-                                                ('Alex', 'Pip', 'Button', 'Book circle')):
+                for category, kind, name in zip(categories, ('person', 'pet', 'circle', 'keepsake'),
+                                                ('Alex', 'Pip', 'Book circle', 'Blue ribbon')):
                     path = f'{section}/{category}/{name}.md'
                     destination = self.vault / path
                     destination.parent.mkdir(parents=True, exist_ok=True)
@@ -112,8 +117,43 @@ class ToolkitTests(unittest.TestCase):
                 self.run_cli('check', '--vault', self.vault, '--include-maintenance')
                 self.assertEqual((self.vault / row['original']).read_bytes(), original)
                 self.assertEqual((self.vault / row['note']).read_bytes(), imported)
-                (self.vault / paths[2]).unlink()
+                (self.vault / paths[3]).unlink()
                 self.run_cli('check', '--vault', self.vault, code=1)
+
+    def test_legacy_custom_relationship_folder_kind_ids_and_bytes_survive_imports(self):
+        # Legacy custom categories remain supported; they are not starter recommendations.
+        for lang, section, category in [('en', '40_Important relationships', 'Dolls'),
+                                        ('zh-TW', '40_重要關係', '玩偶')]:
+            with self.subTest(lang=lang):
+                self.vault = self.root / lang
+                self.init(lang)
+                relative = f'{section}/{category}/Button 伴伴.md'
+                note = self.vault / relative
+                note.parent.mkdir(parents=True)
+                original = b'\xef\xbb\xbf' + (
+                    '---\r\nid: "legacy-companion"\r\nkind: "doll"\r\n'
+                    'custom_role: "keepsake"\r\n---\r\n# Fictional existing companion\r\n'
+                    'Fictional legacy content.\r\n[[README|Entrance]]\r\n').encode('utf-8')
+                note.write_bytes(original)
+                entrance = self.vault / 'README.md'
+                entrance.write_text(entrance.read_text(encoding='utf-8') +
+                                    f'\n[[{relative[:-3]}|Existing custom relationship]]\n', encoding='utf-8')
+                before = {p.relative_to(self.vault): p.read_bytes() for p in self.vault.rglob('*') if p.is_file()}
+                self.run_cli('check', '--vault', self.vault, '--include-maintenance')
+                self.assertEqual(before, {p.relative_to(self.vault): p.read_bytes()
+                                         for p in self.vault.rglob('*') if p.is_file()})
+                source = self.source([{'id': 'new-account', 'text': 'Fictional new account about a walk.'}])
+                self.imp(source)
+                self.assertEqual(before, {p.relative_to(self.vault): p.read_bytes()
+                                         for p in self.vault.rglob('*') if p.is_file()})
+                self.imp(source, '--apply')
+                self.assertEqual(self.imp(source, '--apply')['skipped_records'], 1)
+                self.run_cli('check', '--vault', self.vault, '--include-maintenance')
+                for path, data in before.items():
+                    if path.name != 'import-ledger.json':
+                        self.assertEqual((self.vault / path).read_bytes(), data, str(path))
+                self.assertEqual(note.read_bytes(), original)
+                self.assertTrue(note.parent.is_dir())
 
     def test_init_preview_creates_nothing(self):
         self.run_cli('init', '--vault', self.vault, '--name', 'Test', '--lang', 'en')
