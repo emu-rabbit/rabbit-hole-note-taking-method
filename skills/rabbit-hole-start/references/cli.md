@@ -78,6 +78,8 @@ python3 /absolute/skills/rabbit-hole-start/scripts/rabbit_hole.py check \
 
 Read-only checks cover local inline/Wiki links, heading/block targets, duplicate note IDs and, for helper-managed vaults, import ledger/artifact integrity. Plain existing vaults and staged reading copies can be checked directly, without initialization or added helper metadata.
 
+By default, the checker skips Markdown notes in top-level `90` and `90_*` folders, including `90_Maintenance` and `90_維護`. Organize those notes around your own maintenance workflow. Links from scanned notes into those folders are still verified, as are the helper's import ledger and artifacts. Add `--include-maintenance` to check the maintenance notes themselves.
+
 This is a deliberately limited Markdown checker. Reference-style links, HTML, complex Markdown syntax, remote availability, prose truth and privacy need manual review. A source's fenced text is not parsed as executable links. Open the changed notes and walk actual routes as well as reading this report. A clean check cannot authorize publication or certify anonymity.
 
 Exit codes: `0` successful command/preview or clean check; `1` structural findings; `2` refused/invalid/inaccessible input. The helper avoids printing source content in error messages. If a provenance hash differs, preserve the files and ledger for investigation. For a lock or concurrent-change error, verify the other operation’s state before deciding on recovery.

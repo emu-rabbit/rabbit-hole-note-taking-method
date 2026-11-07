@@ -208,6 +208,54 @@ class ToolkitTests(unittest.TestCase):
         self.assertTrue(self.run_cli('check', '--vault', self.vault)['ok'])
         self.assertEqual({p.relative_to(self.vault): p.read_bytes() for p in self.vault.rglob('*') if p.is_file()}, before)
 
+    def test_wiki_table_aliases_and_dotted_note_names(self):
+        self.init()
+        notes = self.vault / 'Topics'
+        notes.mkdir()
+        (notes / 'example.io.md').write_text('# Overview\n\nFictional scene.\n\n^demo\n', encoding='utf-8')
+        (notes / 'diagram.png').write_bytes(b'fictional attachment')
+        page = self.vault / 'links.md'
+        table = ('| Destination |\n'
+                 '| --- |\n'
+                 r'| [[Topics/example.io\|Notes]] |' '\n'
+                 r'| [[Topics/example.io#Overview\|Heading]] |' '\n'
+                 r'| [[example.io#^demo\|Scene]] |' '\n'
+                 r'| ![[Topics/diagram.png\|200]] |' '\n')
+        page.write_text(table, encoding='utf-8')
+        self.assertTrue(self.run_cli('check', '--vault', self.vault)['ok'])
+        page.write_text(table + r'| [[example.io#^absent\|Absent block]] |' '\n'
+                        + r'| [[absent.io\|Absent note]] |' '\n'
+                        + r'| [[../outside.io\|Outside vault]] |' '\n'
+                        + r'| [[Topics\example.io\|Invalid path]] |' '\n', encoding='utf-8')
+        report = self.run_cli('check', '--vault', self.vault, code=1)
+        self.assertCountEqual([issue['code'] for issue in report['issues']],
+                              ['missing-anchor', 'missing-link', 'unsafe-link', 'unsafe-link'])
+
+    def test_maintenance_notes_are_opt_in_but_link_targets_are_checked(self):
+        for lang, folder in (('en', '90_Maintenance'), ('zh-TW', '90_維護')):
+            with self.subTest(lang=lang):
+                self.vault = self.root / lang
+                self.init(lang)
+                for section in (folder, '90', '90_Workbench'):
+                    maintenance = self.vault / section
+                    maintenance.mkdir(exist_ok=True)
+                    (maintenance / 'Journal.md').write_text(
+                        '# Plan\n\nFictional entry.\n\n^entry\n\n[[work-in-progress]]\n', encoding='utf-8')
+                entry = self.vault / 'links.md'
+                entry.write_text(f'[[{folder}/Journal#^entry]]\n[Plan](90_Workbench/Journal.md#plan)\n',
+                                 encoding='utf-8')
+                default = self.run_cli('check', '--vault', self.vault)
+                self.assertEqual(default['ledger_status'], 'validated')
+                self.assertFalse(default['maintenance_included'])
+                full = self.run_cli('check', '--vault', self.vault, '--include-maintenance', code=1)
+                self.assertTrue(full['maintenance_included'])
+                self.assertCountEqual(
+                    full['issues'], [{'code': 'missing-link', 'path': f'{section}/Journal.md'}
+                                     for section in (folder, '90', '90_Workbench')])
+                entry.write_text(f'[[{folder}/Journal#^absent]]\n', encoding='utf-8')
+                missing = self.run_cli('check', '--vault', self.vault, code=1)
+                self.assertEqual(missing['issues'], [{'code': 'missing-anchor', 'path': 'links.md'}])
+
     def test_sibling_markdown_targets_stay_inside_vault(self):
         self.init()
         chapter = self.vault / 'Chapters'

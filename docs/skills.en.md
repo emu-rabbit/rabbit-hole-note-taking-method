@@ -148,6 +148,8 @@ python -X utf8 "$Tool" check --vault "$Vault"
 
 `init` and `import` preview by default; `check` is read-only. Initialization never overwrites an existing path. Write commands refuse vaults inside Git repositories or reached through symlinks. Helpers create no remote, push nothing, grant no sharing access and make no network calls. See the [CLI reference](../skills/rabbit-hole-start/references/cli.md) for paths, arguments and failure handling.
 
+`check` skips Markdown notes in top-level `90` and `90_*` maintenance folders by default. Organize those folders around your own maintenance workflow. The checker still verifies incoming links from other notes and the helper's import ledger and source artifacts. To scan the maintenance notes themselves, add `--include-maintenance`.
+
 Import accepts UTF-8 text, Markdown, normalized JSON arrays and JSONL, up to 16 MiB per input file. It preserves source identity, speakers, separate event/publication/narration dates, exact input bytes and hashes. Reimporting the same revision is a no-op; changed records with stable IDs append preserved revisions. Without stable IDs, identity is content-based, so edited material becomes a new source rather than being silently matched.
 
 The importer retains the full input file’s bytes. Supply a separate permitted batch when a larger file mixes allowed and excluded content. If choosing that subset would require reading excluded records, ask the provider to prepare it first.
