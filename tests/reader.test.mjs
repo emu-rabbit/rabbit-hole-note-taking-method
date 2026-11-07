@@ -427,6 +427,10 @@ test('nine sections distinguish generic profiles from real linked bilingual exam
     const html = renderStructure(locale);
     assert.equal((html.match(/role="tabpanel"/g) ?? []).length, 9);
     assert.ok(html.includes(locale === 'en' ? '&lt;Your name&gt;.md' : '&lt;你的名字&gt;.md'));
+    if (locale === 'en') {
+      assert.equal((html.match(/Emu-rabbit/g) ?? []).length, 2);
+      assert.doesNotMatch(html, /Emu Usagi/);
+    }
     const anchors = tags(html, 'a');
     assert.equal(anchors.length, 24);
     for (const {href} of anchors) assert.ok(mappings.some(pair => href === `./${locale === 'en' ? 'reader-en' : 'reader'}/${noteFile(pair[locale])}`), href);

@@ -95,6 +95,7 @@ class ToolkitTests(unittest.TestCase):
                 self.assertIn('`<Your name>.md`' if lang == 'en' else '`<你的名字>.md`', starter)
                 self.assertIn('across sections by topic' if lang == 'en' else '跨分區路線', starter)
                 self.assertNotIn('Emu Usagi', starter)
+                self.assertNotIn('Emu-rabbit', starter)
                 self.assertNotIn('絵夢羽さ沂', starter)
                 self.assertNotIn('Dolls/', starter)
                 self.assertNotIn('玩偶/', starter)
