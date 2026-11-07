@@ -55,7 +55,9 @@ A new vault begins with usable entrance, source, and maintenance sections. Add t
 
 People, pets and relationship circles are common categories, not a closed list. Add categories that fit the owner’s material, preserving existing custom folders, kinds, IDs and links. Keep human nicknames distinct from animal species, and ground feelings in the supplied account without inventing another being’s thoughts.
 
-For creative work, retain the two participation folders above: Independent work and Commissions and collaborations. Default to pages side by side within each, rather than flattening both into the creative-work section or adding medium subfolders for novels, poetry, video and so on. Use indexes for medium, theme or reading interest; the same owning page can appear in several indexes or categories without duplication. Add subfolders when the content, a project or a category grows enough for them to help. Preserve existing paths and IDs rather than moving an owner's content merely to conform, and create folders only when there is content.
+File creative work by participation: put work the owner leads in `Independent work/`, and work they participate in through commissioning, ideas or collaboration in `Commissions and collaborations/`. Place each owning page directly in its folder. Use indexes for medium, theme or reading interest, linking the same page from several indexes when useful. Add subfolders within the relevant category when content, a project or a type of work needs separate organization. Create each folder when there is content for it.
+
+When maintaining an existing vault, follow its established paths and stable IDs. Update the relevant indexes and links as the account grows; a change of reading perspective usually needs an index link to the existing owning page.
 
 ## Track reading separately from ingestion
 

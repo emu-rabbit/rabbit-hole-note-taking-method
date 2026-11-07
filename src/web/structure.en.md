@@ -42,7 +42,7 @@ In the public example, [`Relationship map.md`](<../../examples/emu-rabbit-en/40_
 
 Record the creative work you take part in: what it is, why it began, how it took shape and changed, and each participant's role. Independent work, commissions and collaborations all have a place here, linked to stories of making them and the life around them.
 
-Keep `50_Creative work/Independent work/` and `50_Creative work/Commissions and collaborations/` as the two categories. Pages sit side by side within each folder by default, without further subfolders for novels, poetry, video or other media. Indexes can lead to the same page by medium or theme without duplication. Add subfolders when the content, a project or a category grows enough for them to help.
+Put work you lead in `50_Creative work/Independent work/`, and work you participate in through commissioning, ideas or collaboration in `50_Creative work/Commissions and collaborations/`. Place work pages directly in their folder. Use indexes for novels, poetry, video, themes and other reading perspectives; the same page can appear in several indexes. Create subfolders within the relevant category when content, a project or a type of work needs separate organization.
 
 The public example lists its works in [`Index.md`](<../../examples/emu-rabbit-en/00_Entry/Index.md>). Articles live in `50_Creative work/Independent work`, including [`Frozen Rabbit Workshop.md`](<../../examples/emu-rabbit-en/50_Creative work/Independent work/Frozen Rabbit Workshop.md>) and [`nAnB.md`](<../../examples/emu-rabbit-en/50_Creative work/Independent work/nAnB.md>). As the collection grows, you can add a separate creative work index when useful.
 

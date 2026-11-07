@@ -61,7 +61,7 @@ The installer reads the bundle and copies it to the destination without changing
 
 `40_Important relationships` holds `People/`, `Pets/` and `Relationship circles/`. Add categories to suit your own material and needs, creating folders when there is content.
 
-Keep independent work separate from commissions and collaborations, with pages side by side within each folder. Use indexes for medium or theme, linking the same page from several indexes. Add subfolders when useful and retain existing paths. See the [method’s creative-work guidance](method.en.md).
+Put work you lead in `Independent work/`, and work you participate in through commissioning, ideas or collaboration in `Commissions and collaborations/`. Place pages directly in their folder and use indexes for medium or theme. The same page can appear in several indexes. Add subfolders when content or a project needs separate organization. See the [method’s creative-work guidance](method.en.md).
 
 ## Choose a skill
 

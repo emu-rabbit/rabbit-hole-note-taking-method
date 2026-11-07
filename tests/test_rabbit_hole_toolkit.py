@@ -89,9 +89,11 @@ class ToolkitTests(unittest.TestCase):
                 starter = next(self.vault.glob('00_*/Start.md')).read_text(encoding='utf-8')
                 for category in categories:
                     self.assertIn(f'`{section}/{category}/`', starter)
-                self.assertIn('side by side within each' if lang == 'en' else '各自資料夾內平鋪', starter)
-                self.assertIn('without further folders by medium' if lang == 'en' else '不再按小說、新詩、影片等媒材細分', starter)
-                self.assertIn('Add subfolders when content benefits' if lang == 'en' else '內容長大到子資料夾有幫助時再新增', starter)
+                self.assertIn('Place each work page directly in its folder' if lang == 'en' else '作品直接放在各自資料夾中', starter)
+                self.assertIn('Use indexes for medium or theme' if lang == 'en' else '媒材與主題由索引分類', starter)
+                self.assertIn('Create subfolders within the relevant category' if lang == 'en' else '在所屬類別下增子資料夾', starter)
+                agent_guide = (self.vault / 'AGENTS.md').read_text(encoding='utf-8')
+                self.assertIn('established note paths and stable IDs' if lang == 'en' else '筆記路徑與穩定識別碼', agent_guide)
                 self.assertFalse((self.vault / section).exists(), 'no empty classification folders at initialization')
                 targets = []
                 for group, category in enumerate(categories):

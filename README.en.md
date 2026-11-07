@@ -22,7 +22,7 @@ A project can lead back to the life around its creation. A person can lead to a 
 
 The example's README offers a way in. [Profile.md](examples/emu-rabbit-en/00_Entry/Profile.md) introduces its owner, the reading map offers routes across sections based on readers’ interests, and the index lists content by section to help you find a particular note. The reader also has a full file tree, but you do not need to learn the sections before you begin.
 
-This public selection uses one index across its sections, without relationship circles or a maintenance section. Keep independent work separate from commissions and collaborations, with pages side by side within each folder by default, without automatically adding subfolders by medium. Use several indexes for the same page and add subfolders when useful. See the [method’s creative-work guidance](docs/method.en.md).
+This public selection uses one index across its sections, without relationship circles or a maintenance section. To organize your own creative work, put work you lead in Independent work, and work you participate in through commissioning, ideas or collaboration in Commissions and collaborations. Place pages directly in their folder, use indexes for medium and theme, and add subfolders when content needs separate organization. See the [method’s creative-work guidance](docs/method.en.md).
 
 ## Method, examples, and code
 
