@@ -7,9 +7,9 @@ The helpers operate on selected local files without network access. Preview read
 ## Platform scope
 
 - **macOS and Linux:** Python **3.10 or newer**, using the existing directory-descriptor safeguards. Check `python3 --version`; use an already-installed newer interpreter if needed.
-- **Native Windows: experimental.** Native Windows Server 2025 x64 CI passed with **64-bit CPython 3.13 and 3.14 on local fixed NTFS**. The desktop target is **Windows 11 on native x64 hardware with the same interpreter/filesystem requirements**; Windows 11 desktop/client validation is still pending. Use fictional material for desktop validation before private use. ARM64 emulation and broader Windows-version or client compatibility are outside this target.
+- **Native Windows:** Windows 11 on native x64 hardware, **64-bit CPython 3.13 or 3.14, on a local fixed NTFS volume**. Windows is a verified, officially supported platform alongside macOS and Linux. ARM64 emulation and other Windows versions or filesystems are outside this scope.
 
-For Windows, use ordinary drive-letter paths with case-insensitive directories. This applies to the checkout, installed skills, input files and vault. The native I/O path is designed to hold directory handles and reject junctions and other reparse points, UNC/network drives, SUBST drives, device namespaces, non-NTFS volumes and case-sensitive directories. Existing ACLs stay unchanged. The Windows design gives new private vault data and temporary files restricted permissions at creation; installed public skills inherit the destination's permissions. The helpers do not request elevation or change PowerShell ExecutionPolicy; standard-user Windows 11 operation remains unvalidated. Preview stays read-only, existing targets stay protected from overwrite, and imported source bytes are preserved unchanged.
+On Windows, use ordinary drive-letter paths with case-insensitive directories for the checkout, installed skills, inputs and vault. Junctions, other reparse points, remote placeholders, UNC/network or SUBST drives, device namespaces and non-NTFS volumes are refused. New private files receive restricted permissions at creation; public installed skills inherit the destination's permissions. Existing ACLs stay unchanged. The helpers do not request elevation or change PowerShell ExecutionPolicy.
 
 ## Windows PowerShell
 
@@ -78,7 +78,16 @@ python3 /absolute/skills/rabbit-hole-start/scripts/rabbit_hole.py check \
 
 Read-only checks cover local inline/Wiki links, heading/block targets, duplicate note IDs and, for helper-managed vaults, import ledger/artifact integrity. Plain existing vaults and staged reading copies can be checked directly, without initialization or added helper metadata.
 
-By default, the checker skips Markdown notes in top-level `90` and `90_*` folders, including `90_Maintenance` and `90_維護`. Organize those notes around your own maintenance workflow. Links from scanned notes into those folders are still verified, as are the helper's import ledger and artifacts. Add `--include-maintenance` to check the maintenance notes themselves.
+The checker understands Obsidian table aliases such as `[[Topics/example.io\|Label]]`, heading and block targets, and dotted note names. When the exact file does not exist, a Wiki target such as `Topics/example.io` can resolve to `Topics/example.io.md`; existing attachment paths keep their exact target. Backslashes used as path separators remain unsafe.
+
+By default, it skips the bodies of Markdown notes in top-level `90` and `90_*` folders, including `90_Maintenance` and `90_維護`. Incoming links and their anchors are still verified, as are the helper's import ledger and artifacts. This is a note-scan choice, not an access or privacy boundary: filesystem traversal still checks the whole vault, and linked maintenance text may be read to check an anchor. To scan the maintenance notes too:
+
+```sh
+python3 /absolute/skills/rabbit-hole-start/scripts/rabbit_hole.py check \
+  --vault /absolute/vault-or-reading-copy --include-maintenance
+```
+
+The JSON report's `notes_checked` counts scanned notes; `maintenance_included` records whether the flag was used.
 
 This is a deliberately limited Markdown checker. Reference-style links, HTML, complex Markdown syntax, remote availability, prose truth and privacy need manual review. A source's fenced text is not parsed as executable links. Open the changed notes and walk actual routes as well as reading this report. A clean check cannot authorize publication or certify anonymity.
 
@@ -86,9 +95,7 @@ Exit codes: `0` successful command/preview or clean check; `1` structural findin
 
 ## Interrupted operations and macOS paths
 
-The import lock coordinates this tool's imports; pause other programs that edit sources or the ledger during import, since it does not provide a vault-wide transaction or an atomic compare-and-swap against other writers using the same account. On handled write failures, cleanup attempts to roll back newly created files and preserves changes it observes.
-
-On Windows, pinned directory handles block rename; parent attributes are also checked before and after relative opens, because an in-place reparse conversion can keep the same file ID. These checks do not establish immunity to arbitrary concurrent reparse changes by another process using your account. Keep the checkout, installation and vault free of concurrent filesystem mutation during each operation. Native FSCTL tests passed on the Server runner; the same cases remain required for Windows 11 desktop validation.
+Pause other writers to the checkout, installation and vault during each operation. The import lock coordinates this tool's imports; it does not isolate the vault from other programs using the same account. On handled write failures, cleanup attempts to roll back newly created files and preserves changes it observes.
 
 Abrupt process termination or power loss is not guaranteed crash recovery. Inspect remaining lock/temp/orphan artifacts and compare the ledger to establish what completed before deciding on repair. Preserve active locks and concurrent work.
 

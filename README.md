@@ -34,11 +34,11 @@
 - [docs/skills.md](docs/skills.md)：安裝、第一個請求、支援格式與限制。
 - [tests/](tests/)：閱讀器、下載封裝、skills 安裝與本機工具的檢查。
 
-目前可用的是方法、公開範例、閱讀器與 skills 工具組。匯入程式支援選定的本機文字、Markdown、約定格式 JSON／JSONL；各社群原生匯出檔與 API 尚無專用轉接器。建立後可直接開始訪談，匯入和訪談會在同意的範圍內，把實際讀過的材料整理進筆記與導覽；也可以只歸檔、先聊聊或唯讀檢查。分享入口準備供審閱的本機草稿，實際交付仍需許可。src/mcp 仍只有預留位置。
+本機工具正式支援 macOS、Linux 與 Windows，版本和路徑要求見[安裝指南](docs/skills.md#安裝一次按需要使用)。匯入器接受文字、Markdown、約定格式 JSON／JSONL，社群原生匯出檔需先轉換。分享入口準備本機草稿，交付前由你審閱與授權；`src/mcp` 仍是預留位置。
 
 ## 建立自己的兔子洞
 
-先讀方法，再決定哪些材料願意交給信任的人或 agent 整理。你可以從一段想留下的回憶開始，把相關的人、作品和原話慢慢接起來。個人的資料、整理與分享範圍由本人決定，不需要公開才能使用這個方法。
+選擇願意交給信任的人或 agent 整理的材料，慢慢把相關的人、作品和原話接起來。你的兔子洞可以保持私人；資料、整理與分享範圍由本人決定。
 
 範例中的人物、故事和來源是作者的生活，請保留它們的語境。英文來源清楚標示為譯文；引文中的方括號和省略符號沿用公開中文節錄的範圍。各項來源與作品的授權需分別確認；本 repo 尚未附整體授權條款，公開可讀不代表任意重用或再散布的授權。
 
@@ -58,4 +58,6 @@ npm run check
 
 執行測試與完整建置。建置會核對中英文章配對、Wiki 連結與段落定位；輸出放在 dist/。新增或更名文章時，連同對應語言與 example-paths.json 一起維護，並實際走讀受影響的路線。
 
-網站、skills 格式與 Python 測試目前需依文件中的指令在本機執行；現有 GitHub Actions 只在 main 分支上於推送或手動觸發時建置並部署 Pages。修改 skills 時，也請執行 `python3 scripts/validate-skills.py` 與 `python3 -m unittest discover -s tests -p 'test_*.py' -v`（Python 3.10 以上）。本機提交不需要設定自動推送 hook。維護時請使用獨立分支與 PR，先確認內容、來源和公開範圍，再由維護者決定合併。
+修改 skills 時，另執行 `python3 scripts/validate-skills.py` 與 `python3 -m unittest discover -s tests -p 'test_*.py' -v`；Windows 的 Python 版本與 PowerShell 寫法見[使用指南](docs/skills.md)。
+
+GitHub Actions 分成兩項：[Windows skills CI](.github/workflows/skills.yml) 對符合路徑條件、目標為 `main` 的 PR，在原生 Windows Server 2025 x64 上驗證套件並執行 Python 3.13、3.14 測試；[Pages 發布](.github/workflows/pages.yml) 在 `main` 推送或手動觸發時建置並部署網站。網站完整測試仍請在本機執行 `npm run check`。使用獨立分支與 PR，確認內容、來源和公開範圍後，由維護者決定合併。
