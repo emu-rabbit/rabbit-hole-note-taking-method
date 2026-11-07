@@ -6,7 +6,12 @@ import {methodHeadingAliases, retainLegacyHeadingIds} from './public-url-compat.
 import {homePaths, noteDescription, renderMetadata} from './seo.mjs';
 
 export const methodPaths = {'zh-TW': 'method/', en: 'method/en/'};
-export const methodNotes = {'zh-TW': '00_入口/兔子洞筆記法.md', en: '00_Entry/Rabbit Hole Method.md'};
+// Historical paths are URL identities only; no example Markdown files are required.
+export const legacyMethodNotes = {'zh-TW': '00_入口/兔子洞筆記法.md', en: '00_Entry/Rabbit Hole Method.md'};
+export const methodSourceUrls = {
+  'zh-TW': 'https://github.com/emu-rabbit/rabbit-hole-notes/blob/main/docs/method.zh-TW.md',
+  en: 'https://github.com/emu-rabbit/rabbit-hole-notes/blob/main/docs/method.en.md',
+};
 const documents = {'zh-TW': 'method.zh-TW.md', en: 'method.en.md'};
 const sources = new Map(Object.entries(documents).map(([locale, name]) =>
   [name, readFileSync(new URL(`../../docs/${name}`, import.meta.url), 'utf8')]));
@@ -23,7 +28,7 @@ export function renderMethod(locale, destination = methodPaths[locale]) {
   }});
   for (const language of Object.keys(documents)) {
     const note = library.notes.get(documents[language]);
-    retainLegacyHeadingIds(note, methodHeadingAliases[methodNotes[language]]);
+    retainLegacyHeadingIds(note, methodHeadingAliases[legacyMethodNotes[language]]);
     if (note.html.includes('class="missing-link"')) throw new Error(`Unresolved method link: ${language}`);
   }
   const note = library.notes.get(documents[locale]);
@@ -31,7 +36,7 @@ export function renderMethod(locale, destination = methodPaths[locale]) {
   const headings = htmlHeadingIds(note.html), translatedHeadings = htmlHeadingIds(translated.html);
   if (headings.length !== translatedHeadings.length) throw new Error('Method headings need paired translations');
   const fragments = Object.fromEntries(headings.map((id, index) => [id, translatedHeadings[index]]));
-  for (const [oldId, currentId] of Object.entries(methodHeadingAliases[methodNotes[locale]])) {
+  for (const [oldId, currentId] of Object.entries(methodHeadingAliases[legacyMethodNotes[locale]])) {
     fragments[oldId] = fragments[currentId];
   }
   for (const id of Object.values(fragments)) if (!htmlIds(translated.html).has(id)) throw new Error(`Missing method fragment: ${id}`);

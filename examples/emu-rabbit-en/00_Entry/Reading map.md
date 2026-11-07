@@ -75,6 +75,6 @@ Begin with how she wrote her own introduction and arranged the rhythm of a page.
 
 Use the [[10_Life chapters/Timeline|timeline]] to see the order of events. To read the life chapters in sequence, begin with [[10_Life chapters/01_2011-2014_Mathematics, words, and computing|2011–2014: Mathematics, words, and computing]] and follow each chapter's next link through 2025–2026. You do not need to visit every linked story along the way.
 
-Use the [[00_Entry/Index|index]] to find one note. Read the [[00_Entry/Rabbit Hole Method|Rabbit Hole Method]] to learn how these connections are organized.
+Use the [[00_Entry/Index|index]] to find one note. Read the [Rabbit Hole Method](https://github.com/emu-rabbit/rabbit-hole-notes/blob/main/docs/method.en.md) to learn how these connections are organized.
 
 Return to the [[README|entrance]].

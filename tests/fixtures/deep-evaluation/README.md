@@ -2,7 +2,7 @@
 
 所有內容均為原創虛構，沒有取用任何真實人物的私人或公開生活資料。這個 fixture 用於檢驗 skills 的閱讀效果、來源支持及增量維護；不隨 skills 安裝，也不加入作者公開範例的網站建置。
 
-- [閱讀快照](vault/README.md)：最終修訂後的 59 份 Markdown，包含 23 篇實質敘事頁、21 份來源與導航／維護文件。用支援 Wiki links 的 Markdown 閱讀器開啟 vault 目錄；GitHub 可直接查看文字，但不會把 Wiki links 當作可點擊的連結。
+- [閱讀快照](vault/README.md)：58 份 Markdown，包含 23 篇實質敘事頁、21 份來源與導航／維護文件。用支援 Wiki links 的 Markdown 閱讀器開啟 vault 目錄；GitHub 可直接查看文字，但不會把 Wiki links 當作可點擊的連結。
 - [初始來源](inputs/permitted-base.json)：16 筆已允許的日記、貼文、會議記錄及信件。
 - [訪談腳本](inputs/interview-turns.json)：3 回合分階段供應的虛構問答。
 - [後續更新](inputs/later-update.json)：日期更正與一次內部試播。

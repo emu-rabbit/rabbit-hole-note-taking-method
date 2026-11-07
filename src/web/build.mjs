@@ -1,4 +1,4 @@
-import {methodPaths, methodNotes, renderMethod} from './method-pages.mjs';
+import {methodPaths, legacyMethodNotes, renderMethod} from './method-pages.mjs';
 import { createHash } from 'node:crypto';
 import { copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync, unlinkSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
@@ -29,7 +29,6 @@ for (const config of locales) validateLibrary(config.library);
 
 function renderPage(note, config) {
   const { library, locale, title: readerTitle } = config;
-  if (note.path === methodNotes[locale]) return renderMethod(locale, `${config.route}/${noteFile(note.path)}`);
   const other = locales.find(item => item !== config);
   const pageTitle = note.title === readerTitle
     ? `${readerTitle} | ${locale === 'en' ? 'Rabbit Hole Notes public example' : '兔子洞筆記法公開範例'}`
@@ -137,7 +136,7 @@ for (const {locale} of locales) {
   mkdirSync(join(output, methodPaths[locale]), {recursive: true});
   writeFileSync(join(output, methodPaths[locale], 'index.html'), renderMethod(locale));
 }
-const sitemapPairs = [homePaths, methodPaths, ...mappings.filter(pair => pair.en !== methodNotes.en).map(pair =>
+const sitemapPairs = [homePaths, methodPaths, ...mappings.map(pair =>
   Object.fromEntries(locales.map(config => [config.locale, `${config.route}/${noteFile(pair[config.locale])}`])))];
 writeFileSync(join(output, 'sitemap.xml'), renderSitemap(sitemapPairs));
 
@@ -155,6 +154,9 @@ for (const config of locales) {
     writeFileSync(join(readerOutput, filename), renderPage(note, config));
     built.add(filename);
   }
+  const legacyFilename = noteFile(legacyMethodNotes[config.locale]);
+  writeFileSync(join(readerOutput, legacyFilename), renderMethod(config.locale, `${config.route}/${legacyFilename}`));
+  built.add(legacyFilename);
   for (const entry of readdirSync(readerOutput, { withFileTypes: true })) {
     if (entry.isFile() && (/^note-[a-f0-9]{64}\.html$/.test(entry.name) && !built.has(entry.name) || entry.name === 'zip.js')) unlinkSync(join(readerOutput, entry.name));
   }

@@ -1,6 +1,5 @@
 import test from 'node:test';
-import {methodPaths, methodNotes} from '../src/web/method-pages.mjs';
-import {siteUrl} from '../src/web/seo.mjs';
+import {methodSourceUrls, legacyMethodNotes} from '../src/web/method-pages.mjs';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
@@ -14,9 +13,17 @@ const roots = {
 const libraries = Object.fromEntries(Object.entries(roots).map(([locale, root]) => [locale, loadLibrary(fileURLToPath(root))]));
 const source = (locale, path) => readFileSync(new URL(path, roots[locale]), 'utf8');
 
-test('all 56 notes in each public example are reachable from README', () => {
-  for (const library of Object.values(libraries)) {
-    assert.equal(library.notes.size, 56);
+test('all 55 notes in each public example are reachable from README', () => {
+  for (const [locale, library] of Object.entries(libraries)) {
+    assert.equal(library.notes.size, 55);
+    const other = locale === 'en' ? 'zh-TW' : 'en';
+    assert.ok(!library.notes.has(legacyMethodNotes[locale]), 'no method file or stub');
+    for (const path of library.notes.keys()) {
+      const text = source(locale, path);
+      assert.ok(!text.includes(legacyMethodNotes[locale].replace(/\.md$/, '')), path + ' has no old local method target');
+      assert.ok(!text.includes(methodSourceUrls[other]), path + ' links to the correct language');
+    }
+    for (const path of ['README.md', 'AGENTS.md']) assert.ok(source(locale, path).includes(methodSourceUrls[locale]));
     const outgoing = new Map([...library.notes.keys()].map(path => [path, []]));
     for (const note of library.notes.values()) {
       for (const incoming of note.backlinks) outgoing.get(incoming.path).push(note.path);
@@ -59,10 +66,10 @@ test('translations retain note identity, source dates and external locators', ()
       const pattern = new RegExp('^' + field + ':.*$', 'm');
       assert.equal(english.match(pattern)?.[0], chinese.match(pattern)?.[0], pair.en + ' ' + field);
     }
-    const methodUrls = new Set(Object.values(methodPaths).map(siteUrl));
-    if (pair.en === methodNotes.en) {
-      assert.ok(chinese.includes(siteUrl(methodPaths['zh-TW'])));
-      assert.ok(english.includes(siteUrl(methodPaths.en)));
+    const methodUrls = new Set(Object.values(methodSourceUrls));
+    if ([...methodUrls].some(url => chinese.includes(url) || english.includes(url))) {
+      assert.ok(chinese.includes(methodSourceUrls['zh-TW']));
+      assert.ok(english.includes(methodSourceUrls.en));
     }
     const urls = text => [...text.matchAll(/https?:\/\/[^\s)]+/g)].map(match => match[0]).filter(url => !methodUrls.has(url)).sort();
     assert.deepEqual(urls(english), urls(chinese), pair.en + ' external sources');

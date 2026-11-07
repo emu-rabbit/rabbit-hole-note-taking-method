@@ -20,14 +20,14 @@ Promotion met with a few small setbacks. Looking back, though, the secret-keepin
 ## Writing about herself in her own words
 When making her personal website, she [[30_Stories/Chapters/Keeping her own words when working with AI|wrote her self-introduction herself]], asked AI not to change it, and arranged the layout to her own rhythm. Her portfolio became [[30_Stories/Chapters/Six years of macarons in a portfolio|a box of macarons]], remembering the six years a now-closed shop had given her.[^6]
 
-She also wrote the [[00_Entry/Rabbit Hole Method|Rabbit Hole Method]], wanting future readers or agents to get to know her through experiences, relationships, stories, and creative work, with continued updates as new memories and interviews emerge.[^5]
+She also wrote the [Rabbit Hole Method](https://github.com/emu-rabbit/rabbit-hole-notes/blob/main/docs/method.en.md), wanting future readers or agents to get to know her through experiences, relationships, stories, and creative work, with continued updates as new memories and interviews emerge.[^5]
 
 ## Sources
 [^1]: [[80_Sources/Public work/The letter at the bottom of the box#^gh-004|AI and creative choices]].
 [^2]: [[80_Sources/Public work/Project introduction excerpts#Frozen Rabbit Workshop|Workshop]]; [[80_Sources/Public work/Project introduction excerpts#Frozen Rabbit Tome|Frozen Rabbit Tome]].
 [^3]: [[80_Sources/Public work/Project documentation excerpts#Boundary Notes: at your own pace|Public README]].
 [^4]: [[80_Sources/Interviews/Choosing projects#Boundary Notes: companionship and detail|The author's project choices]].
-[^5]: [[00_Entry/Rabbit Hole Method|The author's Rabbit Hole Method]].
+[^5]: [The author's Rabbit Hole Method](https://github.com/emu-rabbit/rabbit-hole-notes/blob/main/docs/method.en.md).
 
 [^6]: [[80_Sources/Public work/The letter at the bottom of the box#^gh-005|Her own writing]]; [[80_Sources/Public work/The letter at the bottom of the box#^gh-006|The macaron portfolio]].
 

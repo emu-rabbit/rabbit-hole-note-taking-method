@@ -4,7 +4,7 @@
 
 A note-taking method for documenting a life. A rabbit hole brings together experiences, important people, relationships, stories, and creative work, so someone arriving later, whether a person or an agent, can get to know you through time and connections.
 
-This repository holds the method website, a public example you can read in a browser, the website's source code, and an installable Rabbit Hole skills toolkit. The example contains 56 selected notes Emu-rabbit has chosen to share. Its English edition covers the same material as the Chinese edition. You can start with a short story before learning how the notes are organized.
+This repository holds the method website, a public example you can read in a browser, the website's source code, and an installable Rabbit Hole skills toolkit. The example contains 55 selected notes Emu-rabbit has chosen to share. Its English edition covers the same material as the Chinese edition. You can start with a short story before learning how the notes are organized.
 
 ## Where to start
 

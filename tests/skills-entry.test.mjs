@@ -37,12 +37,9 @@ test('authoritative methods live outside examples and offline skills', () => {
     ['en', 'examples/emu-rabbit-en/00_Entry/Rabbit Hole Method.md'],
   ]) {
     const method = read(`docs/method.${locale}.md`);
-    const stub = read(example);
+    assert.ok(!existsSync(new URL('../' + example, import.meta.url)), 'no method file or stub in the example');
     assert.equal([...method.matchAll(/^### \d{2}_/gm)].length, 9);
-    assert.ok(stub.length < 1000);
-    assert.ok(stub.includes('https://emu-rabbit.github.io/rabbit-hole-notes/method/'));
     assert.ok(!existsSync(new URL(`../skills/rabbit-hole-start/references/method.${locale}.md`, import.meta.url)));
-    assert.ok(!stub.includes(method.split('\n\n')[2]));
   }
   assert.ok(read('docs/method.zh-TW.md').includes('(method.en.md)'));
   assert.ok(read('docs/method.en.md').includes('(method.zh-TW.md)'));

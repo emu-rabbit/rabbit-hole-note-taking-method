@@ -177,7 +177,7 @@ test('all English homepage panels, example link, reader pages, labels and paths 
 });
 
 import { existsSync } from 'node:fs';
-import {methodPaths, methodNotes} from '../src/web/method-pages.mjs';
+import {methodPaths, legacyMethodNotes} from '../src/web/method-pages.mjs';
 import { siteBase, homePaths, siteUrl, homeDescriptions, socialImage } from '../src/web/seo.mjs';
 import { htmlIds } from '../src/web/validate.mjs';
 
@@ -187,7 +187,7 @@ const buildFile = path => new URL(`../dist/${path.endsWith('/') || !path ? path 
 
 test('generated public pages have canonical, reciprocal language, robots and social metadata', () => {
   const mappings = JSON.parse(readFileSync(new URL('../src/web/example-paths.json', import.meta.url)));
-  const pairs = [homePaths, methodPaths, ...mappings.filter(pair => pair.en !== methodNotes.en).map(pair => ({'zh-TW': `reader/${noteFile(pair['zh-TW'])}`, en: `reader-en/${noteFile(pair.en)}`}))];
+  const pairs = [homePaths, methodPaths, ...mappings.map(pair => ({'zh-TW': `reader/${noteFile(pair['zh-TW'])}`, en: `reader-en/${noteFile(pair.en)}`}))];
   const canonicals = new Set();
   for (const pair of pairs) for (const [locale, path] of Object.entries(pair)) {
     const html = readFileSync(buildFile(path), 'utf8');
@@ -363,7 +363,7 @@ test('independent method pages preserve legacy reader URLs and translated fragme
   for (const locale of ['zh-TW', 'en']) {
     const other = locale === 'en' ? 'zh-TW' : 'en';
     const canonical = readFileSync(buildFile(methodPaths[locale]), 'utf8');
-    const legacyPath = `${locale === 'en' ? 'reader-en' : 'reader'}/${noteFile(methodNotes[locale])}`;
+    const legacyPath = `${locale === 'en' ? 'reader-en' : 'reader'}/${noteFile(legacyMethodNotes[locale])}`;
     const legacy = readFileSync(buildFile(legacyPath), 'utf8');
     const translated = readFileSync(buildFile(methodPaths[other]), 'utf8');
     for (const [path, html] of [[methodPaths[locale], canonical], [legacyPath, legacy]]) {
@@ -373,7 +373,7 @@ test('independent method pages preserve legacy reader URLs and translated fragme
       assert.deepEqual([...htmlIds(html)].sort(), [...htmlIds(canonical)].sort());
       const body = tags(html, 'body')[0];
       const fragments = JSON.parse(body['data-fragments']);
-      for (const [oldId, currentId] of Object.entries(methodHeadingAliases[methodNotes[locale]])) {
+      for (const [oldId, currentId] of Object.entries(methodHeadingAliases[legacyMethodNotes[locale]])) {
         assert.ok(htmlIds(html).has(oldId));
         assert.equal(fragments[oldId], fragments[currentId]);
         assert.ok(htmlIds(translated).has(fragments[oldId]));
@@ -388,6 +388,7 @@ test('independent method pages preserve legacy reader URLs and translated fragme
     const folder = locale === 'en' ? 'emu-rabbit-en' : 'emu-rabbit-tw';
     const archive = readFileSync(new URL(`../dist/downloads/${folder}.zip`, import.meta.url));
     const fullBody = readFileSync(new URL(`../docs/method.${locale}.md`, import.meta.url), 'utf8').split('\n\n')[2];
-    assert.ok(!archive.includes(Buffer.from(fullBody)), 'download contains a method pointer, not the full method');
+    assert.ok(!archive.includes(Buffer.from(fullBody)), 'download contains no full method');
+    assert.ok(!archive.includes(Buffer.from(legacyMethodNotes[locale])), 'download has no method file or stub');
   }
 });
