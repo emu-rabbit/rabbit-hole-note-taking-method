@@ -2,7 +2,7 @@
 id: "guide-reading"
 kind: "guide"
 title: "Reading map"
-updated: "2026-11-06"
+updated: "2026-11-07"
 ---
 
 # Reading map
@@ -16,6 +16,8 @@ Start with something you are curious about and choose one route. Arrows suggest 
 The first story begins with an idea in the shower and leads to a shop that has closed. The second keeps another kind of companionship. You can pause when Mengmeng has found a place in the game.
 
 To hear Emu-rabbit's own account, read the passages about [[80_Sources/Public work/The letter at the bottom of the box#^gh-006|macarons]] and [[80_Sources/Public work/Project introduction excerpts#^gh-032|Mengmeng]]. If you are curious about the game itself, visit [[50_Creative work/Independent work/nAnB|nAnB]]. Its project description is optional, rather than another required telling of the memory.
+
+To get to know Mengmeng beyond the game, continue to [[40_Important relationships/Pets/Mengmeng#Exploring the room|exploring the room and the chewed towel]].
 
 ## From colleagues' reports to players' responses
 
@@ -32,6 +34,8 @@ For another design choice, [[50_Creative work/Independent work/Frozen Rabbit Tom
 Go from a day and a half of trying to an experiment she still loves years later, then return to what she wrote about learning in 2022 and 2024. At the last stop, read only the linked section, ending with the new kinds of projects she could make.
 
 The first story links both to [[80_Sources/Contemporary records/Learning and development#^function-true|the post from that time]] and to [[80_Sources/Interviews/Learning and creating#^foodpower-image|a later recollection]]. Follow those footnotes if you want to compare them, keeping the two moments distinct.
+
+You can also read [[60_Favorites/Games/Minecraft#Production lines should look good too|Minecraft’s production lines and particle collider]] on its own, from neatly arranged pipes to the plaza she still enjoyed wandering through.
 
 ## From not being ready to going out in clothes she likes
 
@@ -70,6 +74,12 @@ The footnotes lead separately to [[80_Sources/Relationship recollections/Moments
 [[30_Stories/Chapters/Keeping her own words when working with AI|Keeping her own words when working with AI]] → [[50_Creative work/Independent work/Boundary Notes|Boundary Notes]]
 
 Begin with how she wrote her own introduction and arranged the rhythm of a page. Then visit another project's way of offering companionship, its approach to privacy, and her reflections after promoting it. At the second stop, pause after “After setbacks in promotion,” with the choices she still wants to keep.
+
+## Seeing a future, then looking back at mathematics
+
+[[20_Self and daily life/Seeing a future before thinking of saving|Seeing a future before thinking of saving]] → [[30_Stories/Chapters/The hour hand at four forty|The hour hand at four forty]]
+
+Begin with how she came to think of saving, then return to two childhood scenes of drawing a clock and noticing borrowing. Stop with the pleasure of being praised and finding she was right. To see how mathematics later became a useful tool again, continue to [[20_Self and daily life/Learning, comparison, and what stays#Enjoying mathematics again|Enjoying mathematics again]].
 
 ## Follow time, or find one note
 

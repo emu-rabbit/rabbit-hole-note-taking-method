@@ -2,7 +2,7 @@
 id: "source-index-public"
 kind: "index"
 title: "Source index"
-updated: "2026-11-06"
+updated: "2026-11-07"
 ---
 
 # Source index
@@ -22,6 +22,7 @@ This English edition presents English translations of the published Chinese exce
 
 ## Later recollections and interviews
 - [[80_Sources/Interviews/Learning and creating|Learning and creating]]: high school, university, and early projects.
+- [[80_Sources/Interviews/Everyday life, games, and the future|Everyday life, games, and the future]]: Mengmeng, Minecraft, the sequence of saving, childhood mathematics and Workshop interactions; interview excerpts.
 - [[80_Sources/Interviews/Clothing and daily life|Clothing and daily life]]: dressing as she likes at work.
 - [[80_Sources/Interviews/Choosing projects|Choosing projects]]: what kind of work she wants to keep.
 - [[80_Sources/Relationship recollections/Moments together|Moments together]]: daily life and reflections left by different relationships.

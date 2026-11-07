@@ -13,9 +13,9 @@ const roots = {
 const libraries = Object.fromEntries(Object.entries(roots).map(([locale, root]) => [locale, loadLibrary(fileURLToPath(root))]));
 const source = (locale, path) => readFileSync(new URL(path, roots[locale]), 'utf8');
 
-test('all 55 notes in each public example are reachable from README', () => {
+test('all 58 notes in each public example are reachable from README', () => {
   for (const [locale, library] of Object.entries(libraries)) {
-    assert.equal(library.notes.size, 55);
+    assert.equal(library.notes.size, 58);
     const other = locale === 'en' ? 'zh-TW' : 'en';
     assert.ok(!library.notes.has(legacyMethodNotes[locale]), 'no method file or stub');
     for (const path of library.notes.keys()) {
@@ -40,9 +40,9 @@ test('all 55 notes in each public example are reachable from README', () => {
   }
 });
 
-test('both reading maps guide the same eight routes and sixteen stops', () => {
+test('both reading maps guide the same nine routes and eighteen stops', () => {
   const mapPair = mappings.find(pair => pair.en === '00_Entry/Reading map.md');
-  const routes = locale => source(locale, mapPair[locale]).split(/^## /m).slice(1, 9).map(section => {
+  const routes = locale => source(locale, mapPair[locale]).split(/^## /m).slice(1, 10).map(section => {
     const line = section.split('\n').find(line => line.startsWith('[['));
     return [...line.matchAll(/\[\[([^\]|]+)(?:\|[^\]]+)?\]\]/g)].map(match => {
       const path = match[1].split('#')[0] + '.md';
@@ -52,8 +52,8 @@ test('both reading maps guide the same eight routes and sixteen stops', () => {
     });
   });
   const english = routes('en');
-  assert.equal(english.length, 8);
-  assert.equal(english.flat().length, 16);
+  assert.equal(english.length, 9);
+  assert.equal(english.flat().length, 18);
   assert.deepEqual(routes('zh-TW'), english);
 });
 
@@ -73,5 +73,31 @@ test('translations retain note identity, source dates and external locators', ()
     }
     const urls = text => [...text.matchAll(/https?:\/\/[^\s)]+/g)].map(match => match[0]).filter(url => !methodUrls.has(url)).sort();
     assert.deepEqual(urls(english), urls(chinese), pair.en + ' external sources');
+  }
+});
+
+test('new public recollections keep bilingual source scope and uncertain chronology', () => {
+  const pair = mappings.find(pair => pair.en === '80_Sources/Interviews/Everyday life, games, and the future.md');
+  const originals = source('zh-TW', pair['zh-TW']);
+  const translated = source('en', pair.en);
+  assert.ok(translated.includes('translations, not verbatim English originals'));
+  const quotes = text => text.split('\n').filter(line => line.startsWith('> '));
+  assert.equal(quotes(originals).length, 18);
+  assert.equal(quotes(translated).length, 18);
+  assert.deepEqual(quotes(translated).map(line => (line.match(/\[…\]/g) ?? []).length), quotes(originals).map(line => (line.match(/\[…\]/g) ?? []).length));
+  const blocks = text => [...text.matchAll(/^\^(everyday-[a-z-]+)$/gm)].map(match => match[1]);
+  assert.equal(blocks(originals).length, 18);
+  assert.equal(new Set(blocks(originals)).size, 18);
+  assert.deepEqual(blocks(translated), blocks(originals));
+  for (const text of [originals, translated]) {
+    assert.doesNotMatch(text.split('---')[2], /https?:\/\/|\b20\d{2}-\d{2}-\d{2}\b|\/Users\/|Sentinel_|\.mp4|\.png/);
+  }
+  for (const locale of ['zh-TW', 'en']) {
+    const clock = mappings.find(pair => pair.en === '30_Stories/Chapters/The hour hand at four forty.md');
+    const text = source(locale, clock[locale]);
+    assert.match(text, locale === 'en' ? /later recollections/ : /後來的回憶/);
+    assert.doesNotMatch(text.split('---')[2], /2011|2014|2026|high school|高中/);
+    const future = mappings.find(pair => pair.en === '20_Self and daily life/Seeing a future before thinking of saving.md');
+    assert.equal(source(locale, future[locale]).match(/^kind:.*$/m)[0], 'kind: "theme"');
   }
 });

@@ -2,7 +2,7 @@
 
 Emu-rabbit likes programming, games, and writing about her life. These notes bring together a few experiences of learning, creating, dressing, and spending time with others. A project can lead you into a memory; a person can lead you to a moment they shared.
 
-This is a public selection of 55 notes organized with the Rabbit Hole Method. It keeps the pseudonyms and excerpt markings used in the Chinese selection and covers the same material. The English text is a translation, including the quoted passages. The Chinese edition preserves the published Chinese wording.
+This is a public selection of 58 notes organized with the Rabbit Hole Method. It keeps the pseudonyms and excerpt markings used in the Chinese selection and covers the same material. The English text is a translation, including the quoted passages. The Chinese edition preserves the published Chinese wording.
 
 ## On your first visit, take a short walk
 
