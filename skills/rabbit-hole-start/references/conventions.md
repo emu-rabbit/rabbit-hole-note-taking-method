@@ -1,6 +1,6 @@
 # Shared conventions
 
-These conventions implement the author’s method for this toolkit. The bundled [Chinese method](method.zh-TW.md) and [English method](method.en.md) match the public editions. Read the full relevant edition on first use; revisit specific sections as the work calls for them.
+These conventions are the bundle’s self-contained offline working guide. Read them on first use, then follow the task references as needed. The authoritative method is optional further reading: [繁體中文](https://github.com/emu-rabbit/rabbit-hole-notes/blob/main/docs/method.zh-TW.md) · [English](https://github.com/emu-rabbit/rabbit-hole-notes/blob/main/docs/method.en.md). The bundle does not require network access or copying that text into a vault.
 
 ## Orient once, continue in place
 
@@ -13,6 +13,12 @@ Establish the permitted material and task from the request. A saved-work request
 Keep new masters private and use preview before authorized mutations. The helper’s overwrite, Git-path, and symlink guards remain in force. Follow explicit scope for an existing owner-managed vault, preserving unrelated edits. Git actions, account access, and publication require their own authorization.
 
 “Local” describes the helper scripts’ lack of network calls. The owner still chooses a trusted AI service and storage environment; providers and synchronized folders may receive content. The toolkit supplies neither encryption nor access controls nor automatic anonymization. Its use grants no additional rights to source material or creative works.
+
+## Preserve a life, not a success story
+
+Everyday companionship, mixed feelings and unfinished attempts deserve space alongside achievements. Keep different periods and later reflections distinct; do not invent growth, a neat ending or a universal character judgment. Let the owner’s pace and material determine the depth and structure.
+
+README welcomes readers, the profile introduces the owner, the index supports lookup and the reading map offers short routes. Link to the independent method when useful; do not inject its full text into a new vault.
 
 ## Keep evidence understandable
 

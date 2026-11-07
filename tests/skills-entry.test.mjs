@@ -31,13 +31,18 @@ test('skill guides use one existing homepage note and matching-language README l
   }
 });
 
-test('bundled methods are exact public method copies', () => {
-  for (const [source, copy] of [
-    ['examples/emu-rabbit-tw/00_入口/兔子洞筆記法.md', 'method.zh-TW.md'],
-    ['examples/emu-rabbit-en/00_Entry/Rabbit Hole Method.md', 'method.en.md'],
+test('authoritative methods live outside examples and offline skills', () => {
+  for (const [locale, example] of [
+    ['zh-TW', 'examples/emu-rabbit-tw/00_入口/兔子洞筆記法.md'],
+    ['en', 'examples/emu-rabbit-en/00_Entry/Rabbit Hole Method.md'],
   ]) {
-    assert.deepEqual(readFileSync(new URL('../' + source, import.meta.url)), readFileSync(new URL('../skills/rabbit-hole-start/references/' + copy, import.meta.url)));
+    const method = read(`docs/method.${locale}.md`);
+    assert.ok(!existsSync(new URL('../' + example, import.meta.url)), 'no method file or stub in the example');
+    assert.equal([...method.matchAll(/^### \d{2}_/gm)].length, 9);
+    assert.ok(!existsSync(new URL(`../skills/rabbit-hole-start/references/method.${locale}.md`, import.meta.url)));
   }
+  assert.ok(read('docs/method.zh-TW.md').includes('(method.en.md)'));
+  assert.ok(read('docs/method.en.md').includes('(method.zh-TW.md)'));
 });
 
 
@@ -93,8 +98,8 @@ test('guides explain full outcomes and the archive, read-only and sharing bounda
 
 test('the homepage and method offer memories and existing records as starting points', () => {
   const homepage = readFileSync(new URL('../src/web/index.html', import.meta.url), 'utf8');
-  const zh = readFileSync(new URL('../examples/emu-rabbit-tw/00_入口/兔子洞筆記法.md', import.meta.url), 'utf8');
-  const en = readFileSync(new URL('../examples/emu-rabbit-en/00_Entry/Rabbit Hole Method.md', import.meta.url), 'utf8');
+  const zh = readFileSync(new URL('../docs/method.zh-TW.md', import.meta.url), 'utf8');
+  const en = readFileSync(new URL('../docs/method.en.md', import.meta.url), 'utf8');
   const invitation = '從一段回憶開始聊，或整理手邊的日記、貼文';
   assert.ok(homepage.includes('從一段回憶開始聊，或整理手邊的日記、社群貼文'));
   assert.ok(zh.includes(invitation));

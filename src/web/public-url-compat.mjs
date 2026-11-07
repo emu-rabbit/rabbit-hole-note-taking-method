@@ -39,13 +39,16 @@ export const publicPathIdentity = path => originalPaths.get(path) ?? path;
 
 // Old heading fragments remain valid without JavaScript. Keep them out of the
 // outline and visible prose; language switching maps them to the new heading.
-export const legacyHeadingIds = {
+export const methodHeadingAliases = {
   '00_入口/兔子洞筆記法.md': {
     '40_重要他人-沿著人理解相處與關係': '40_重要關係-留下重要的相處與連結',
   },
   '00_Entry/Rabbit Hole Method.md': {
     '40_important-people-understanding-relationships-through-people': '40_important-relationships-keep-the-connections-that-matter',
   },
+};
+
+export const legacyHeadingIds = {
   '00_入口/索引.md': { '40-重要他人': '40-重要關係' },
   '00_Entry/Index.md': { '40-important-people': '40-important-relationships' },
   ...Object.fromEntries(renamedPublicNotes.map(({ to, oldHeading, heading }) => [to, { [oldHeading]: heading }])),
@@ -63,8 +66,8 @@ export const legacyHeadingIds = {
   },
 };
 
-export function retainLegacyHeadingIds(note) {
-  for (const [oldId, currentId] of Object.entries(legacyHeadingIds[note.path] ?? {})) {
+export function retainLegacyHeadingIds(note, aliases = legacyHeadingIds[note.path] ?? {}) {
+  for (const [oldId, currentId] of Object.entries(aliases)) {
     const heading = new RegExp(`(<h[1-6] id="${currentId}">)`);
     if (!heading.test(note.html)) throw new Error(`${note.path}: missing compatibility heading ${currentId}`);
     note.html = note.html.replace(heading, `$1<span id="${oldId}" aria-hidden="true"></span>`);

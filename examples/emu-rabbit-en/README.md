@@ -2,7 +2,7 @@
 
 Emu-rabbit likes programming, games, and writing about her life. These notes bring together a few experiences of learning, creating, dressing, and spending time with others. A project can lead you into a memory; a person can lead you to a moment they shared.
 
-This is a public selection of 56 notes organized with the Rabbit Hole Method. It keeps the pseudonyms and excerpt markings used in the Chinese selection and covers the same material. The English text is a translation, including the quoted passages. The Chinese edition preserves the published Chinese wording.
+This is a public selection of 55 notes organized with the Rabbit Hole Method. It keeps the pseudonyms and excerpt markings used in the Chinese selection and covers the same material. The English text is a translation, including the quoted passages. The Chinese edition preserves the published Chinese wording.
 
 ## On your first visit, take a short walk
 
@@ -32,7 +32,7 @@ When you want to continue, the [[00_Entry/Reading map|reading map]] offers more 
 
 The main notes tell stories in the third person. Footnotes lead to [[80_Sources/Source index|sources]], which distinguish records from the time, later interviews, and the scope of each excerpt. You can stay with a story or take another step and compare an earlier record with a later recollection.
 
-This selection uses one index for all its sections. It has no separate story or creative-work index, relationship circles, or maintenance section. The [[00_Entry/Rabbit Hole Method|Rabbit Hole Method]] describes a fuller structure that can grow with your own material. Agents can start with the [[AGENTS|reading guide]].
+This selection uses one index for all its sections. It has no separate story or creative-work index, relationship circles, or maintenance section. The [Rabbit Hole Method](https://github.com/emu-rabbit/rabbit-hole-notes/blob/main/docs/method.en.md) describes a fuller structure that can grow with your own material. Agents can start with the [[AGENTS|reading guide]].
 
 ## Download and explore in your own reading app
 

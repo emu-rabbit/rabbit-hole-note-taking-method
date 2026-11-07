@@ -7,7 +7,7 @@ description: Create a private Rabbit Hole life record and begin from a memory or
 
 Help the owner start with something worth keeping. A memory is enough; a collection of exported records is optional.
 
-Read the [shared conventions](references/conventions.md) and the full method in the owner's language on first use. Establish only what is still unknown: owner, language, private location, and whether this conversation may be saved. Use the existing agreement and vault guidance when continuing.
+Read the [shared conventions](references/conventions.md) on first use; they provide the offline core principles and structure. Establish only what is still unknown: owner, language, private location, and whether this conversation may be saved. Use the existing agreement and vault guidance when continuing.
 
 ## Make the first useful piece
 

@@ -4,13 +4,13 @@
 
 兔子洞是一種用來記錄一個「人」的筆記法。把人生經歷、重要的人、相處、故事與創作放在一起，讓後來走進來的人或 agent 能沿著時間和連結，慢慢認識你。
 
-這個 repo 放著方法介紹網站、可在瀏覽器閱讀的公開範例、網站原始碼，以及可以安裝的兔子洞 skills 工具組。範例是絵夢羽さ沂願意分享的 56 篇精選筆記，另有內容範圍相同的獨立英文版。你可以先走一小段故事，再回來看它怎麼組織。
+這個 repo 放著方法介紹網站、可在瀏覽器閱讀的公開範例、網站原始碼，以及可以安裝的兔子洞 skills 工具組。範例是絵夢羽さ沂願意分享的 55 篇精選筆記，另有內容範圍相同的獨立英文版。你可以先走一小段故事，再回來看它怎麼組織。
 
 ## 從哪裡開始
 
 - **想直接建立自己的兔子洞**：安裝[五個 skills](docs/skills.md)，從一段回憶或你挑選的本機材料起步。建立、匯入、訪談、整理與維護、準備分享版本各是一個完整入口；agent 負責寫作、串聯與走讀，資料預設留在私人工作區。
 - **想先感受兔子洞怎麼讀**：打開[中文範例](https://emu-rabbit.github.io/rabbit-hole-notes/reader/index.html?lang=zh-TW)。入口提供三條短路線，從一盒馬卡龍、一件工具，或她身邊的兩個人開始。範例裡的閱讀地圖再帶你走深。
-- **想了解方法**：先看[網站介紹](https://emu-rabbit.github.io/rabbit-hole-notes/?lang=zh-TW)，再讀完整的[兔子洞筆記法](examples/emu-rabbit-tw/00_入口/兔子洞筆記法.md)。方法保留作者原文。
+- **想了解方法**：先看[網站介紹](https://emu-rabbit.github.io/rabbit-hole-notes/?lang=zh-TW)，再讀完整的[兔子洞筆記法](docs/method.zh-TW.md)。方法正文獨立於個人範例。
 - **想在 Obsidian 裡體驗**：在範例閱讀器按「下載範例」，解壓後將含 README.md 的資料夾開成儲存庫。從 README 開始，不需要社群外掛。
 - **想用英文閱讀**：從 [English website](https://emu-rabbit.github.io/rabbit-hole-notes/?lang=en) 進入 [English example](https://emu-rabbit.github.io/rabbit-hole-notes/reader-en/index.html?lang=en)。文章、來源譯文、資料夾與重要檔名都使用英文；閱讀器切換語言會前往同一篇的另一語言版本。
 
@@ -26,8 +26,9 @@
 
 ## 方法、範例與程式碼
 
-- [examples/emu-rabbit-tw/](examples/emu-rabbit-tw/)：繁體中文公開範例。完整方法位於 00_入口/兔子洞筆記法.md。
-- [examples/emu-rabbit-en/](examples/emu-rabbit-en/)：同一份精選的英文翻譯。方法與英文命名見 [00_Entry/Rabbit Hole Method.md](<examples/emu-rabbit-en/00_Entry/Rabbit Hole Method.md>)。
+- [繁體中文方法](docs/method.zh-TW.md)與[英文方法](docs/method.en.md)：獨立於個人範例的權威正文。
+- [examples/emu-rabbit-tw/](examples/emu-rabbit-tw/)：繁體中文個人公開範例。
+- [examples/emu-rabbit-en/](examples/emu-rabbit-en/)：同一份精選的英文翻譯。
 - [src/web/](src/web/)：雙語介紹頁、靜態閱讀器與建置程式。
 - [src/web/example-paths.json](src/web/example-paths.json)：中英文章的對照，用於檢查兩份範例是否齊全及語言切換。
 - [skills/](skills/)：五個需一同安裝的 skills，共用 `rabbit-hole-start` 裡的方法、內部參考與本機初始化、匯入、檢查工具。

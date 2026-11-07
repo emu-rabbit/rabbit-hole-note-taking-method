@@ -177,6 +177,7 @@ test('all English homepage panels, example link, reader pages, labels and paths 
 });
 
 import { existsSync } from 'node:fs';
+import {legacyMethodNotes, methodSourceUrls, methodTargets, githubHeadingIds, methodQuoteSources} from '../src/web/method-compat.mjs';
 import { siteBase, homePaths, siteUrl, homeDescriptions, socialImage } from '../src/web/seo.mjs';
 import { htmlIds } from '../src/web/validate.mjs';
 
@@ -242,12 +243,12 @@ test('generated public pages have canonical, reciprocal language, robots and soc
     assert.equal(switchLinks.length, 2);
     for (const link of switchLinks) assert.equal(new URL(link.href, siteUrl(path)).href, siteUrl(pair[link['data-locale']]));
   }
-  assert.equal(canonicals.size, 114);
+  assert.equal(canonicals.size, 112);
   assert.deepEqual(readFileSync(new URL(`../dist/${socialImage.path}`, import.meta.url)), readFileSync(new URL(`../src/web/${socialImage.path}`, import.meta.url)), 'build copies the social asset byte-for-byte');
 
   const sitemap = readFileSync(new URL('../dist/sitemap.xml', import.meta.url), 'utf8');
   const entries = [...sitemap.matchAll(/<url>([\s\S]*?)<\/url>/g)].map(match => match[1]);
-  assert.equal(entries.length, 114);
+  assert.equal(entries.length, 112);
   assert.deepEqual(new Set(entries.map(entry => /<loc>([^<]+)<\/loc>/.exec(entry)[1])), canonicals);
   for (const entry of entries) {
     const loc = /<loc>([^<]+)<\/loc>/.exec(entry)[1];
@@ -297,7 +298,7 @@ test('static homepage URLs keep their language and legacy query links redirect w
 
 
 import { createHash } from 'node:crypto';
-import { renamedPublicNotes, relocatedPublicNotes, legacyHeadingIds } from '../src/web/public-url-compat.mjs';
+import { renamedPublicNotes, relocatedPublicNotes, legacyHeadingIds, methodHeadingAliases } from '../src/web/public-url-compat.mjs';
 
 test('renamed public people retain published URLs, heading fragments and language destinations', () => {
   const mappings = JSON.parse(readFileSync(new URL('../src/web/example-paths.json', import.meta.url)));
@@ -354,5 +355,53 @@ test('relationship directory moves preserve page URLs, navigation and downloadab
     const archive = readFileSync(new URL(`../dist/downloads/${folder}.zip`, import.meta.url));
     assert.ok(archive.includes(Buffer.from(to)));
     assert.ok(!archive.includes(Buffer.from(from)));
+  }
+});
+
+
+test('legacy method URLs guide readers to GitHub without extra method pages or vault files', () => {
+  assert.ok(!existsSync(new URL('../dist/method/', import.meta.url)));
+  assert.ok(!readFileSync(new URL('../dist/index.html', import.meta.url), 'utf8').includes('閱讀完整筆記法'));
+  for (const locale of ['zh-TW', 'en']) {
+    const legacyPath = `${locale === 'en' ? 'reader-en' : 'reader'}/${noteFile(legacyMethodNotes[locale])}`;
+    const html = readFileSync(buildFile(legacyPath), 'utf8');
+    assert.equal(tags(html, 'link').find(link => link.rel === 'canonical').href, methodSourceUrls[locale]);
+    assert.equal(tags(html, 'meta').find(meta => meta.name === 'robots').content, 'noindex, follow');
+    const targets = JSON.parse(tags(html, 'body')[0]['data-method-targets']);
+    assert.deepEqual(targets, methodTargets(locale));
+    for (const language of ['zh-TW', 'en']) {
+      assert.equal(targets[language].url, methodSourceUrls[language]);
+      for (const fragment of Object.values(targets[language].fragments)) assert.ok(githubHeadingIds[language].includes(fragment));
+      for (const [oldId, currentId] of Object.entries(methodHeadingAliases[legacyMethodNotes[locale]])) {
+        assert.equal(targets[language].fragments[oldId], targets[language].fragments[currentId]);
+      }
+    }
+    assert.ok(html.includes(`href="${methodSourceUrls[locale]}"`), 'usable plain link without JavaScript');
+    const folder = locale === 'en' ? 'emu-rabbit-en' : 'emu-rabbit-tw';
+    const archive = readFileSync(new URL(`../dist/downloads/${folder}.zip`, import.meta.url));
+    const fullBody = readFileSync(new URL(`../docs/method.${locale}.md`, import.meta.url), 'utf8').split('\n\n')[2];
+    assert.ok(!archive.includes(Buffer.from(fullBody)), 'download contains no full method');
+    assert.ok(!archive.includes(Buffer.from(legacyMethodNotes[locale])), 'download has no method file or stub');
+    assert.ok(!html.includes(fullBody), 'compatibility output is only a guide, not a duplicate full method');
+  }
+  assert.ok(githubHeadingIds['zh-TW'].includes('40_重要關係留下重要的相處與連結'));
+  assert.ok(githubHeadingIds.en.includes('40_important-relationships-keep-the-connections-that-matter'));
+});
+
+
+test('homepage quote credits link to the corresponding GitHub source lines', () => {
+  for (const locale of ['zh-TW', 'en']) {
+    const html = readFileSync(buildFile(homePaths[locale]), 'utf8');
+    const quote = /<figure class="shell quote">([\s\S]*?)<\/figure>/.exec(html)?.[1];
+    const caption = /<figcaption>([\s\S]*?)<\/figcaption>/.exec(quote)?.[1];
+    assert.ok(caption, 'source credit stays at the bottom of the quote figure');
+    assert.equal(tags(caption, 'a')[0].href, methodQuoteSources[locale].url);
+    assert.ok(caption.includes(methodQuoteSources[locale].label));
+    assert.ok(!html.includes('data-i18n="fullMethod"'));
+    const source = readFileSync(new URL(`../docs/method.${locale}.md`, import.meta.url), 'utf8').split('\n');
+    assert.equal(new URL(methodQuoteSources[locale].url).searchParams.get('plain'), '1', 'line links must open source view');
+    const [, start, end] = /#L(\d+)-L(\d+)$/.exec(methodQuoteSources[locale].url);
+    assert.ok(source[Number(start) - 1].startsWith(locale === 'en' ? 'This phrase comes from' : '這句話來自於'));
+    assert.ok(source[Number(end) - 1].startsWith(locale === 'en' ? 'That is why the rabbit hole exists.' : '兔子洞為此而生。'));
   }
 });

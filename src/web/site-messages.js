@@ -27,7 +27,7 @@ export const siteEnglish = {
   quoteStart: '“When someone gets to know me, or even tries to understand me,',
   quoteEnd: 'I feel alive.”',
   quoteBody: 'That is why the rabbit hole exists. Like a video camera, it records your experiences, daily life, stories, the people and relationships that matter, and the work you leave in the world. It also records how you see them. One day, a person or an AI agent might go down your rabbit hole and explore it in depth. That is how a new connection can begin.',
-  quoteCredit: 'Rabbit Hole Notes',
+  quoteCredit: 'Rabbit Hole Method',
   structureTitle: 'What’s inside a rabbit hole?',
   structureIntro: 'Explore the general structure, with a note on what each section includes in this selected public example.',
   structureExample: 'Hard to picture? Take a look at an example rabbit hole!',

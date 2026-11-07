@@ -8,7 +8,7 @@ updated: "2026-11-06"
 # Index
 
 ## 00 Entry
-[[00_Entry/Profile|Profile]] · [[00_Entry/Reading map|Reading map]] · [[00_Entry/Rabbit Hole Method|Rabbit Hole Method]]
+[[00_Entry/Profile|Profile]] · [[00_Entry/Reading map|Reading map]] · [Rabbit Hole Method](https://github.com/emu-rabbit/rabbit-hole-notes/blob/main/docs/method.en.md)
 
 ## 10 Life chapters
 [[10_Life chapters/Timeline|Timeline]]

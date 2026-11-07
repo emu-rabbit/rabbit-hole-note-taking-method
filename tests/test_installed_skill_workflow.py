@@ -28,6 +28,8 @@ class InstalledSkillWorkflowTests(unittest.TestCase):
             self.assertFalse(destination.exists())
             self.cli(installer, '--dest', destination, '--apply')
             self.assertEqual(len(list(destination.glob('*/SKILL.md'))), 5)
+            self.assertEqual(list(destination.rglob('method.*.md')), [])
+            # All local references must resolve inside the copied five-skill bundle.
             tool = destination / 'rabbit-hole-start/scripts/rabbit_hole.py'
             source = root / '虛構 原話.txt'
             original = b'\xef\xbb\xbf' + '第一行\r\n第二行\r\n'.encode('utf-8')
@@ -39,6 +41,10 @@ class InstalledSkillWorkflowTests(unittest.TestCase):
                     self.cli(tool, *init)
                     self.assertFalse(vault.exists())
                     self.cli(tool, *init, '--apply')
+                    generated = '\n'.join(p.read_text(encoding='utf-8') for p in vault.rglob('*.md'))
+                    self.assertNotIn('## 兔子洞結構', generated)
+                    self.assertNotIn('## Rabbit hole structure', generated)
+                    self.assertFalse(any('method' in p.name.lower() for p in vault.rglob('*.md')))
                     args = ['import', '--vault', vault, '--input', source, '--namespace',
                             'installed-fictional', '--owner', 'Fictional', '--author',
                             'Fictional', '--source-id', 'one', '--apply']
