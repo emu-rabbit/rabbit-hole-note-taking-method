@@ -1,6 +1,6 @@
-import {methodPaths, legacyMethodNotes, renderMethod} from './method-pages.mjs';
+import {legacyMethodNotes, renderMethodCompatibility, methodQuoteSources} from './method-compat.mjs';
 import { createHash } from 'node:crypto';
-import { copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync, unlinkSync, writeFileSync } from 'node:fs';
+import { copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync, unlinkSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { loadLibrary, noteFile, noteUrl } from './library.mjs';
@@ -100,7 +100,7 @@ mkdirSync(join(output, 'reader-en'), { recursive: true });
 mkdirSync(join(output, 'downloads'), { recursive: true });
 mkdirSync(join(output, 'vendor'), { recursive: true });
 for (const path of [
-  'method.css', 'method.js', 'theme.css', 'site.css', 'site.js', 'site-messages.js', 'locale.css', 'locale.js', 'logo.svg', 'rabbit-hole.jpg', socialImage.path, 'notes.js',
+  'method-compat.js', 'theme.css', 'site.css', 'site.js', 'site-messages.js', 'locale.css', 'locale.js', 'logo.svg', 'rabbit-hole.jpg', socialImage.path, 'notes.js',
   'reader/reader.css', 'reader/reader.js', 'reader/view.js', 'reader/messages.js',
   'vendor/markdown-it.js', 'vendor/markdown-it.LICENSE',
 ]) {
@@ -114,7 +114,9 @@ for (const asset of ['site.css', 'site.js']) {
   index = index.replace(`"./${asset}"`, `"./${asset}?v=${version}"`);
 }
 for (const { locale } of locales) {
-  let html = index.replace('<!-- structure-browser -->', renderStructure(locale));
+  let html = index.replace('<!-- structure-browser -->', renderStructure(locale))
+    .replace('<!-- method-source-href -->', methodQuoteSources[locale].url)
+    .replace('<!-- method-source-lines -->', methodQuoteSources[locale].label);
   if (locale === 'en') {
     html = localizeHtml(html, siteEnglish)
       .replace('<html lang="zh-TW">', '<html lang="en">')
@@ -132,11 +134,10 @@ for (const { locale } of locales) {
   }));
   writeFileSync(join(output, homePaths[locale], 'index.html'), html);
 }
-for (const {locale} of locales) {
-  mkdirSync(join(output, methodPaths[locale]), {recursive: true});
-  writeFileSync(join(output, methodPaths[locale], 'index.html'), renderMethod(locale));
-}
-const sitemapPairs = [homePaths, methodPaths, ...mappings.map(pair =>
+// Remove only obsolete generated outputs from the unpublished method-page design.
+rmSync(join(output, 'method'), {recursive: true, force: true});
+for (const path of ['method.css', 'method.js']) if (existsSync(join(output, path))) unlinkSync(join(output, path));
+const sitemapPairs = [homePaths, ...mappings.map(pair =>
   Object.fromEntries(locales.map(config => [config.locale, `${config.route}/${noteFile(pair[config.locale])}`])))];
 writeFileSync(join(output, 'sitemap.xml'), renderSitemap(sitemapPairs));
 
@@ -155,7 +156,7 @@ for (const config of locales) {
     built.add(filename);
   }
   const legacyFilename = noteFile(legacyMethodNotes[config.locale]);
-  writeFileSync(join(readerOutput, legacyFilename), renderMethod(config.locale, `${config.route}/${legacyFilename}`));
+  writeFileSync(join(readerOutput, legacyFilename), renderMethodCompatibility(config.locale));
   built.add(legacyFilename);
   for (const entry of readdirSync(readerOutput, { withFileTypes: true })) {
     if (entry.isFile() && (/^note-[a-f0-9]{64}\.html$/.test(entry.name) && !built.has(entry.name) || entry.name === 'zip.js')) unlinkSync(join(readerOutput, entry.name));

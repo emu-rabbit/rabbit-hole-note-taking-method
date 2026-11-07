@@ -42,7 +42,7 @@ const server = createServer(async (request, response) => {
       response.writeHead(302, { Location: `/reader/${noteFile(legacyNote)}${url.search}` }).end();
       return;
     }
-    if (['/en', '/reader', '/reader-en', '/method', '/method/en'].includes(url.pathname)) {
+    if (['/en', '/reader', '/reader-en'].includes(url.pathname)) {
       response.writeHead(302, { Location: `${url.pathname}/${url.search}` }).end();
       return;
     }

@@ -1,6 +1,6 @@
 # Shared conventions
 
-These conventions are the bundle’s self-contained offline working guide. Read them on first use, then follow the task references as needed. The authoritative method is optional further reading: [繁體中文](https://emu-rabbit.github.io/rabbit-hole-notes/method/) · [English](https://emu-rabbit.github.io/rabbit-hole-notes/method/en/). The bundle does not require network access or copying that text into a vault.
+These conventions are the bundle’s self-contained offline working guide. Read them on first use, then follow the task references as needed. The authoritative method is optional further reading: [繁體中文](https://github.com/emu-rabbit/rabbit-hole-notes/blob/main/docs/method.zh-TW.md) · [English](https://github.com/emu-rabbit/rabbit-hole-notes/blob/main/docs/method.en.md). The bundle does not require network access or copying that text into a vault.
 
 ## Orient once, continue in place
 

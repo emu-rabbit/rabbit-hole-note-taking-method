@@ -1,5 +1,5 @@
 import test from 'node:test';
-import {methodSourceUrls, legacyMethodNotes} from '../src/web/method-pages.mjs';
+import {methodSourceUrls, legacyMethodNotes} from '../src/web/method-compat.mjs';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
