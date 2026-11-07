@@ -79,29 +79,36 @@ class ToolkitTests(unittest.TestCase):
                 self.assertEqual(self.ledger(), [])
                 self.run_cli('init', '--vault', self.vault, '--name', 'Other', '--lang', lang, '--apply', code=2)
 
-    def test_work_page_can_have_multiple_indexes_with_flat_and_nested_layouts(self):
-        for lang, section in [('en', '50_Creative work'), ('zh-TW', '50_創作')]:
+    def test_work_pages_flat_within_participation_folders_and_multiple_indexes(self):
+        layouts = [('en', '50_Creative work', ('Independent work', 'Commissions and collaborations')),
+                   ('zh-TW', '50_創作', ('自主創作', '委託與共同創作'))]
+        for lang, section, categories in layouts:
             with self.subTest(lang=lang):
                 self.vault = self.root / lang
                 self.init(lang)
                 starter = next(self.vault.glob('00_*/Start.md')).read_text(encoding='utf-8')
-                self.assertIn('multiple indexes or categories' if lang == 'en' else '多個索引或分類', starter)
-                self.assertIn('Add subfolders when useful' if lang == 'en' else '有實際需要再增子資料夾', starter)
-                self.assertFalse((self.vault / section).exists())
-                files = {
-                    f'{section}/One work.md': '---\nid: "fictional-work"\nkind: "work"\n---\n# One work (fictional)\n',
-                    f'{section}/A project/Details/Another work.md': '---\nid: "fictional-nested-work"\nkind: "work"\n---\n# Another work (fictional)\n',
-                    'By role.md': f'# Role index (fictional)\n## Independent\n[[{section}/One work]]\n## Collaboration\n[[{section}/One work]]\n',
-                    'By theme.md': f'# Theme index (fictional)\n[[{section}/One work]]\n[[{section}/A project/Details/Another work]]\n',
-                }
-                for path, text in files.items():
-                    target = self.vault / path
-                    target.parent.mkdir(parents=True, exist_ok=True)
-                    target.write_text(text, encoding='utf-8')
+                for category in categories:
+                    self.assertIn(f'`{section}/{category}/`', starter)
+                self.assertIn('side by side within each' if lang == 'en' else '各自資料夾內平鋪', starter)
+                self.assertIn('without further folders by medium' if lang == 'en' else '不再按小說、新詩、影片等媒材細分', starter)
+                self.assertIn('Add subfolders when content benefits' if lang == 'en' else '內容長大到子資料夾有幫助時再新增', starter)
+                self.assertFalse((self.vault / section).exists(), 'no empty classification folders at initialization')
+                targets = []
+                for group, category in enumerate(categories):
+                    for number, filename in enumerate(('One work.md', 'Another work.md', 'A project/Details/Project work.md')):
+                        path = f'{section}/{category}/{filename}'
+                        target = self.vault / path
+                        target.parent.mkdir(parents=True, exist_ok=True)
+                        target.write_text(f'---\nid: "fictional-work-{group}-{number}"\nkind: "work"\n---\n# Work {group}-{number} (fictional)\n', encoding='utf-8')
+                        targets.append(path[:-3])
+                links = '\n'.join(f'[[{path}]]' for path in targets)
+                for filename, heading in [('By medium.md', 'Text'), ('By theme.md', 'Friendship')]:
+                    (self.vault / filename).write_text(f'# Index (fictional)\n## {heading}\n{links}\n', encoding='utf-8')
                 before = {p.relative_to(self.vault): p.read_bytes() for p in self.vault.rglob('*') if p.is_file()}
                 result = self.run_cli('check', '--vault', self.vault, '--include-maintenance')
                 self.assertTrue(result['ok'], result['issues'])
                 self.assertEqual(before, {p.relative_to(self.vault): p.read_bytes() for p in self.vault.rglob('*') if p.is_file()})
+                self.assertEqual(len(list((self.vault / section).rglob('*.md'))), 6, 'indexes reuse six owning pages')
 
     def test_standard_and_custom_relationship_notes_preserve_sources(self):
         layouts = {

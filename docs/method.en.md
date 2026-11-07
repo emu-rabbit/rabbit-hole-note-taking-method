@@ -65,11 +65,14 @@ Keep changing roles and closeness in the existing relationship note, linked to r
 
 Record the creative work you take part in: what it is, why it began, how it took shape and changed, and each participant's role. Independent work, commissions and collaborations all have a place here, linked to stories of making them and the life around them.
 
-By default, keep work pages side by side in a suitable folder, such as `50_Creative work/`, and use indexes to offer different categories and reading perspectives. The same work page can appear in several indexes or categories without duplicate pages or a fixed subfolder for every category.
+Keep two categories based on how you participate:
 
-Indexes can group work by your role, medium or theme. For independent work, record its motivation, content, development and collaborators' actual contributions. For commissions and collaborations, explain how you took part through commissioning, ideas or collaboration, and make each person's role clear.
+- `50_Creative work/Independent work/`: work you lead, recording its motivation, content, development and collaborators' actual contributions.
+- `50_Creative work/Commissions and collaborations/`: work you participate in through commissioning, ideas or collaboration, making each person's role clear.
 
-Add a separate folder when a work, project or category grows enough for one to be useful. This is a flexible default. Keep existing paths that suit the vault; there is no need to move existing content simply to conform.
+By default, keep pages side by side within their respective folders, without further subfolders by medium such as novels, poetry or video. Indexes can offer perspectives by medium or theme, and the same page can appear in several indexes or categories without duplication.
+
+Add subfolders when the content, a project or a category grows enough for them to help. This flexible default retains the distinction between independent work and collaborations. Keep existing paths that suit the vault, without moving content merely to conform or creating empty folders in advance.
 
 A project page introduces the work itself; the complete scene of its making connects back to a story. Writing, images, crafts, performances, tools, and unfinished attempts can all have their own place here.
 
