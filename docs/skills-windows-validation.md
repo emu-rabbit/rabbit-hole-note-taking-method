@@ -1,61 +1,70 @@
-# Native Windows validation / Windows 原生驗證
+# Windows 驗證紀錄 / Windows validation
 
-Windows support remains experimental: native Windows Server 2025 x64 CI has passed; Windows 11 desktop validation remains pending. 原生 Server 測試已通過，但不等於 Windows 11 桌面與客戶端相容性已驗證；也不能把 macOS 的通過或 Windows-only 的跳過當成 Windows 通過。
+Windows、macOS 與 Linux 都是已驗證的正式支援平台。2026-11-07，維護者確認 Windows skills 已完成實機驗證，並將 Windows 與另兩個平台並列為正式版本。使用條件見 [CLI 平台範圍](../skills/rabbit-hole-start/references/cli.md#platform-scope)。
 
-## Recorded evidence — 2026-11-06
+Windows is a verified, officially supported platform alongside macOS and Linux. This record distinguishes the maintainer's native Windows report from CI jobs and local macOS checks; it does not present one as another.
 
-- Host: macOS 15.3.1, Darwin 24.3.0, Apple arm64; CPython 3.13.18. The system Python 3.9 was below the supported minimum and is not the validation interpreter.
-- `python -B scripts/validate-skills.py`: all five skills validated.
-- `python -B -m unittest discover -s tests -p 'test_*.py' -v`: latest local run after adding the installed-helper case: 112 tests, 90 passed, 22 native-Windows-only tests skipped.
-- `npm run check`: 31 website tests passed; both language builds completed (56 notes each).
-- A separate smoke run installed the actual repository bundle into a disposable Unicode/space-containing path, then invoked the installed helper for both languages: read-only initialization preview, applied initialization, import/reimport and integrity check passed. Source UTF-8 BOM/CRLF bytes were unchanged, and a second installation refused overwrite. This is macOS evidence only.
-- Independent read-only security review covered both I/O backends, runtime, installer, rollback, rename ABI and private DACL construction. Review identified the in-place reparse detection gap; parent attributes are now checked before/after relative opens and during identity queries. Static review is not native execution evidence.
+## 維護者的實機驗證 / Maintainer-reported validation — 2026-11-07
 
-All workflow inputs are fictional. Tests exercise initialization, byte-preserving import/revisions/retries, integrity and link maintenance, and isolated five-skill installation. They do not install into the user's actual client directory. Tests do not open listening ports or stop services.
+[PR #8](https://github.com/emu-rabbit/rabbit-hole-notes/pull/8), merged as `fcab0d44ce0286c986edc4e0feb81525ed6d1929`, records native Windows verification with **CPython 3.14.10 x64**:
 
-## Native Server results — 2026-11-06
+- All five skill packages validated.
+- The Python suite ran 114 tests with 11 platform skips.
+- All 31 website tests passed.
 
-Successful [run 42235653762](https://github.com/emu-rabbit/rabbit-hole-notes/actions/runs/42235653762) tested commit `45a7f1c` on **Windows Server 2025 x64, OS 10.0.26100, local fixed NTFS**. Full logs were downloaded and checked, including the native-case skip gate:
+這些是維護者回報的實機結果，不是本次文件整理另行重跑的 Windows 測試。PR 未記錄 Windows 版本／OS build、帳戶權限或客戶端技能載入的單獨結果；本文件不補造這些細節。
+
+These results were reported by the maintainer. The PR does not record the Windows edition/build, account privilege level or a separate client-discovery result. No values are inferred for those fields.
+
+## #8 的修正 / Corrections in #8
+
+The current checker:
+
+- Recognizes escaped Wiki aliases in Obsidian tables, including `[[Topics/example.io\|Label]]`, with heading and block references.
+- Resolves dotted Markdown note names when `.md` is omitted, while preserving exact existing attachment targets and path-safety checks.
+- Skips note bodies in top-level `90` and `90_*` folders by default. `--include-maintenance` includes them in the scan. Incoming links and anchors, import ledgers and source integrity remain checked; skipped maintenance folders are not a privacy boundary.
+
+Positive and negative regression cases cover both language layouts, missing notes/anchors and unsafe paths. This is checker coverage, not a claim that every Obsidian interface interaction or client has been tested.
+
+## Native Windows Server CI — 2026-11-07
+
+Successful [run 42332555442](https://github.com/emu-rabbit/rabbit-hole-notes/actions/runs/42332555442) tested PR #8 head `ab187afed569d3941573a02817003a0311e80a22` on **Windows Server 2025 x64, OS 10.0.26100, local fixed NTFS**. The downloaded job logs record:
 
 | Interpreter | Result | Native security cases | Job log |
 | --- | --- | --- | --- |
-| CPython 3.13.17 AMD64 | 112 total: 101 passed, 11 POSIX-only skipped | 22 passed, zero skipped | [3.13](https://github.com/emu-rabbit/rabbit-hole-notes/actions/runs/42235653762/job/127952435598) |
-| CPython 3.14.10 AMD64 | 112 total: 101 passed, 11 POSIX-only skipped | 22 passed, zero skipped | [3.14](https://github.com/emu-rabbit/rabbit-hole-notes/actions/runs/42235653762/job/127952435955) |
+| CPython 3.13.17 AMD64 | 114 total: 103 passed, 11 POSIX-only skipped | 22 passed, zero skipped | [3.13](https://github.com/emu-rabbit/rabbit-hole-notes/actions/runs/42332555442/job/128282130644) |
+| CPython 3.14.10 AMD64 | 114 total: 103 passed, 11 POSIX-only skipped | 22 passed, zero skipped | [3.14](https://github.com/emu-rabbit/rabbit-hole-notes/actions/runs/42332555442/job/128282130878) |
 
-Both jobs passed five-skill bundle validation and actual isolated installation followed by both-language initialization, import/reimport and integrity maintenance. Actual junction/FSCTL conversion, unchanged directory identity, parent pinning, rename publication, private DACL inspection, sharing failures, rollback/foreign content preservation, Unicode paths and original-byte/hash preservation passed. These were real Windows API calls, not WSL or simulated platform results. The runner account is `runneradmin`; standard-user Windows 11 desktop operation and client skill discovery remain separate unverified cases.
+The suite exercises actual isolated five-skill installation; both-language initialization, import/reimport and integrity checks; Unicode paths and UTF-8/BOM/CRLF byte preservation; junction and in-place FSCTL conversion; directory pinning, rename, protected DACLs, sharing failures and rollback preserving foreign content. These jobs use real Windows APIs, not WSL or a mocked platform. Their account is `runneradmin`, distinct from the maintainer's separately reported machine.
 
-## Windows 11 desktop checks still required
+The [Windows skills workflow](../.github/workflows/skills.yml) runs on relevant PRs to `main`, uses only `contents: read`, and fails if native cases are missing or skipped. The separate [Pages workflow](../.github/workflows/pages.yml) builds and publishes the website from `main`; it does not replace local website tests.
 
-Run from an ordinary local NTFS checkout on **Windows 11 native x64**, once with each **64-bit CPython 3.13 and 3.14**. No WSL or mocked `sys.platform` result qualifies. In PowerShell:
+## Reproduce the checks
+
+Use the supported interpreter and a local checkout. These commands use disposable fictional fixtures, not a personal vault or the client's installed skills directory:
 
 ```powershell
 [Console]::OutputEncoding = [System.Text.UTF8Encoding]::new($false)
-py -3.13 -c "import platform, sys; print(platform.platform()); print(sys.version)"
-py -3.13 -B scripts/validate-skills.py
-py -3.13 -B -m unittest discover -s tests -p 'test_*.py' -v
-# Repeat these three Python commands with py -3.14.
+py -3.14 -c "import platform, sys; print(platform.platform()); print(sys.version)"
+py -3.14 -B scripts/validate-skills.py
+py -3.14 -B -m unittest discover -s tests -p 'test_*.py' -v
+npm.cmd run check
 ```
 
-The suite uses disposable temporary directories. Record the OS build, interpreter, volume filesystem, pass/fail/skip totals and full logs. A missing junction, PowerShell DACL inspection or FSCTL capability must remain a failed/incomplete check, never be silently skipped to obtain a green result.
+Use `py -3.13` for the other supported interpreter. Website checks require Node.js 22+. Record the actual platform, interpreter and results when reporting a new run; a skipped native case is not a Windows pass.
 
-Native cases cover junction ancestors and late substitution, pinned old/new directories, real `FSCTL_SET_REPARSE_POINT` conversion without changing directory identity, rename publication and ledger replacement, protected private DACLs, sharing failures, foreign-file preservation, rollback, case collisions and Windows path refusals. Portable cases add UTF-8/BOM/CRLF preservation, invalid UTF-8 refusal, parallel import retries and real `core.autocrlf=true` checkout behavior.
+## Local documentation checks — 2026-11-07
 
-The [Native Windows skills workflow](../.github/workflows/skills.yml) requests two real Windows Server 2025 x64 jobs, one per interpreter version. A configured workflow or queued run is not passing evidence. Server-runner results must be labeled as Server results; they do not establish Windows 11 desktop/client compatibility.
+The documentation pass on 2026-11-07 used **macOS 15.3.1 arm64, CPython 3.13.18 and Node.js 24.4.1**: all five skill packages validated; 114 Python tests ran with 92 passed and 22 Windows-only skipped; all 31 website tests passed and both 56-note editions built. This is a local macOS recheck, separate from the maintainer's native Windows report and the Server CI above.
 
-## CI scope and initial corrections
+## Earlier evidence
 
-- The workflow triggers on relevant pull requests to `main`, grants its job token only `contents: read`, disables persisted checkout credentials, uses no secrets, pins official checkout/setup-python actions by commit, and limits each job to 15 minutes. It neither publishes nor deploys anything; the existing Pages workflow is unchanged.
-- It runs the complete fictional suite and fails if no native Windows security cases are discovered or any are skipped. The native tests check the actual OS, architecture, filesystem, DACL and reparse APIs. Intentional POSIX-only skips on Windows remain allowed.
-- `test_installed_skill_workflow.py` now automates the separate installed-helper smoke procedure: actual five-skill installation into a disposable Unicode/space-containing path, both-language init preview/apply, import/reimport, integrity maintenance, source byte/hash preservation and refusal to overwrite an installation.
+- **2026-11-06, macOS 15.3.1 arm64 / CPython 3.13.18:** 112 Python tests, 90 passed and 22 Windows-only skipped; five-skill validation and all 31 website tests passed. Both public editions built with 56 notes each. A separate isolated-install smoke run exercised both languages and preserved original bytes. These are macOS results.
+- **2026-11-06, Windows Server 2025:** [run 42236279920](https://github.com/emu-rabbit/rabbit-hole-notes/actions/runs/42236279920) tested final PR #7 head `328766d`. Each interpreter ran 112 tests: 101 passed, 11 POSIX-only skipped, with all 22 native security cases passing.
+- The initial #7 run exposed junction-fixture shell quoting and CRT/Win32 error-reporting assumptions. The [correction](https://github.com/emu-rabbit/rabbit-hole-notes/commit/45a7f1c0a9881d5c550199097e42c4275a138d02) uses real FSCTL fixtures and direct Win32 sharing-denial probes. Independent code review confirmed the assertions remained intact; no safety case was removed to obtain a passing run.
 
-The initial [run 42235000636](https://github.com/emu-rabbit/rabbit-hole-notes/actions/runs/42235000636) at commit `7c77585` passed bundle validation, then each version ran 112 tests with 9 failures and 11 intentional POSIX-only skips. All 22 native security cases executed; none was skipped.
+## Safety scope
 
-The first failures exposed fixture/error-reporting assumptions: `cmd.exe` quoting prevented six real junction fixtures from being created; CRT-backed writes reported `EACCES` without `winerror`; replacing a held target reported Win32 `ACCESS_DENIED` rather than `SHARING_VIOLATION`. Corrections create the actual mount-point tag directly through the already-exercised FSCTL helper and independently probe foreign write access through Win32 to require a real sharing/lock denial. The replacement test also verifies the foreign bytes survive rollback and replacement succeeds after the owned handle closes. An independent read-only review confirmed these corrections preserve the safety assertions; the successful rerun is recorded above. No native safety case was removed or skipped.
+Across platforms, pause other writers during an operation. Directory handles, reparse checks and rollback do not provide an atomic transaction against arbitrary changes by another process using the same account. Rollback preserves replaced or edited objects and foreign content it observes; process termination and power-loss recovery are not guaranteed.
 
-## Security boundary
-
-Directory handles prevent rename while active, but a directory may acquire a reparse tag in place without changing its file ID. Parent checks reject an observed conversion. They do not provide an atomic transaction against arbitrary concurrent filesystem mutation by another process using the same account. Pause those writers throughout validation and normal operations. Complete Windows 11 desktop validation before promoting desktop support from experimental.
-
-Private objects receive protected DACLs at creation (current user, SYSTEM and local administrators); installed public skills inherit destination permissions. Existing ACLs are not rewritten. Rollback preserves replaced/edited objects and foreign content it observes. Crash/power-loss recovery and arbitrary concurrent writers remain outside the guarantee on every platform.
-
-Windows 11 桌面驗證完成前，請只用虛構資料。若原生執行失敗，保留失敗紀錄並修正，再重跑；不要放寬 reparse、路徑或權限防護來取得通過。
+New private Windows objects receive protected DACLs for the current user, SYSTEM and local administrators. Installed public skills inherit destination permissions; existing ACLs are not rewritten. Structural checks do not establish narrative truth, anonymity or permission to share.

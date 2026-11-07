@@ -23,7 +23,7 @@ Keep published reader URLs and heading fragments stable by maintaining the mappi
 
 Crawlers use **`https://emu-rabbit.github.io/robots.txt`**, at the origin root. A file at `/rabbit-hole-notes/robots.txt` would not govern this project, so this build deliberately does not generate one.
 
-At the time of the initial audit, the origin-level robots file allowed all paths and listed only the personal site's sitemap. After this PR is merged and Pages has deployed, the owner can submit `https://emu-rabbit.github.io/rabbit-hole-notes/sitemap.xml` through their verified search-console property. Alternatively, the owner of the separate root-site repository can add this sitemap to the root robots file or a root sitemap index. This project does not change that other repository, submit to search engines, or deploy from a PR.
+After deployment, the owner can submit `https://emu-rabbit.github.io/rabbit-hole-notes/sitemap.xml` through their verified search-console property. The separate root-site repository controls the origin's robots file and can also list this sitemap. Changes in this project do not submit to search engines or modify that other repository.
 
 Indexing and search ranking are controlled by search engines. A sitemap or valid metadata does not guarantee either. Social platforms can also cache previews. Check the actual deployed response after merging rather than assuming a local build is live.
 
@@ -39,4 +39,4 @@ Run `npm run check` on Node.js 22 or later. No install is needed. Tests cover:
 - Legacy language URLs, paired note fragments, and HTML-safe descriptions.
 - Existing translation completeness, note references, and safe ZIP creation.
 
-The existing Pages workflow remains limited to `main`; it does not run pull-request checks. This PR adds no workflow and needs no expanded GitHub workflow permissions. Record the local check results when reviewing the PR.
+The Pages workflow publishes from `main`; it does not run the full website test suite. Run `npm run check` before submitting website changes. The separate Windows skills PR workflow is described in the [development guide](../README.en.md#develop-locally).

@@ -1,6 +1,6 @@
 # Skills 的實際閱讀驗收
 
-驗收日期：2026-11-06。
+驗收日期：2026-11-06。以下保留當時的閱讀案例、修訂與測試範圍；現行平台驗證見 [Windows 驗證紀錄](skills-windows-validation.md)，操作方式見[使用指南](skills.md)。
 
 ## 本輪：五個完整任務入口
 
@@ -118,7 +118,7 @@
 - 深度案例最終 59 頁結構檢查無問題，21 筆來源逐字一致，來源原始檔雜湊有效，167 個引用錨點逐一開檔核對。三批重匯均為 unchanged。公開 fixture 另以自動測試核對來源、結構與可達性。
 - 深度案例是繁中；英文驗證是較小的起步／修訂情境。沒有宣稱所有語言、人生經歷或 agent 都會得到同樣品質。
 - 走讀透過實際 Markdown 與來源檔案完成；未實測 Obsidian 的視覺點擊、螢幕閱讀器或每種 Markdown 客戶端。Wiki links 需要相容閱讀器。
-- 來源頁仍保留技術 JSON，放在原話之後供需要時查核。工具沒有原生社群 API、OCR、語音轉錄、定時同步、Windows 支援或自動發布功能。
+- 來源頁仍保留技術 JSON，放在原話之後供需要時查核。此輪驗收早於 Windows 支援，不能用來描述現行平台範圍；原生社群 API、OCR、語音轉錄、定時同步與自動發布仍不在工具組內。
 - 腳本對話、合成資料與有限查找任務不能證明真實訪談舒適度、任意資料的隱私安全或普遍寫作品質。實際使用仍由本人決定材料與分享範圍，並閱讀與修正重要理解。
 
 English summary: the Traditional Chinese deep case was revised after substantive reader feedback, then re-read and supplemented by a fresh-reader spot check. All materials are synthetic. The English walkthrough covered a smaller memory-to-story and correction scenario. This record distinguishes behavioral findings from structural tests and does not claim universal performance.

@@ -34,11 +34,11 @@ This public selection uses one index across its sections. It has no relationship
 - [docs/skills.en.md](docs/skills.en.md): installation, a first request, formats and limitations.
 - [tests/](tests/): reader, archive, skill-installation and local-helper checks.
 
-The method, public examples, reader and skills toolkit are available. The importer accepts selected local text, Markdown, normalized JSON and JSONL; native social-export/API adapters are not implemented. Setup can flow straight into an interview. Importing and interviewing integrate the material actually read into notes and navigation within the agreed saving scope. Archive-only intake, unsaved conversations and read-only checks are also available. Sharing preparation produces a local draft for review; delivery still needs permission. The src/mcp directory remains a placeholder.
+The local tools officially support macOS, Linux and Windows; see [installation](docs/skills.en.md#install-the-bundle) for versions and path requirements. Import accepts text, Markdown, normalized JSON and JSONL; native social exports need conversion first. Sharing preparation creates a local draft for your review and authorization before delivery. `src/mcp` remains a placeholder.
 
 ## Make a rabbit hole of your own
 
-Read the method and decide what material you want to entrust to a person or agent. You can begin with one memory, gradually connecting it to people, projects, and words from the time. You decide what can be read, organized, and shared. Your rabbit hole can remain private.
+Choose material you want to entrust to a person or agent, gradually connecting it to people, projects and words from the time. Your rabbit hole can remain private; you decide what can be read, organized and shared.
 
 The example's people, stories, and sources belong to the author's life; keep their context intact. English source passages are marked as translations. Brackets and omission markers retain the boundaries of the published Chinese excerpts. Check the permissions for each source or project separately. This repository has no overall license yet; public access does not grant unrestricted reuse or redistribution.
 
@@ -58,4 +58,6 @@ npm run check
 
 Run the tests and full build. The build checks paired translations, Wiki links, and section or block references, then writes dist/. When adding or renaming a note, update both editions and example-paths.json together, and read through the affected routes.
 
-Run the website, skill-format and Python tests locally using the documented commands. The existing GitHub Actions workflow builds and deploys Pages only on main, after a push or manual trigger. For skill changes, also run `python3 scripts/validate-skills.py` and `python3 -m unittest discover -s tests -p 'test_*.py' -v` with Python 3.10+. Local commits do not need an automatic push hook. Work on a separate branch and open a pull request, checking the content, sources, and public scope before a maintainer decides whether to merge.
+For skill changes, also run `python3 scripts/validate-skills.py` and `python3 -m unittest discover -s tests -p 'test_*.py' -v`. See the [usage guide](docs/skills.en.md) for Windows interpreter requirements and PowerShell commands.
+
+GitHub Actions has two workflows: [Windows skills CI](.github/workflows/skills.yml) validates the bundle and runs Python 3.13/3.14 tests on native Windows Server 2025 x64 for PRs targeting `main` that match its path filters; [Pages deployment](.github/workflows/pages.yml) builds and publishes the site on `main` pushes or manual dispatch. Run the full website tests locally with `npm run check`. Work on a separate branch and open a PR, checking content, sources and public scope before a maintainer decides whether to merge.

@@ -10,7 +10,7 @@
 
 ## 重做演練
 
-在本機新建獨立測試資料夾，先安裝本 repo 的七個 skills，依使用指南操作。用新的虛構資料也可以；本案保留供重現已知問題。
+在本機新建獨立測試資料夾，安裝目前的完整五個 skills，再依[使用指南](../../../docs/skills.md)操作。以下保留先前分段演練的順序，供重現已知閱讀問題。
 
 1. 先只給初始來源，建立私人兔子洞，記錄實際讀過的範圍。
 2. 由主持者逐回合供應訪談答覆，讓整理者先決定問題。保存原腳本與實際提問的差別。
@@ -18,6 +18,6 @@
 4. 此時才提供後續更新，沿既有身份修訂文章、來源摘要、年表和索引。
 5. 讓未參與寫作的讀者從 README 走入，先走路線，再做驗收紀錄裡的查找需求，最後核對原始材料。依實際缺點修訂 skills，重做受影響工作，再讀一次。
 
-輸入含有日期矛盾與未完成計畫。保留它們的不同時間位置；fixture 裡的 .invalid 網址只是測試定位，不是可查證的外部來源。最終閱讀快照是某次受審閱的產物，不是生成器的固定標準答案。它不帶機器台帳或 raw 二進位副本，應用 read-only check 作一般 Markdown 儲存庫檢查；重跑匯入請另行 init 新庫。
+輸入含有日期矛盾與未完成計畫。保留它們的不同時間位置；fixture 裡的 .invalid 網址只是測試定位，不是可查證的外部來源。最終閱讀快照是某次受審閱的產物，不是生成器的固定標準答案。它不帶機器台帳或 raw 二進位副本，使用唯讀 `check` 作一般 Markdown 儲存庫檢查；若要一併重驗維護筆記，加上 `--include-maintenance`。重跑匯入請另行 `init` 新庫。
 
 All source material is fictional. The deep case is in Traditional Chinese. A separate English small-case walkthrough was also completed; see the evaluation record for the exact scope and limits.
