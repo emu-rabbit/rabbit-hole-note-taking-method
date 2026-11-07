@@ -20,7 +20,7 @@ You can also download the [English example ZIP](https://emu-rabbit.github.io/rab
 
 A project can lead back to the life around its creation. A person can lead to a shared scene. Footnotes lead to sources, keeping records from the time distinct from later recollections. Unfinished attempts and everyday companionship have a place alongside completed work.
 
-The example's README offers a way in. The profile introduces its owner, the reading map offers journeys with places to stop, and the index helps you find a particular note. The reader also has a full file tree, but you do not need to learn the sections before you begin.
+The example's README offers a way in. [Profile.md](examples/emu-rabbit-en/00_Entry/Profile.md) introduces its owner, the reading map offers routes across sections based on readers’ interests, and the index lists content by section to help you find a particular note. The reader also has a full file tree, but you do not need to learn the sections before you begin.
 
 This public selection uses one index across its sections. It has no relationship circles, commissions and collaborations, or maintenance section. The full method describes a structure that can grow. When building your own rabbit hole, add folders as your material calls for them.
 
@@ -37,7 +37,7 @@ This public selection uses one index across its sections. It has no relationship
 
 The local tools officially support macOS, Linux and Windows; see [installation](docs/skills.en.md#install-the-bundle) for versions and path requirements. Import accepts text, Markdown, normalized JSON and JSONL; native social exports need conversion first. Sharing preparation creates a local draft for your review and authorization before delivery. `src/mcp` remains a placeholder.
 
-`40_Important relationships` holds `People/`, `Pets/`, `Dolls/` and `Relationship circles/`. People are one kind of important relationship; pets and dolls with an important emotional connection can have their own notes too. Create each folder when there is material for it.
+`40_Important relationships` holds `People/`, `Pets/` and `Relationship circles/`. Add categories to suit your own material and needs, creating folders when there is content.
 
 ## Make a rabbit hole of your own
 

@@ -31,34 +31,41 @@ The root contains `README.md` and `AGENTS.md`, which provide basic information a
 
 ### 00_Entry: knowing where to begin
 
-This section introduces three entry documents in order of importance: `Profile.md`, `Reading map.md`, and `Index.md`. The profile gives a full introduction to you. The reading map offers selected routes across sections, letting readers go deeper through stories, people, periods, and works. The index explains what each content section holds and where to look. The general method has its own independent document, which the entrance can link to.
+Help readers get to know you, then follow their curiosity. The three entry notes serve different purposes:
+
+- `<Your name>.md`: a profile introducing your life, important relationships and creative work, so readers can form an overall picture of you.
+- `Reading map.md`: a few selected reading routes that let readers explore topics that interest them.
+- `Index.md`: content listed by section, making it easy to find a particular article and see what the rabbit hole contains.
 
 ### 10_Life chapters: getting to know you through time
 
-Articles follow stages of your life, bringing together life, relationships, work, and creative activity from the same period so readers understand your circumstances then. `Timeline.md` makes the sequence clear and links to relevant periods, people, stories, or works. Readers can get to know you through this section, or consult the timeline first to locate an event in a stage of your life.
+Write a note for each stage of your life, bringing together the daily life, relationships, work and creative projects of that period. Readers can understand your circumstances then and what changed later. A timeline puts the stages in order and links to their articles.
 
 ### 20_Self and daily life: seeing you across periods
 
-Some aspects recur at different times in your life: abilities and learning, names and self-image, work, everyday interests, or expectations of love and relationships. This section gives each a topic of its own, using scenes from different years to understand continuity and change, with links back to concrete stories and people.
+Bring together experiences and feelings from different years around individual themes. Readers can see what continues to influence you and how your thoughts change.
 
 ### 30_Stories: entering complete scenes
 
-A story index helps readers choose a scene by listing its period and a one-sentence introduction. All individual articles live in `Chapters/`. Time together, travel, goodbyes, being cared for, or the beginnings and attempts involved in making something retain their full background, sequence of events, and feelings here.
+Preserve a particular experience: time with someone, a trip, a goodbye or the process of making something. Each note gives the background, events and feelings needed to understand the scene, then links to relevant people, work and sources. Articles can live in `Chapters/`; as the collection grows, a separate story index can help readers choose a scene by its period and a short introduction.
 
 ### 40_Important relationships: Keep the connections that matter
 
-This section records the relationships and emotional connections that matter to you. `Relationship map.md` leads to people, pets, dolls and relationship circles. Create subfolders as the material calls for them:
+Record the people, pets and relationship circles that matter to you: how you spend time together and how the relationships change across periods. A relationship map offers an overview and leads to individual notes.
+
+Create subfolders as the material calls for them:
 
 - `People/`: primarily one profile per person. Introduce who they are, their personality and life, then follow your time together, feelings and changing relationship.
 - `Pets/`: describe a pet's appearance, daily life, care and shared experiences, and their place in your life.
-- `Dolls/`: describe dolls or stuffed toys with an important emotional connection: how they came into your life, their companionship and the memories they hold.
 - `Relationship circles/`: record groups formed through living, studying, working or participating in activities together, preserving how that group became part of your life.
 
-Keep changing roles and closeness in the existing relationship note, linked to relevant stories. Toys you simply enjoy or collect can go in Favorites; a doll with an important bond or history of companionship can have its own note here. Describe relationships and feelings from the sources without inventing a pet's or doll's unrecorded thoughts.
+Keep changing roles and closeness in the existing relationship note, linked to relevant stories. Add categories that fit your own material and needs, creating folders when there is content. Ground descriptions of relationships and feelings in the sources; leave unrecorded thoughts unknown.
 
 ### 50_Creative work: preserving what you made and why
 
-A creative-work index groups works by how you participated and leads to the corresponding articles and subfolders:
+Record the creative work you take part in: what it is, why it began, how it took shape and changed, and each participant's role. Independent work, commissions and collaborations all have a place here, linked to stories of making them and the life around them.
+
+As the collection grows, a creative-work index can group works by how you participated and lead to the corresponding articles and subfolders:
 
 - Independent work → `Independent work/`: work you led, recording its motivation, content, formation, and evolution, along with other collaborators' actual contributions.
 - Commissions and collaborations → `Commissions and collaborations/`: works you participated in through commissioning, concepts, or collaboration, with everyone's role made clear.
@@ -67,7 +74,7 @@ A project page introduces the work itself; the complete scene of its making conn
 
 ### 60_Favorites: recording affection and appreciation
 
-Games, music, literature, films, toys, activities, and artists, actors, or political figures you admire can all have a place here. Record what you like, which parts you like, and how you felt at the time. A favorites index lists categories and content, with articles in the corresponding category subfolders. Begin with brief entries and develop them into articles when there is more to say.
+Keep notes on games, music, works, places, activities or people you admire, describing what draws you to them and how you felt at the time. Start with a short entry and develop it into an article over time. The stories and creative work they inspire can link to other sections. As your favorites grow, add a separate index when useful and place articles in suitable category folders.
 
 Choose categories based on your content and needs, such as music, artists, games, films, animation, or objects. Create a suitable category when there is content for it, and adjust it gradually as your interests and records grow.
 
@@ -75,7 +82,7 @@ This section focuses on people and things you like. Established relationships an
 
 ### 80_Sources: returning to the words left at the time
 
-Footnotes in the narrative link here, and `Source index.md` provides the main entrance. Sources preserve original words, dates, and locatable passages, allowing readers to hear those earlier voices again and giving later understanding a basis to return to.
+`Source index.md` is the starting point. Preserve the material behind the narrative so readers can follow footnotes back to the original words and later editors can see where the understanding came from. Keep original wording, dates, provenance, context and locatable passages, distinguishing records from the time, later recollections and interviews.
 
 Arrange source subfolders according to the materials you hold, are willing to provide, and have authorized for use. Names may reflect the type of material, how it was obtained, or who provided it. Examples of organizational purposes include:
 
@@ -86,7 +93,9 @@ Arrange source subfolders according to the materials you hold, are willing to pr
 
 ### 90_Maintenance: helping the next understanding continue
 
-This section lets you and the people or agents who take over continue the work. `Maintenance guide.md` brings together practices for writing interviews back into the notes, writing standards, checking indexes, and preserving reviewed work. `Understanding updates.md` records why the understanding of you changed. `Interview routes.md` records what has been discussed and possible questions to continue with. `Material and reading progress.md` describes the material scope and close-reading progress. Evidence indexes, check reports, and import checks help trace the basis of the organization and its verification results.
+Help yourself, another editor or an AI agent continue the work. Record how the notes are organized, what has been done and which understandings need updating. Add a maintenance guide, understanding updates, interview routes and material and reading progress as needed.
+
+`Maintenance guide.md` brings together practices for writing interviews back into the notes, writing standards, checking indexes, and preserving reviewed work. `Understanding updates.md` records why the understanding of you changed. `Interview routes.md` records what has been discussed and possible questions to continue with. `Material and reading progress.md` describes the material scope and close-reading progress. Evidence indexes, check reports, and import checks help trace the basis of the organization and its verification results.
 
 The specific documents and tools in the maintenance section can be adjusted to your needs, with the aim of keeping the rabbit hole maintainable and its updates consistent and accurate.
 

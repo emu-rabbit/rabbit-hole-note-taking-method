@@ -1,78 +1,62 @@
 ## 00_Entry: Find your way in
 
-This section offers three places to start. `Profile.md` introduces you as a person. `Reading map.md` suggests routes through stories, people, periods, and creative work. `Index.md` explains what each section holds and where to look. The general method is an independent document linked from the entrance.
+Help readers get to know you, then follow their curiosity. The three entry notes serve different purposes:
 
-In this public example, `00_Entry/Index.md` is the shared index for the whole vault, including stories, creative work, and favorites.
+- `<Your name>.md`: a profile introducing your life, important relationships and creative work, so readers can form an overall picture of you.
+- [`Reading map.md`](<../../examples/emu-rabbit-en/00_Entry/Reading map.md>): a few selected reading routes that let readers explore topics that interest them.
+- [`Index.md`](<../../examples/emu-rabbit-en/00_Entry/Index.md>): content listed by section, making it easy to find a particular article and see what the rabbit hole contains.
+
+The public example is Emu-rabbit's rabbit hole. Its profile is named [`Profile.md`](<../../examples/emu-rabbit-en/00_Entry/Profile.md>) in the English edition.
 
 ## 10_Life chapters: Get to know you over time
 
-Write a note for each stage of your life. Bring together your daily life, relationships, work, and creative projects from that period so readers can see the circumstances you were in. `Timeline.md` puts events in order and links to relevant periods, people, stories, and work. Readers can follow it from one stage to the next or look up when something happened.
+Write a note for each stage of your life, bringing together the daily life, relationships, work and creative projects of that period. Readers can understand your circumstances then and what changed later. A timeline puts the stages in order and links to their articles.
 
-The public example has five life chapters and `Timeline.md`, covering 2011 through 2026.
+In the public example, [`Timeline.md`](<../../examples/emu-rabbit-en/10_Life chapters/Timeline.md>) leads to five stages from 2011 to 2026, such as [`01_2011-2014_Mathematics, words, and computing.md`](<../../examples/emu-rabbit-en/10_Life chapters/01_2011-2014_Mathematics, words, and computing.md>). Readers can consult the timeline or read through the periods in sequence.
 
 ## 20_Self and daily life: See what carries across different periods
 
-Some parts of your life come up again and again, such as learning, names and how you present yourself, work, everyday interests, or what you want from love and relationships. Give each topic its own note. Use scenes from different years to show what carried through and what changed, and link them back to specific stories and people.
+Bring together experiences and feelings from different years around individual themes. Readers can see what continues to influence you and how your thoughts change.
 
-The public example selects four topics: learning, making things, clothing, and freedom and relationships.
+The public example uses four notes to explore different sides of Emu-rabbit:
+
+- [`Making things.md`](<../../examples/emu-rabbit-en/20_Self and daily life/Making things.md>): why she creates and what she hopes her work will leave behind.
+- [`Learning, comparison, and what stays.md`](<../../examples/emu-rabbit-en/20_Self and daily life/Learning, comparison, and what stays.md>): curiosity, comparison and frustration in learning, and the abilities she developed along the way.
+- [`Dressing as she likes.md`](<../../examples/emu-rabbit-en/20_Self and daily life/Dressing as she likes.md>): clothing, self-expression and experiences in different settings.
+- [`Freedom, honesty, and relationships.md`](<../../examples/emu-rabbit-en/20_Self and daily life/Freedom, honesty, and relationships.md>): hopes for relationships, and everyday companionship, care and rest.
 
 ## 30_Stories: Step into a complete scene
 
-Use the entry index to help readers choose a scene. A larger vault can add a dedicated story index. Keep the stories in `Chapters/`. A trip, a goodbye, a time someone cared for you, or the first attempt at making something can all become stories. Keep the setting, what happened, and how it felt together.
+Preserve a particular experience: time with someone, a trip, a goodbye or the process of making something. Each note gives the background, events and feelings needed to understand the scene, then links to relevant people, work and sources.
 
-The public example contains thirteen stories under `30_Stories/Chapters/`, reached from `00_Entry/Index.md` or `00_Entry/Reading map.md`. It has no separate story index.
+The public example lists its stories in [`Index.md`](<../../examples/emu-rabbit-en/00_Entry/Index.md>). The articles live in `30_Stories/Chapters`, including [`The function finally returns true.md`](<../../examples/emu-rabbit-en/30_Stories/Chapters/The function finally returns true.md>) and [`Quiet company on a bench.md`](<../../examples/emu-rabbit-en/30_Stories/Chapters/Quiet company on a bench.md>). As the collection grows, you can add a separate story index when useful.
 
 ## 40_Important relationships: Keep the connections that matter
 
-This section records the relationships and emotional connections that matter to you. `Relationship map.md` leads to people, pets, dolls and relationship circles. Create subfolders as the material calls for them:
+Record the people, pets and relationship circles that matter to you: how you spend time together and how the relationships change across periods. A relationship map offers an overview and leads to individual notes.
 
-- `People/`: primarily one profile per person. Introduce who they are, their personality and life, then follow your time together, feelings and changing relationship.
-- `Pets/`: describe a pet's appearance, daily life, care and shared experiences, and their place in your life.
-- `Dolls/`: describe dolls or stuffed toys with an important emotional connection: how they came into your life, their companionship and the memories they hold.
-- `Relationship circles/`: record groups formed through living, studying, working or participating in activities together, preserving how that group became part of your life.
-
-Keep changing roles and closeness in the existing relationship note, linked to relevant stories. Toys you simply enjoy or collect can go in Favorites; a doll with an important bond or history of companionship can have its own note here. Describe relationships and feelings from the sources without inventing a pet's or doll's unrecorded thoughts.
-
-The public example includes `Relationship map.md`, six profiles under `People/` and Mengmeng the hamster under `Pets/`. Add `Dolls/` or `Relationship circles/` when there is material for them.
+In the public example, [`Relationship map.md`](<../../examples/emu-rabbit-en/40_Important relationships/Relationship map.md>) leads to people and pets, including [`People/Mother.md`](<../../examples/emu-rabbit-en/40_Important relationships/People/Mother.md>) and [`Pets/Mengmeng.md`](<../../examples/emu-rabbit-en/40_Important relationships/Pets/Mengmeng.md>). Add other categories to suit the important relationships in your own life.
 
 ## 50_Creative work: Keep what you made and why you made it
 
-The entry index leads to the works. In a larger vault, a dedicated creative work index can group projects by how you took part.
+Record the creative work you take part in: what it is, why it began, how it took shape and changed, and each participant's role. Independent work, commissions and collaborations all have a place here, linked to stories of making them and the life around them.
 
-- `Independent work/` holds work you led. Record what motivated you, what you made, how it took shape and changed, and what collaborators contributed.
-- `Commissions and collaborations/` holds commissions, concepts you helped develop, and collaborations. Make each person's role clear.
-
-The work page introduces the piece itself. Link to a story for the full scene of making it. Writing, images, crafts, performances, tools, and unfinished attempts all have a place here.
-
-The public example contains seven works under `50_Creative work/Independent work/`, listed in `00_Entry/Index.md`. It has no separate creative work index or `Commissions and collaborations/` folder.
+The public example lists its works in [`Index.md`](<../../examples/emu-rabbit-en/00_Entry/Index.md>). Articles live in `50_Creative work/Independent work`, including [`Frozen Rabbit Workshop.md`](<../../examples/emu-rabbit-en/50_Creative work/Independent work/Frozen Rabbit Workshop.md>) and [`nAnB.md`](<../../examples/emu-rabbit-en/50_Creative work/Independent work/nAnB.md>). As the collection grows, you can add a separate creative work index when useful.
 
 ## 60_Favorites: Remember what you enjoy and admire
 
-Games, music, books, films, toys, activities, and people you admire can all have a place here. Write what you like, which parts you like, and how they made you feel at the time. The entry index lists the categories and entries; a larger collection can have its own index. Keep each entry in its category folder. A short entry can become a longer note when there is more to say.
+Keep notes on games, music, works, places, activities or people you admire, describing what draws you to them and how you felt at the time. Start with a short entry and develop it into an article over time. The stories and creative work they inspire can link to other sections.
 
-Choose categories that fit your material, such as music, performers, games, films, animation, or objects. Add a category when you have something to put in it, and let the categories change as your interests and notes grow.
-
-This section is for the people and things you like. Established relationships and meaningful companionship belong in Important relationships. Experiences with more complicated feelings can live in the relevant life topic or story. Link between the sections when they overlap so the full account has a place of its own.
-
-The public example includes Minecraft under `60_Favorites/Games/` and a macaron shop under `60_Favorites/Places/`. Both are listed in `00_Entry/Index.md`; there is no separate favorites index.
+The public example's [`Index.md`](<../../examples/emu-rabbit-en/00_Entry/Index.md>) leads to two notes: [`Games/Minecraft.md`](<../../examples/emu-rabbit-en/60_Favorites/Games/Minecraft.md>) and [`Places/A macaron shop loved for six years.md`](<../../examples/emu-rabbit-en/60_Favorites/Places/A macaron shop loved for six years.md>). As your favorites grow, you can add a separate index when useful.
 
 ## 80_Sources: Return to the words from that time
 
-Footnotes lead here, and `Source index.md` is the starting point. Keep original wording, dates, and passages readers can locate so they can hear the voices from that time and see what later interpretations are based on.
+Preserve the material behind the narrative so readers can follow footnotes back to the original words and later editors can see where the understanding came from. Keep dates, provenance and context, distinguishing records from the time, later recollections and interviews.
 
-Organize the source folders according to the material you have and are willing to share and authorize for use. Names can reflect the type of material, how it was obtained, or who provided it.
-
-- Your accounts include interviews, memories, and personal narratives. Record when the account was given to fill in parts of life and feelings absent from existing records.
-- Records from the time include diaries, public posts, and other saved material. Keep their original dates, sources, and context.
-- Material about creative work includes ideas, drafts, introductions, and revision history. Connect it to the circumstances in which the work took shape.
-- Review records document what was consulted, why it was available for review, and what could be read, so a later editor can check it again.
-
-The public example selects excerpts under `Interviews/`, `Contemporary records/`, `Relationship recollections/`, `Public profiles/`, and `Public work/`. `80_Sources/Source index.md` explains their scope. These are selected public materials, not a complete archive.
+In the public example, [`Source index.md`](<../../examples/emu-rabbit-en/80_Sources/Source index.md>) leads to public work, profiles, contemporary records, interviews and relationship recollections, including [`Public work/The letter at the bottom of the box.md`](<../../examples/emu-rabbit-en/80_Sources/Public work/The letter at the bottom of the box.md>) and [`Interviews/Learning and creating.md`](<../../examples/emu-rabbit-en/80_Sources/Interviews/Learning and creating.md>).
 
 ## 90_Maintenance: Help the next person pick up where you left off
 
-This section helps you, another editor, or an AI agent continue the work. `Maintenance guide.md` covers adding interviews back into the notes, writing conventions, checking indexes, and reviewing and saving changes. `Understanding updates.md` records why the understanding of you changed. `Interview routes.md` records what has been discussed and what questions can come next. `Material and reading progress.md` tracks the material covered and how far the close reading has gone. Evidence indexes, check reports, and import checks make it possible to trace the basis of edits and their review results.
+Help yourself, another editor or an AI agent continue the work. Record how the notes are organized, what has been done and which understandings need updating. Add a maintenance guide, understanding updates, interview routes and material and reading progress as needed.
 
-Adjust the files and tools in the maintenance section to your needs. They help you keep the rabbit hole accurate and make it easier to continue the work.
-
-This is guidance for maintaining your own vault. The public example does not include a `90_Maintenance/` folder or private maintenance records.
+The public example is a selection for readers and does not include `90_Maintenance`. When building your own rabbit hole, arrange this section around the work you need to do.

@@ -99,9 +99,9 @@ test('structure naming follows public English manifest and distinguishes optiona
   const mappings = JSON.parse(readFileSync(new URL('../src/web/example-paths.json', import.meta.url)));
   const folders = [...new Set(mappings.map(pair => pair.en.split('/')[0]).filter(path => !path.endsWith('.md')))];
   for (const folder of folders) assert.ok(structure.includes(`## ${folder}:`), folder);
-  assert.ok(structure.includes('does not include a `90_Maintenance/`'));
-  assert.ok(structure.includes('`Dolls/` or `Relationship circles/`'));
-  assert.ok(structure.includes('no separate story index'));
+  assert.ok(structure.includes('does not include `90_Maintenance`'));
+  assert.ok(structure.includes('Add other categories'));
+  assert.ok(structure.includes('add a separate story index when useful'));
 });
 
 import { execFileSync } from 'node:child_process';
@@ -403,5 +403,39 @@ test('homepage quote credits link to the corresponding GitHub source lines', () 
     const [, start, end] = /#L(\d+)-L(\d+)$/.exec(methodQuoteSources[locale].url);
     assert.ok(source[Number(start) - 1].startsWith(locale === 'en' ? 'This phrase comes from' : '這句話來自於'));
     assert.ok(source[Number(end) - 1].startsWith(locale === 'en' ? 'That is why the rabbit hole exists.' : '兔子洞為此而生。'));
+  }
+});
+
+
+test('public relationship sections offer three common categories and allow custom ones', () => {
+  for (const [locale, categories] of [['zh-TW', ['人物', '寵物', '關係圈']], ['en', ['People', 'Pets', 'Relationship circles']]]) {
+    for (const file of [`docs/method.${locale}.md`, `src/web/structure.${locale}.md`]) {
+      const text = readFileSync(new URL('../' + file, import.meta.url), 'utf8');
+      const section = text.split(/^#{2,3} 40_[^\n]*\n/m)[1].split(/^#{2,3} 50_/m)[0];
+      if (file.startsWith('docs/')) assert.deepEqual([...section.matchAll(/^- `([^`]+)\/`/gm)].map(match => match[1]), categories, file);
+      else assert.match(section, locale === 'en' ? /people, pets and relationship circles/ : /人、寵物與關係圈/);
+      assert.doesNotMatch(section, /玩偶|Dolls/i);
+      assert.match(section, locale === 'en' ? /custom|categories that fit your own material|Add other categories/ : /自訂|分類可依自己的材料與需要擴充|依自己的生活擴充分類/);
+    }
+  }
+});
+
+import { renderStructure } from '../src/web/structure.mjs';
+test('nine sections distinguish generic profiles from real linked bilingual examples', () => {
+  const mappings = JSON.parse(readFileSync(new URL('../src/web/example-paths.json', import.meta.url)));
+  for (const locale of ['zh-TW', 'en']) {
+    const html = renderStructure(locale);
+    assert.equal((html.match(/role="tabpanel"/g) ?? []).length, 9);
+    assert.ok(html.includes(locale === 'en' ? '&lt;Your name&gt;.md' : '&lt;你的名字&gt;.md'));
+    if (locale === 'en') {
+      assert.equal((html.match(/Emu-rabbit/g) ?? []).length, 2);
+      assert.doesNotMatch(html, /Emu Usagi/);
+    }
+    const anchors = tags(html, 'a');
+    assert.equal(anchors.length, 24);
+    for (const {href} of anchors) assert.ok(mappings.some(pair => href === `./${locale === 'en' ? 'reader-en' : 'reader'}/${noteFile(pair[locale])}`), href);
+    const profile = mappings.find(pair => pair.en === '00_Entry/Profile.md');
+    assert.ok(html.includes(`href="./${locale === 'en' ? 'reader-en' : 'reader'}/${noteFile(profile[locale])}"`));
+    assert.doesNotMatch(html, /href="[^"]*90_/);
   }
 });
