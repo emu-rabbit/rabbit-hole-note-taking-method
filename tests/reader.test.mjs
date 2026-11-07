@@ -399,6 +399,7 @@ test('homepage quote credits link to the corresponding GitHub source lines', () 
     assert.ok(caption.includes(methodQuoteSources[locale].label));
     assert.ok(!html.includes('data-i18n="fullMethod"'));
     const source = readFileSync(new URL(`../docs/method.${locale}.md`, import.meta.url), 'utf8').split('\n');
+    assert.equal(new URL(methodQuoteSources[locale].url).searchParams.get('plain'), '1', 'line links must open source view');
     const [, start, end] = /#L(\d+)-L(\d+)$/.exec(methodQuoteSources[locale].url);
     assert.ok(source[Number(start) - 1].startsWith(locale === 'en' ? 'This phrase comes from' : '這句話來自於'));
     assert.ok(source[Number(end) - 1].startsWith(locale === 'en' ? 'That is why the rabbit hole exists.' : '兔子洞為此而生。'));

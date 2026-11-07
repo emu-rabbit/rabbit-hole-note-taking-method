@@ -21,7 +21,7 @@ export const methodQuoteSources = Object.fromEntries([...sources].map(([locale, 
   if (end < 0) end = lines.length;
   while (!lines[start].trim()) start++;
   while (!lines[end - 1].trim()) end--;
-  return [locale, {url: `${methodSourceUrls[locale]}#L${start + 1}-L${end}`, label: `L${start + 1}–${end}`}];
+  return [locale, {url: `${methodSourceUrls[locale]}?plain=1#L${start + 1}-L${end}`, label: `L${start + 1}–${end}`}];
 }));
 
 const library = createLibrary(sources, {linkTo: path => path});
