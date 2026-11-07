@@ -74,7 +74,7 @@ A project page introduces the work itself; the complete scene of its making conn
 
 ### 60_Favorites: recording affection and appreciation
 
-Keep notes on games, music, works, places, activities or people you admire, describing what draws you to them and how you felt at the time. Start with a short entry and develop it into an article over time. The stories and creative work they inspire can link to other sections.
+Keep notes on games, music, works, places, activities or people you admire, describing what draws you to them and how you felt at the time. Start with a short entry and develop it into an article over time. The stories and creative work they inspire can link to other sections. As your favorites grow, add a separate index when useful and place articles in suitable category folders.
 
 Choose categories based on your content and needs, such as music, artists, games, films, animation, or objects. Create a suitable category when there is content for it, and adjust it gradually as your interests and records grow.
 
@@ -82,7 +82,7 @@ This section focuses on people and things you like. Established relationships an
 
 ### 80_Sources: returning to the words left at the time
 
-Preserve the material behind the narrative so readers can follow footnotes back to the original words and later editors can see where the understanding came from. Keep original wording, dates, provenance, context and locatable passages, distinguishing records from the time, later recollections and interviews.
+`Source index.md` is the starting point. Preserve the material behind the narrative so readers can follow footnotes back to the original words and later editors can see where the understanding came from. Keep original wording, dates, provenance, context and locatable passages, distinguishing records from the time, later recollections and interviews.
 
 Arrange source subfolders according to the materials you hold, are willing to provide, and have authorized for use. Names may reflect the type of material, how it was obtained, or who provided it. Examples of organizational purposes include:
 
