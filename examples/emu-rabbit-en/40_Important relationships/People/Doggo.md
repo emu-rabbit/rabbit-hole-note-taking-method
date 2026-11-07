@@ -15,6 +15,6 @@ She loves [[30_Stories/Chapters/Watching Doggo enjoy a meal|watching Doggo eat]]
 [^1]: [[80_Sources/Public profiles/Window-side Notes excerpts#Freedom and love|Public self-introduction]].
 [^2]: [[80_Sources/Relationship recollections/Moments together#Doggo: enjoying a meal|Text excerpts from her own post]].
 
-Continue this route: [[40_Important people/People/Kitty|Kitty]]
+Continue this route: [[40_Important relationships/People/Kitty|Kitty]]
 
 [[00_Entry/Reading map|Reading map]] · [[00_Entry/Index|Index]]

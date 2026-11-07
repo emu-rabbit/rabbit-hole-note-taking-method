@@ -7,7 +7,7 @@ updated: "2026-11-06"
 
 # Meet Rowan
 
-Rowan’s account begins with a first move from the family flat to a room above a bakery in Bellwick on 7 September 2019. An old school friend, [Kit](../40_Important%20people/People/Kit.md), helped with the books. Rowan liked having a key to the room and did not regret moving, but recalls an unfamiliar first evening without the kitchen radio from home.[^1]
+Rowan’s account begins with a first move from the family flat to a room above a bakery in Bellwick on 7 September 2019. An old school friend, [Kit](../40_Important%20relationships/People/Kit.md), helped with the books. Rowan liked having a key to the room and did not regret moving, but recalls an unfamiliar first evening without the kitchen radio from home.[^1]
 
 The room changed over the following months: a borrowed folding table held noodles and the yellow mug, with paper flowers sent by Mum. Rowan returned the table to Kit on 19 December 2019, and Kit took it back to their aunt. By January 2020 a secondhand desk fitted beneath the window. The faded flowers still stayed in the mug.[^2]
 
@@ -15,12 +15,12 @@ This is a small beginning, rather than a complete biography. It brings a later r
 
 ## A short reading route
 
-Begin with [The yellow mug on the windowsill](../30_Stories/Chapters/The%20yellow%20mug%20on%20the%20windowsill.md), then follow [Kit](../40_Important%20people/People/Kit.md) through the move and table loan. The [timeline](../10_Life%20context/Timeline.md) separates events from the dates they were written or remembered.
+Begin with [The yellow mug on the windowsill](../30_Stories/Chapters/The%20yellow%20mug%20on%20the%20windowsill.md), then follow [Kit](../40_Important%20relationships/People/Kit.md) through the move and table loan. The [timeline](../10_Life%20context/Timeline.md) separates events from the dates they were written or remembered.
 
 ## Find a detail
 
 - **Moving, Mum’s calls, the saucepan, table and desk:** [The yellow mug on the windowsill](../30_Stories/Chapters/The%20yellow%20mug%20on%20the%20windowsill.md).
-- **Old school friend Kit:** [Kit](../40_Important%20people/People/Kit.md).
+- **Old school friend Kit:** [Kit](../40_Important%20relationships/People/Kit.md).
 - **Original words and dated posts:** [Source index](../80_Sources/README.md).
 - **Date correction and earlier uncertainty:** [Understanding update](../90_Maintenance/Understanding%20updates.md#date-correction).
 

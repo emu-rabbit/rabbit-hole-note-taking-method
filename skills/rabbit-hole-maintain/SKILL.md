@@ -13,7 +13,7 @@ Read the [shared conventions](../rabbit-hole-start/references/conventions.md), t
 
 1. Run the read-only [checker](../rabbit-hole-start/references/cli.md) for a baseline. Choose a useful section, source range or reader question within the request.
 2. Read new evidence in context alongside the existing owning page and cited sources. Distinguish factual disagreement from a changed situation or later interpretation. Resolve what is supported, preserve remaining uncertainty, and ask only when it blocks a useful edit.
-3. Preserve new accounts and revisions through the vault's source workflow. Reuse established identities for people, stories and works. For substantial reinterpretation, retain the relevant earlier wording or a recoverable revision and record what changed, why and which evidence supports it.
+3. Preserve new accounts and revisions through the vault's source workflow. Reuse established identities for relationships, stories and works. For substantial reinterpretation, retain the relevant earlier wording or a recoverable revision and record what changed, why and which evidence supports it.
 4. Complete the [saved-work workflow](../rabbit-hole-start/references/finish.md), integrating changes into the article's actual chronology or theme and repairing affected reader routes. New material belongs in the prose, before its closing navigation.
 5. Review the diff and repeat the checks and actual reading routes. Report the useful result, remaining uncertainty and exact continuation point. Separate pre-existing issues from regressions.
 

@@ -22,7 +22,7 @@ Move from a repeated daily task to a design choice, then to how it felt to hear 
 
 ### Meet two people in her life
 
-[[40_Important people/People/Doggo|Doggo]] → [[40_Important people/People/Kitty|Kitty]]
+[[40_Important relationships/People/Doggo|Doggo]] → [[40_Important relationships/People/Kitty|Kitty]]
 
 Both are her current partners. A smile over a good meal and a wish for more time together on a date offer two glimpses of daily life.
 

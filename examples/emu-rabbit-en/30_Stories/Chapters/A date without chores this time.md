@@ -7,7 +7,7 @@ updated: "2026-11-06"
 
 # A date without chores this time
 
-Emu-rabbit's partner [[40_Important people/People/Kitty|Kitty]] takes housework seriously. Sometimes, even on a date, her partner keeps busy doing things, and Emu-rabbit feels they need a little more interaction.[^1]
+Emu-rabbit's partner [[40_Important relationships/People/Kitty|Kitty]] takes housework seriously. Sometimes, even on a date, her partner keeps busy doing things, and Emu-rabbit feels they need a little more interaction.[^1]
 
 So she sometimes says explicitly that no housework is allowed on this date. She wants to spend more time with Kitty rather than have her partner stay busy finishing tasks.[^1]
 

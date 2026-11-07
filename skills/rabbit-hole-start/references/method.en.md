@@ -23,11 +23,11 @@ That is why the rabbit hole exists. Like a video camera, it records your experie
 
 ## Rabbit hole structure
 
-A rabbit hole begins with an overall picture of you, then goes deeper through time, life, stories, important people, creative work, and the people and things you like. Each section has its own place, and links bring them together: readers can get to know people through stories, or return from a project to your life when you made it.
+A rabbit hole begins with an overall picture of you, then goes deeper through time, life, stories, important relationships, creative work, and the people and things you like. Each section has its own place, and links bring them together: readers can get to know people through stories, or return from a project to your life when you made it.
 
 The root contains `README.md` and `AGENTS.md`, which provide basic information and initial guidance for people and agents respectively, and explain the purpose of each entry document. The profile and this method live in `00_Entry`. The profile introduces you fully; this document remains independently readable, explaining the method, structure, and principles. Sections `00` through `60`, `80`, and `90` are the shared main sections. Article topics and source subfolders develop according to your experiences, the materials you hold, and what you are willing to provide.
 
-**English-edition note:** This is a translation of the general method with English folder and key-file naming conventions. These names describe the same structure, not additional method features. The public example contains a selection of that structure; it does not include every folder described here, such as `90_Maintenance`, `Circles/`, or `Commissions and collaborations/`.
+**English-edition note:** This is a translation of the general method with English folder and key-file naming conventions. These names describe the same structure, not additional method features. The public example contains a selection of that structure; it does not include every folder described here, such as `90_Maintenance`, `Relationship circles/`, or `Commissions and collaborations/`.
 
 ### 00_Entry: knowing where to begin
 
@@ -45,14 +45,16 @@ Some aspects recur at different times in your life: abilities and learning, name
 
 A story index helps readers choose a scene by listing its period and a one-sentence introduction. All individual articles live in `Chapters/`. Time together, travel, goodbyes, being cared for, or the beginnings and attempts involved in making something retain their full background, sequence of events, and feelings here.
 
-### 40_Important people: understanding relationships through people
+### 40_Important relationships: Keep the connections that matter
 
-This section focuses on people you have actually encountered, spent time with, and built relationships with. `Relationship map.md` provides an entry to important people and circles, divided into:
+This section records the relationships and emotional connections that matter to you. `Relationship map.md` leads to people, pets, dolls and relationship circles. Create subfolders as the material calls for them:
 
-- `People/`: primarily one profile per person. First introduce who they are, their personality and life, then follow your time together, feelings, and changing relationship through time.
-- `Circles/`: record groups formed through living, studying, working, or participating in activities together, preserving how that group appeared in your life.
+- `People/`: primarily one profile per person. Introduce who they are, their personality and life, then follow your time together, feelings and changing relationship.
+- `Pets/`: describe a pet's appearance, daily life, care and shared experiences, and their place in your life.
+- `Dolls/`: describe dolls or stuffed toys with an important emotional connection: how they came into your life, their companionship and the memories they hold.
+- `Relationship circles/`: record groups formed through living, studying, working or participating in activities together, preserving how that group became part of your life.
 
-One person's changing roles and closeness across periods stay in the same article, with mutual links to relevant stories.
+Keep changing roles and closeness in the existing relationship note, linked to relevant stories. Toys you simply enjoy or collect can go in Favorites; a doll with an important bond or history of companionship can have its own note here. Describe relationships and feelings from the sources without inventing a pet's or doll's unrecorded thoughts.
 
 ### 50_Creative work: preserving what you made and why
 
@@ -69,7 +71,7 @@ Games, music, literature, films, toys, activities, and artists, actors, or polit
 
 Choose categories based on your content and needs, such as music, artists, games, films, animation, or objects. Create a suitable category when there is content for it, and adjust it gradually as your interests and records grow.
 
-This section focuses on people and things you like. Actual interactions and established relationships connect back to important people; experiences with complicated feelings belong in suitable life topics or stories. Where they intersect, link them naturally so the full account has its own place.
+This section focuses on people and things you like. Established relationships and meaningful companionship connect back to Important relationships; experiences with complicated feelings belong in suitable life topics or stories. Where they intersect, link them naturally so the full account has its own place.
 
 ### 80_Sources: returning to the words left at the time
 

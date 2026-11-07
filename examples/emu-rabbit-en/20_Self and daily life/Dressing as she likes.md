@@ -7,7 +7,7 @@ updated: "2026-11-06"
 
 # Dressing as she likes
 
-Emu-rabbit likes wearing women's clothes, but there was a period when she could not yet bring herself to wear them again. While dating [[40_Important people/People/First master|her first master]], she apologized for this and said she did not like dressing herself up in men's clothes either. Her partner gently replied that it was all right.[^1]
+Emu-rabbit likes wearing women's clothes, but there was a period when she could not yet bring herself to wear them again. While dating [[40_Important relationships/People/First master|her first master]], she apologized for this and said she did not like dressing herself up in men's clothes either. Her partner gently replied that it was all right.[^1]
 
 Looking back on their time together, she still remembers [[30_Stories/Chapters/Accepted before she was ready|that moment of acceptance]].[^1]
 

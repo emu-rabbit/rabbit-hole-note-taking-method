@@ -59,6 +59,8 @@ The default destination is `$CODEX_HOME/skills`, or `~/.codex/skills` when unset
 
 The installer reads the bundle and copies it to the destination without changing global settings or overwriting existing skills. For an update, back up the old `rabbit-hole-*` entries and move them outside the skills directory, then install the complete new bundle. Keep unrelated skills. Check discovery on your next turn; reopen the client if it has not refreshed.
 
+`40_Important relationships` holds `People/`, `Pets/`, `Dolls/` and `Relationship circles/`. People are one kind of important relationship; pets and dolls with an important emotional connection can have their own notes too. Create each folder when there is material for it.
+
 ## Choose a skill
 
 | Skill | Use it for |
