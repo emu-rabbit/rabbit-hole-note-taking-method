@@ -42,6 +42,8 @@ In the public example, [`Relationship map.md`](<../../examples/emu-rabbit-en/40_
 
 Record the creative work you take part in: what it is, why it began, how it took shape and changed, and each participant's role. Independent work, commissions and collaborations all have a place here, linked to stories of making them and the life around them.
 
+By default, keep work pages side by side in a suitable folder and let indexes offer different categories and reading perspectives. The same page can appear in several indexes or categories without duplication. Add a separate folder when a work, project or category grows enough for one to be useful.
+
 The public example lists its works in [`Index.md`](<../../examples/emu-rabbit-en/00_Entry/Index.md>). Articles live in `50_Creative work/Independent work`, including [`Frozen Rabbit Workshop.md`](<../../examples/emu-rabbit-en/50_Creative work/Independent work/Frozen Rabbit Workshop.md>) and [`nAnB.md`](<../../examples/emu-rabbit-en/50_Creative work/Independent work/nAnB.md>). As the collection grows, you can add a separate creative work index when useful.
 
 ## 60_Favorites: Remember what you enjoy and admire

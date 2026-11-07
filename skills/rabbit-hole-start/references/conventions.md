@@ -47,13 +47,15 @@ A new vault begins with usable entrance, source, and maintenance sections. Add t
 | Themes across periods | `20_自我與生活` | `20_Self and daily life` |
 | Complete scenes | `30_故事/故事篇章` | `30_Stories/Chapters` |
 | Important relationships | `40_重要關係` → `人物`, `寵物`, `關係圈` | `40_Important relationships` → `People`, `Pets`, `Relationship circles` |
-| Work and collaborations | `50_創作/自主創作`, `委託與共同創作` | `50_Creative work/Independent work`, `Commissions and collaborations` |
+| Work and collaborations | `50_創作` | `50_Creative work` |
 | Favorites, categories as needed | `60_喜歡的人事物` | `60_Favorites` |
 | Source notes and provenance | `80_來源` | `80_Sources` |
 | Progress and review | `90_維護` | `90_Maintenance` |
 
 
 People, pets and relationship circles are common categories, not a closed list. Add categories that fit the owner’s material, preserving existing custom folders, kinds, IDs and links. Keep human nicknames distinct from animal species, and ground feelings in the supplied account without inventing another being’s thoughts.
+
+For creative work, default to pages side by side in a suitable folder. Use indexes to offer categories by role, medium, theme or reading interest; the same owning page can appear in several indexes or categories. Do not duplicate pages or require a fixed subfolder per category. Add a folder when a work, project or category grows enough for separate organization to help. Preserve existing paths and stable IDs rather than moving an owner's content just to conform to the default.
 
 ## Track reading separately from ingestion
 

@@ -65,10 +65,11 @@ Keep changing roles and closeness in the existing relationship note, linked to r
 
 Record the creative work you take part in: what it is, why it began, how it took shape and changed, and each participant's role. Independent work, commissions and collaborations all have a place here, linked to stories of making them and the life around them.
 
-As the collection grows, a creative-work index can group works by how you participated and lead to the corresponding articles and subfolders:
+By default, keep work pages side by side in a suitable folder, such as `50_Creative work/`, and use indexes to offer different categories and reading perspectives. The same work page can appear in several indexes or categories without duplicate pages or a fixed subfolder for every category.
 
-- Independent work → `Independent work/`: work you led, recording its motivation, content, formation, and evolution, along with other collaborators' actual contributions.
-- Commissions and collaborations → `Commissions and collaborations/`: works you participated in through commissioning, concepts, or collaboration, with everyone's role made clear.
+Indexes can group work by your role, medium or theme. For independent work, record its motivation, content, development and collaborators' actual contributions. For commissions and collaborations, explain how you took part through commissioning, ideas or collaboration, and make each person's role clear.
+
+Add a separate folder when a work, project or category grows enough for one to be useful. This is a flexible default. Keep existing paths that suit the vault; there is no need to move existing content simply to conform.
 
 A project page introduces the work itself; the complete scene of its making connects back to a story. Writing, images, crafts, performances, tools, and unfinished attempts can all have their own place here.
 

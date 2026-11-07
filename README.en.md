@@ -22,7 +22,7 @@ A project can lead back to the life around its creation. A person can lead to a 
 
 The example's README offers a way in. [Profile.md](examples/emu-rabbit-en/00_Entry/Profile.md) introduces its owner, the reading map offers routes across sections based on readers’ interests, and the index lists content by section to help you find a particular note. The reader also has a full file tree, but you do not need to learn the sections before you begin.
 
-This public selection uses one index across its sections. It has no relationship circles, commissions and collaborations, or maintenance section. The full method describes a structure that can grow. When building your own rabbit hole, add folders as your material calls for them.
+This public selection uses one index across its sections, without relationship circles or a maintenance section. Keep work pages side by side in a suitable folder, link the same page from several indexes, and add folders when separate organization helps. See the [method’s creative-work guidance](docs/method.en.md).
 
 ## Method, examples, and code
 

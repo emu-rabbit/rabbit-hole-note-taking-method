@@ -79,6 +79,30 @@ class ToolkitTests(unittest.TestCase):
                 self.assertEqual(self.ledger(), [])
                 self.run_cli('init', '--vault', self.vault, '--name', 'Other', '--lang', lang, '--apply', code=2)
 
+    def test_work_page_can_have_multiple_indexes_with_flat_and_nested_layouts(self):
+        for lang, section in [('en', '50_Creative work'), ('zh-TW', '50_創作')]:
+            with self.subTest(lang=lang):
+                self.vault = self.root / lang
+                self.init(lang)
+                starter = next(self.vault.glob('00_*/Start.md')).read_text(encoding='utf-8')
+                self.assertIn('multiple indexes or categories' if lang == 'en' else '多個索引或分類', starter)
+                self.assertIn('Add subfolders when useful' if lang == 'en' else '有實際需要再增子資料夾', starter)
+                self.assertFalse((self.vault / section).exists())
+                files = {
+                    f'{section}/One work.md': '---\nid: "fictional-work"\nkind: "work"\n---\n# One work (fictional)\n',
+                    f'{section}/A project/Details/Another work.md': '---\nid: "fictional-nested-work"\nkind: "work"\n---\n# Another work (fictional)\n',
+                    'By role.md': f'# Role index (fictional)\n## Independent\n[[{section}/One work]]\n## Collaboration\n[[{section}/One work]]\n',
+                    'By theme.md': f'# Theme index (fictional)\n[[{section}/One work]]\n[[{section}/A project/Details/Another work]]\n',
+                }
+                for path, text in files.items():
+                    target = self.vault / path
+                    target.parent.mkdir(parents=True, exist_ok=True)
+                    target.write_text(text, encoding='utf-8')
+                before = {p.relative_to(self.vault): p.read_bytes() for p in self.vault.rglob('*') if p.is_file()}
+                result = self.run_cli('check', '--vault', self.vault, '--include-maintenance')
+                self.assertTrue(result['ok'], result['issues'])
+                self.assertEqual(before, {p.relative_to(self.vault): p.read_bytes() for p in self.vault.rglob('*') if p.is_file()})
+
     def test_standard_and_custom_relationship_notes_preserve_sources(self):
         layouts = {
             'en': ('40_Important relationships', ('People', 'Pets', 'Relationship circles', 'Keepsakes')),
